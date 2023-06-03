@@ -1,0 +1,148 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> INICIO
+Rule 1     INICIO -> ENTRADAS
+Rule 2     ENTRADAS -> ENTRADAS ENTRADA
+Rule 3     ENTRADAS -> ENTRADA
+Rule 4     ENTRADA -> INSTRUCCION
+Rule 5     INSTRUCCION -> PRINTLN
+Rule 6     PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma
+Rule 7     EXPRESION -> cadena
+
+Terminals, with rules where they appear
+
+cadena               : 7
+error                : 
+p_Abre               : 6
+p_Cierre             : 6
+println              : 6
+puntoYcoma           : 6
+
+Nonterminals, with rules where they appear
+
+ENTRADA              : 2 3
+ENTRADAS             : 1 2
+EXPRESION            : 6
+INICIO               : 0
+INSTRUCCION          : 4
+PRINTLN              : 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . INICIO
+    (1) INICIO -> . ENTRADAS
+    (2) ENTRADAS -> . ENTRADAS ENTRADA
+    (3) ENTRADAS -> . ENTRADA
+    (4) ENTRADA -> . INSTRUCCION
+    (5) INSTRUCCION -> . PRINTLN
+    (6) PRINTLN -> . println p_Abre EXPRESION p_Cierre puntoYcoma
+
+    println         shift and go to state 6
+
+    INICIO                         shift and go to state 1
+    ENTRADAS                       shift and go to state 2
+    ENTRADA                        shift and go to state 3
+    INSTRUCCION                    shift and go to state 4
+    PRINTLN                        shift and go to state 5
+
+state 1
+
+    (0) S' -> INICIO .
+
+
+
+state 2
+
+    (1) INICIO -> ENTRADAS .
+    (2) ENTRADAS -> ENTRADAS . ENTRADA
+    (4) ENTRADA -> . INSTRUCCION
+    (5) INSTRUCCION -> . PRINTLN
+    (6) PRINTLN -> . println p_Abre EXPRESION p_Cierre puntoYcoma
+
+    $end            reduce using rule 1 (INICIO -> ENTRADAS .)
+    println         shift and go to state 6
+
+    ENTRADA                        shift and go to state 7
+    INSTRUCCION                    shift and go to state 4
+    PRINTLN                        shift and go to state 5
+
+state 3
+
+    (3) ENTRADAS -> ENTRADA .
+
+    println         reduce using rule 3 (ENTRADAS -> ENTRADA .)
+    $end            reduce using rule 3 (ENTRADAS -> ENTRADA .)
+
+
+state 4
+
+    (4) ENTRADA -> INSTRUCCION .
+
+    println         reduce using rule 4 (ENTRADA -> INSTRUCCION .)
+    $end            reduce using rule 4 (ENTRADA -> INSTRUCCION .)
+
+
+state 5
+
+    (5) INSTRUCCION -> PRINTLN .
+
+    println         reduce using rule 5 (INSTRUCCION -> PRINTLN .)
+    $end            reduce using rule 5 (INSTRUCCION -> PRINTLN .)
+
+
+state 6
+
+    (6) PRINTLN -> println . p_Abre EXPRESION p_Cierre puntoYcoma
+
+    p_Abre          shift and go to state 8
+
+
+state 7
+
+    (2) ENTRADAS -> ENTRADAS ENTRADA .
+
+    println         reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+    $end            reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+
+
+state 8
+
+    (6) PRINTLN -> println p_Abre . EXPRESION p_Cierre puntoYcoma
+    (7) EXPRESION -> . cadena
+
+    cadena          shift and go to state 10
+
+    EXPRESION                      shift and go to state 9
+
+state 9
+
+    (6) PRINTLN -> println p_Abre EXPRESION . p_Cierre puntoYcoma
+
+    p_Cierre        shift and go to state 11
+
+
+state 10
+
+    (7) EXPRESION -> cadena .
+
+    p_Cierre        reduce using rule 7 (EXPRESION -> cadena .)
+
+
+state 11
+
+    (6) PRINTLN -> println p_Abre EXPRESION p_Cierre . puntoYcoma
+
+    puntoYcoma      shift and go to state 12
+
+
+state 12
+
+    (6) PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma .
+
+    println         reduce using rule 6 (PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma .)
+    $end            reduce using rule 6 (PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma .)
+
