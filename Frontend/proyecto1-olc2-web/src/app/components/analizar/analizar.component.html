@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+    <br>
+    <div class="row" >
+        <div class="mb-3 row">
+            <div class="col-sm-11"></div>
+            <div class="col-sm-1">
+                    <button type="button" class="btn btn-primary pi pi-play boton-ejecutar " (click)="ejecutar()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col margin-editor">
+            <ngs-code-editor
+                [style]="{height: '100%', width: '100%'}"
+                [theme]="theme"
+                [codeModel]="codeModel"
+                [options]="options">
+            </ngs-code-editor>
+        </div>
+        <div class="col margin-editor">
+            <span class="p-float-label completo">
+                <textarea id="float-input" rows="5" pInputTextarea class="completo" [disabled]="true"></textarea>
+                <label for="float-input">Consola</label>
+            </span>
+        </div>
+    </div>
+</div>
