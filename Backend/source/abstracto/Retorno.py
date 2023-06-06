@@ -5,31 +5,53 @@ class Tipo(Enum):
     Enum de tipos de datos que se pueden manejar en el lenguaje
     """
 
-    INT64 = 1
-    FLOAT64 = 2
-    STRING = 3
+    NULL = 1
+    NUMBER = 2
+    BOOLEAN = 3
+    STRING = 4
+    ANY = 5
+    ARRAY = 6
+    INTERFACE = 7
     ERROR = 10
+
+class Tipo_OperadorAritmetico(Enum):
+    """
+    Enum de operadores aritmeticos
+    """
+    SUMA = 1
+    RESTA = 2
+    MULTIPLICACION = 3
+    DIVISION = 4
+    POTENCIA = 5
+    MODULO = 7
+    NEGATIVO = 8
+
+class TipoLogicas(Enum):
+    """
+    Enum de operadores logicos
+    """
+    AND = 1
+    OR = 2
+    NOT = 3
 
 
 def getTipo(s: str):
-    if s == "INT64":
-        return Tipo.INT64
-    if s == "FLOAT64":
-        return Tipo.FLOAT64
+    if s == "NULL":
+        return Tipo.NULL
+    if s == "NUMBER":
+        return Tipo.NUMBER
+    if s == "BOOLEAN":
+        return Tipo.BOOLEAN
     if s == "STRING":
         return Tipo.STRING
+    if s == "ANY":
+        return Tipo.ANY
+    if s == "ARRAY":
+        return Tipo.ARRAY
+    if s == "INTERFACE":
+        return Tipo.INTERFACE
+    return Tipo.ERROR
 
-
-def definirTipo(value):
-    if type(value) == float:
-        return Tipo.FLOAT64
-    elif type(value) == int:
-        return Tipo.INT64
-    elif type(value) == str:
-        return Tipo.STRING
-    else:
-        return None
-    
 class Retorno: 
     """
     Retorno de una expresion

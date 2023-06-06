@@ -4,6 +4,12 @@ from flask_cors import CORS
 import json
 #Librerías implementadas
 from config import config
+from source.AST.Ast import Ast
+from source.analizadores import parser
+from source.analizadores.parser import parsear
+from source.consola_singleton.Consola import Consola
+from source.simbolo.TablaSimbolos import TablaSimbolos
+
 
 app = Flask(__name__)
 CORS(app)
@@ -21,14 +27,39 @@ def prueba():
         salida={"Mensaje":"Error"}
         return (jsonify(error))
     
-# Método POST para analizar la entrada
 @app.route('/analizar', methods=['POST'])
 def analizar():
+    """
+    Método handler para el endpoint '/analizar'.
+
+    Este método maneja las solicitudes POST enviadas al endpoint '/analizar'.
+
+    Args:
+        - request (flask.Request): JSON.
+            {
+                "textoEntrada": "Texto a analizar"
+            }
+    Returns:
+        - flask.Response: JSON.
+            {
+                "textoSalida": "Texto analizado"
+            }
+    Raises:
+        - KeyError: Si la clave 'textoEntrada' no está presente en el JSON de la solicitud.
+        - Exception: Si ocurre algún otro error en el procesamiento de la solicitud.
+
+    """
     try:
+        Consola().clean_Consola()
         textoEntrada = request.json['textoEntrada']
-        
+        ast: Ast = parser.parsear(textoEntrada)
+        if(ast != None):
+            ts = TablaSimbolos(None, 'Global')
+            ast.ejecutar(ts)
+
+        salida = Consola().get_Consola()
         objeto = {
-        'textoSalida': textoEntrada + " prueba"
+        'textoSalida': salida
         }
         return (jsonify(objeto)) # Se devuelve un json para mejor facilidad en javascript
     except Exception as error:

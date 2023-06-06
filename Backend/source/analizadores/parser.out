@@ -1,33 +1,64 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    division
+    id
+    modulo
+    multiplicacion
+    potencia
+    resta
+    suma
+
 Grammar
 
 Rule 0     S' -> INICIO
 Rule 1     INICIO -> ENTRADAS
 Rule 2     ENTRADAS -> ENTRADAS ENTRADA
 Rule 3     ENTRADAS -> ENTRADA
-Rule 4     ENTRADA -> INSTRUCCION
-Rule 5     INSTRUCCION -> PRINTLN
-Rule 6     PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma
-Rule 7     EXPRESION -> cadena
+Rule 4     ENTRADA -> IMPRIMIR puntoYcoma
+Rule 5     IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra
+Rule 6     LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION
+Rule 7     LISTAEXPRESIONES -> EXPRESION
+Rule 8     EXPRESION -> cadena
+Rule 9     EXPRESION -> numero
+Rule 10    EXPRESION -> true
+Rule 11    EXPRESION -> false
+Rule 12    EXPRESION -> null
+Rule 13    EXPRESION -> any
 
 Terminals, with rules where they appear
 
-cadena               : 7
+any                  : 13
+cadena               : 8
+coma                 : 6
+console              : 5
+division             : 
 error                : 
-p_Abre               : 6
-p_Cierre             : 6
-println              : 6
-puntoYcoma           : 6
+false                : 11
+id                   : 
+log                  : 5
+modulo               : 
+multiplicacion       : 
+null                 : 12
+numero               : 9
+p_Abre               : 5
+p_Cierra             : 5
+potencia             : 
+punto                : 5
+puntoYcoma           : 4
+resta                : 
+suma                 : 
+true                 : 10
 
 Nonterminals, with rules where they appear
 
 ENTRADA              : 2 3
 ENTRADAS             : 1 2
-EXPRESION            : 6
+EXPRESION            : 6 7
+IMPRIMIR             : 4
 INICIO               : 0
-INSTRUCCION          : 4
-PRINTLN              : 5
+LISTAEXPRESIONES     : 5 6
 
 Parsing method: LALR
 
@@ -37,17 +68,15 @@ state 0
     (1) INICIO -> . ENTRADAS
     (2) ENTRADAS -> . ENTRADAS ENTRADA
     (3) ENTRADAS -> . ENTRADA
-    (4) ENTRADA -> . INSTRUCCION
-    (5) INSTRUCCION -> . PRINTLN
-    (6) PRINTLN -> . println p_Abre EXPRESION p_Cierre puntoYcoma
+    (4) ENTRADA -> . IMPRIMIR puntoYcoma
+    (5) IMPRIMIR -> . console punto log p_Abre LISTAEXPRESIONES p_Cierra
 
-    println         shift and go to state 6
+    console         shift and go to state 5
 
     INICIO                         shift and go to state 1
     ENTRADAS                       shift and go to state 2
     ENTRADA                        shift and go to state 3
-    INSTRUCCION                    shift and go to state 4
-    PRINTLN                        shift and go to state 5
+    IMPRIMIR                       shift and go to state 4
 
 state 1
 
@@ -59,90 +88,184 @@ state 2
 
     (1) INICIO -> ENTRADAS .
     (2) ENTRADAS -> ENTRADAS . ENTRADA
-    (4) ENTRADA -> . INSTRUCCION
-    (5) INSTRUCCION -> . PRINTLN
-    (6) PRINTLN -> . println p_Abre EXPRESION p_Cierre puntoYcoma
+    (4) ENTRADA -> . IMPRIMIR puntoYcoma
+    (5) IMPRIMIR -> . console punto log p_Abre LISTAEXPRESIONES p_Cierra
 
     $end            reduce using rule 1 (INICIO -> ENTRADAS .)
-    println         shift and go to state 6
+    console         shift and go to state 5
 
-    ENTRADA                        shift and go to state 7
-    INSTRUCCION                    shift and go to state 4
-    PRINTLN                        shift and go to state 5
+    ENTRADA                        shift and go to state 6
+    IMPRIMIR                       shift and go to state 4
 
 state 3
 
     (3) ENTRADAS -> ENTRADA .
 
-    println         reduce using rule 3 (ENTRADAS -> ENTRADA .)
+    console         reduce using rule 3 (ENTRADAS -> ENTRADA .)
     $end            reduce using rule 3 (ENTRADAS -> ENTRADA .)
 
 
 state 4
 
-    (4) ENTRADA -> INSTRUCCION .
+    (4) ENTRADA -> IMPRIMIR . puntoYcoma
 
-    println         reduce using rule 4 (ENTRADA -> INSTRUCCION .)
-    $end            reduce using rule 4 (ENTRADA -> INSTRUCCION .)
+    puntoYcoma      shift and go to state 7
 
 
 state 5
 
-    (5) INSTRUCCION -> PRINTLN .
+    (5) IMPRIMIR -> console . punto log p_Abre LISTAEXPRESIONES p_Cierra
 
-    println         reduce using rule 5 (INSTRUCCION -> PRINTLN .)
-    $end            reduce using rule 5 (INSTRUCCION -> PRINTLN .)
+    punto           shift and go to state 8
 
 
 state 6
 
-    (6) PRINTLN -> println . p_Abre EXPRESION p_Cierre puntoYcoma
+    (2) ENTRADAS -> ENTRADAS ENTRADA .
 
-    p_Abre          shift and go to state 8
+    console         reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+    $end            reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
 
 
 state 7
 
-    (2) ENTRADAS -> ENTRADAS ENTRADA .
+    (4) ENTRADA -> IMPRIMIR puntoYcoma .
 
-    println         reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
-    $end            reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+    console         reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
+    $end            reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
 
 
 state 8
 
-    (6) PRINTLN -> println p_Abre . EXPRESION p_Cierre puntoYcoma
-    (7) EXPRESION -> . cadena
+    (5) IMPRIMIR -> console punto . log p_Abre LISTAEXPRESIONES p_Cierra
 
-    cadena          shift and go to state 10
+    log             shift and go to state 9
 
-    EXPRESION                      shift and go to state 9
 
 state 9
 
-    (6) PRINTLN -> println p_Abre EXPRESION . p_Cierre puntoYcoma
+    (5) IMPRIMIR -> console punto log . p_Abre LISTAEXPRESIONES p_Cierra
 
-    p_Cierre        shift and go to state 11
+    p_Abre          shift and go to state 10
 
 
 state 10
 
-    (7) EXPRESION -> cadena .
+    (5) IMPRIMIR -> console punto log p_Abre . LISTAEXPRESIONES p_Cierra
+    (6) LISTAEXPRESIONES -> . LISTAEXPRESIONES coma EXPRESION
+    (7) LISTAEXPRESIONES -> . EXPRESION
+    (8) EXPRESION -> . cadena
+    (9) EXPRESION -> . numero
+    (10) EXPRESION -> . true
+    (11) EXPRESION -> . false
+    (12) EXPRESION -> . null
+    (13) EXPRESION -> . any
 
-    p_Cierre        reduce using rule 7 (EXPRESION -> cadena .)
+    cadena          shift and go to state 13
+    numero          shift and go to state 14
+    true            shift and go to state 15
+    false           shift and go to state 16
+    null            shift and go to state 17
+    any             shift and go to state 18
 
+    LISTAEXPRESIONES               shift and go to state 11
+    EXPRESION                      shift and go to state 12
 
 state 11
 
-    (6) PRINTLN -> println p_Abre EXPRESION p_Cierre . puntoYcoma
+    (5) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES . p_Cierra
+    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES . coma EXPRESION
 
-    puntoYcoma      shift and go to state 12
+    p_Cierra        shift and go to state 19
+    coma            shift and go to state 20
 
 
 state 12
 
-    (6) PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma .
+    (7) LISTAEXPRESIONES -> EXPRESION .
 
-    println         reduce using rule 6 (PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma .)
-    $end            reduce using rule 6 (PRINTLN -> println p_Abre EXPRESION p_Cierre puntoYcoma .)
+    p_Cierra        reduce using rule 7 (LISTAEXPRESIONES -> EXPRESION .)
+    coma            reduce using rule 7 (LISTAEXPRESIONES -> EXPRESION .)
+
+
+state 13
+
+    (8) EXPRESION -> cadena .
+
+    p_Cierra        reduce using rule 8 (EXPRESION -> cadena .)
+    coma            reduce using rule 8 (EXPRESION -> cadena .)
+
+
+state 14
+
+    (9) EXPRESION -> numero .
+
+    p_Cierra        reduce using rule 9 (EXPRESION -> numero .)
+    coma            reduce using rule 9 (EXPRESION -> numero .)
+
+
+state 15
+
+    (10) EXPRESION -> true .
+
+    p_Cierra        reduce using rule 10 (EXPRESION -> true .)
+    coma            reduce using rule 10 (EXPRESION -> true .)
+
+
+state 16
+
+    (11) EXPRESION -> false .
+
+    p_Cierra        reduce using rule 11 (EXPRESION -> false .)
+    coma            reduce using rule 11 (EXPRESION -> false .)
+
+
+state 17
+
+    (12) EXPRESION -> null .
+
+    p_Cierra        reduce using rule 12 (EXPRESION -> null .)
+    coma            reduce using rule 12 (EXPRESION -> null .)
+
+
+state 18
+
+    (13) EXPRESION -> any .
+
+    p_Cierra        reduce using rule 13 (EXPRESION -> any .)
+    coma            reduce using rule 13 (EXPRESION -> any .)
+
+
+state 19
+
+    (5) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .
+
+    puntoYcoma      reduce using rule 5 (IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .)
+
+
+state 20
+
+    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES coma . EXPRESION
+    (8) EXPRESION -> . cadena
+    (9) EXPRESION -> . numero
+    (10) EXPRESION -> . true
+    (11) EXPRESION -> . false
+    (12) EXPRESION -> . null
+    (13) EXPRESION -> . any
+
+    cadena          shift and go to state 13
+    numero          shift and go to state 14
+    true            shift and go to state 15
+    false           shift and go to state 16
+    null            shift and go to state 17
+    any             shift and go to state 18
+
+    EXPRESION                      shift and go to state 21
+
+state 21
+
+    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .
+
+    p_Cierra        reduce using rule 6 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
+    coma            reduce using rule 6 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
 

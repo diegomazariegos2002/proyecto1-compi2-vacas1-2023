@@ -1,3 +1,6 @@
+from source.abstracto.Instruccion import Instruccion
+
+
 class Ast:
     """
     Mi clase AST que básicamente voy a utilizar como la clase para almacenar todas mis instrucciones
@@ -12,4 +15,5 @@ class Ast:
 
     def ejecutar(self, ts):
         for instruccion in self.instrucciones:
-            instruccion.ejecutar(ts)    
+            if isinstance(instruccion, Instruccion):
+                instruccion.ejecutar(ts)
