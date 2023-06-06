@@ -2,13 +2,7 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    division
     id
-    modulo
-    multiplicacion
-    potencia
-    resta
-    suma
 
 Grammar
 
@@ -20,42 +14,49 @@ Rule 4     ENTRADA -> IMPRIMIR puntoYcoma
 Rule 5     IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra
 Rule 6     LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION
 Rule 7     LISTAEXPRESIONES -> EXPRESION
-Rule 8     EXPRESION -> cadena
-Rule 9     EXPRESION -> numero
-Rule 10    EXPRESION -> true
-Rule 11    EXPRESION -> false
-Rule 12    EXPRESION -> null
-Rule 13    EXPRESION -> any
+Rule 8     EXPRESION -> EXPRESION suma EXPRESION
+Rule 9     EXPRESION -> EXPRESION resta EXPRESION
+Rule 10    EXPRESION -> EXPRESION multiplicacion EXPRESION
+Rule 11    EXPRESION -> EXPRESION division EXPRESION
+Rule 12    EXPRESION -> EXPRESION potencia EXPRESION
+Rule 13    EXPRESION -> EXPRESION modulo EXPRESION
+Rule 14    EXPRESION -> resta EXPRESION
+Rule 15    EXPRESION -> cadena
+Rule 16    EXPRESION -> numero
+Rule 17    EXPRESION -> true
+Rule 18    EXPRESION -> false
+Rule 19    EXPRESION -> null
+Rule 20    EXPRESION -> any
 
 Terminals, with rules where they appear
 
-any                  : 13
-cadena               : 8
+any                  : 20
+cadena               : 15
 coma                 : 6
 console              : 5
-division             : 
+division             : 11
 error                : 
-false                : 11
+false                : 18
 id                   : 
 log                  : 5
-modulo               : 
-multiplicacion       : 
-null                 : 12
-numero               : 9
+modulo               : 13
+multiplicacion       : 10
+null                 : 19
+numero               : 16
 p_Abre               : 5
 p_Cierra             : 5
-potencia             : 
+potencia             : 12
 punto                : 5
 puntoYcoma           : 4
-resta                : 
-suma                 : 
-true                 : 10
+resta                : 9 14
+suma                 : 8
+true                 : 17
 
 Nonterminals, with rules where they appear
 
 ENTRADA              : 2 3
 ENTRADAS             : 1 2
-EXPRESION            : 6 7
+EXPRESION            : 6 7 8 8 9 9 10 10 11 11 12 12 13 13 14
 IMPRIMIR             : 4
 INICIO               : 0
 LISTAEXPRESIONES     : 5 6
@@ -154,19 +155,27 @@ state 10
     (5) IMPRIMIR -> console punto log p_Abre . LISTAEXPRESIONES p_Cierra
     (6) LISTAEXPRESIONES -> . LISTAEXPRESIONES coma EXPRESION
     (7) LISTAEXPRESIONES -> . EXPRESION
-    (8) EXPRESION -> . cadena
-    (9) EXPRESION -> . numero
-    (10) EXPRESION -> . true
-    (11) EXPRESION -> . false
-    (12) EXPRESION -> . null
-    (13) EXPRESION -> . any
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
 
-    cadena          shift and go to state 13
-    numero          shift and go to state 14
-    true            shift and go to state 15
-    false           shift and go to state 16
-    null            shift and go to state 17
-    any             shift and go to state 18
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
 
     LISTAEXPRESIONES               shift and go to state 11
     EXPRESION                      shift and go to state 12
@@ -176,96 +185,542 @@ state 11
     (5) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES . p_Cierra
     (6) LISTAEXPRESIONES -> LISTAEXPRESIONES . coma EXPRESION
 
-    p_Cierra        shift and go to state 19
-    coma            shift and go to state 20
+    p_Cierra        shift and go to state 20
+    coma            shift and go to state 21
 
 
 state 12
 
     (7) LISTAEXPRESIONES -> EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
 
     p_Cierra        reduce using rule 7 (LISTAEXPRESIONES -> EXPRESION .)
     coma            reduce using rule 7 (LISTAEXPRESIONES -> EXPRESION .)
+    suma            shift and go to state 22
+    resta           shift and go to state 23
+    multiplicacion  shift and go to state 24
+    division        shift and go to state 25
+    potencia        shift and go to state 26
+    modulo          shift and go to state 27
 
 
 state 13
 
-    (8) EXPRESION -> cadena .
+    (14) EXPRESION -> resta . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
 
-    p_Cierra        reduce using rule 8 (EXPRESION -> cadena .)
-    coma            reduce using rule 8 (EXPRESION -> cadena .)
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
 
+    EXPRESION                      shift and go to state 28
 
 state 14
 
-    (9) EXPRESION -> numero .
+    (15) EXPRESION -> cadena .
 
-    p_Cierra        reduce using rule 9 (EXPRESION -> numero .)
-    coma            reduce using rule 9 (EXPRESION -> numero .)
+    suma            reduce using rule 15 (EXPRESION -> cadena .)
+    resta           reduce using rule 15 (EXPRESION -> cadena .)
+    multiplicacion  reduce using rule 15 (EXPRESION -> cadena .)
+    division        reduce using rule 15 (EXPRESION -> cadena .)
+    potencia        reduce using rule 15 (EXPRESION -> cadena .)
+    modulo          reduce using rule 15 (EXPRESION -> cadena .)
+    p_Cierra        reduce using rule 15 (EXPRESION -> cadena .)
+    coma            reduce using rule 15 (EXPRESION -> cadena .)
 
 
 state 15
 
-    (10) EXPRESION -> true .
+    (16) EXPRESION -> numero .
 
-    p_Cierra        reduce using rule 10 (EXPRESION -> true .)
-    coma            reduce using rule 10 (EXPRESION -> true .)
+    suma            reduce using rule 16 (EXPRESION -> numero .)
+    resta           reduce using rule 16 (EXPRESION -> numero .)
+    multiplicacion  reduce using rule 16 (EXPRESION -> numero .)
+    division        reduce using rule 16 (EXPRESION -> numero .)
+    potencia        reduce using rule 16 (EXPRESION -> numero .)
+    modulo          reduce using rule 16 (EXPRESION -> numero .)
+    p_Cierra        reduce using rule 16 (EXPRESION -> numero .)
+    coma            reduce using rule 16 (EXPRESION -> numero .)
 
 
 state 16
 
-    (11) EXPRESION -> false .
+    (17) EXPRESION -> true .
 
-    p_Cierra        reduce using rule 11 (EXPRESION -> false .)
-    coma            reduce using rule 11 (EXPRESION -> false .)
+    suma            reduce using rule 17 (EXPRESION -> true .)
+    resta           reduce using rule 17 (EXPRESION -> true .)
+    multiplicacion  reduce using rule 17 (EXPRESION -> true .)
+    division        reduce using rule 17 (EXPRESION -> true .)
+    potencia        reduce using rule 17 (EXPRESION -> true .)
+    modulo          reduce using rule 17 (EXPRESION -> true .)
+    p_Cierra        reduce using rule 17 (EXPRESION -> true .)
+    coma            reduce using rule 17 (EXPRESION -> true .)
 
 
 state 17
 
-    (12) EXPRESION -> null .
+    (18) EXPRESION -> false .
 
-    p_Cierra        reduce using rule 12 (EXPRESION -> null .)
-    coma            reduce using rule 12 (EXPRESION -> null .)
+    suma            reduce using rule 18 (EXPRESION -> false .)
+    resta           reduce using rule 18 (EXPRESION -> false .)
+    multiplicacion  reduce using rule 18 (EXPRESION -> false .)
+    division        reduce using rule 18 (EXPRESION -> false .)
+    potencia        reduce using rule 18 (EXPRESION -> false .)
+    modulo          reduce using rule 18 (EXPRESION -> false .)
+    p_Cierra        reduce using rule 18 (EXPRESION -> false .)
+    coma            reduce using rule 18 (EXPRESION -> false .)
 
 
 state 18
 
-    (13) EXPRESION -> any .
+    (19) EXPRESION -> null .
 
-    p_Cierra        reduce using rule 13 (EXPRESION -> any .)
-    coma            reduce using rule 13 (EXPRESION -> any .)
+    suma            reduce using rule 19 (EXPRESION -> null .)
+    resta           reduce using rule 19 (EXPRESION -> null .)
+    multiplicacion  reduce using rule 19 (EXPRESION -> null .)
+    division        reduce using rule 19 (EXPRESION -> null .)
+    potencia        reduce using rule 19 (EXPRESION -> null .)
+    modulo          reduce using rule 19 (EXPRESION -> null .)
+    p_Cierra        reduce using rule 19 (EXPRESION -> null .)
+    coma            reduce using rule 19 (EXPRESION -> null .)
 
 
 state 19
+
+    (20) EXPRESION -> any .
+
+    suma            reduce using rule 20 (EXPRESION -> any .)
+    resta           reduce using rule 20 (EXPRESION -> any .)
+    multiplicacion  reduce using rule 20 (EXPRESION -> any .)
+    division        reduce using rule 20 (EXPRESION -> any .)
+    potencia        reduce using rule 20 (EXPRESION -> any .)
+    modulo          reduce using rule 20 (EXPRESION -> any .)
+    p_Cierra        reduce using rule 20 (EXPRESION -> any .)
+    coma            reduce using rule 20 (EXPRESION -> any .)
+
+
+state 20
 
     (5) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .
 
     puntoYcoma      reduce using rule 5 (IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .)
 
 
-state 20
-
-    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES coma . EXPRESION
-    (8) EXPRESION -> . cadena
-    (9) EXPRESION -> . numero
-    (10) EXPRESION -> . true
-    (11) EXPRESION -> . false
-    (12) EXPRESION -> . null
-    (13) EXPRESION -> . any
-
-    cadena          shift and go to state 13
-    numero          shift and go to state 14
-    true            shift and go to state 15
-    false           shift and go to state 16
-    null            shift and go to state 17
-    any             shift and go to state 18
-
-    EXPRESION                      shift and go to state 21
-
 state 21
 
+    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES coma . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
+
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
+
+    EXPRESION                      shift and go to state 29
+
+state 22
+
+    (8) EXPRESION -> EXPRESION suma . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
+
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
+
+    EXPRESION                      shift and go to state 30
+
+state 23
+
+    (9) EXPRESION -> EXPRESION resta . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
+
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
+
+    EXPRESION                      shift and go to state 31
+
+state 24
+
+    (10) EXPRESION -> EXPRESION multiplicacion . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
+
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
+
+    EXPRESION                      shift and go to state 32
+
+state 25
+
+    (11) EXPRESION -> EXPRESION division . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
+
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
+
+    EXPRESION                      shift and go to state 33
+
+state 26
+
+    (12) EXPRESION -> EXPRESION potencia . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
+
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
+
+    EXPRESION                      shift and go to state 34
+
+state 27
+
+    (13) EXPRESION -> EXPRESION modulo . EXPRESION
+    (8) EXPRESION -> . EXPRESION suma EXPRESION
+    (9) EXPRESION -> . EXPRESION resta EXPRESION
+    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (11) EXPRESION -> . EXPRESION division EXPRESION
+    (12) EXPRESION -> . EXPRESION potencia EXPRESION
+    (13) EXPRESION -> . EXPRESION modulo EXPRESION
+    (14) EXPRESION -> . resta EXPRESION
+    (15) EXPRESION -> . cadena
+    (16) EXPRESION -> . numero
+    (17) EXPRESION -> . true
+    (18) EXPRESION -> . false
+    (19) EXPRESION -> . null
+    (20) EXPRESION -> . any
+
+    resta           shift and go to state 13
+    cadena          shift and go to state 14
+    numero          shift and go to state 15
+    true            shift and go to state 16
+    false           shift and go to state 17
+    null            shift and go to state 18
+    any             shift and go to state 19
+
+    EXPRESION                      shift and go to state 35
+
+state 28
+
+    (14) EXPRESION -> resta EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
+
+    suma            reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    resta           reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    multiplicacion  reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    division        reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    potencia        reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    modulo          reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    p_Cierra        reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    coma            reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+
+  ! suma            [ shift and go to state 22 ]
+  ! resta           [ shift and go to state 23 ]
+  ! multiplicacion  [ shift and go to state 24 ]
+  ! division        [ shift and go to state 25 ]
+  ! potencia        [ shift and go to state 26 ]
+  ! modulo          [ shift and go to state 27 ]
+
+
+state 29
+
     (6) LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
 
     p_Cierra        reduce using rule 6 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
     coma            reduce using rule 6 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
+    suma            shift and go to state 22
+    resta           shift and go to state 23
+    multiplicacion  shift and go to state 24
+    division        shift and go to state 25
+    potencia        shift and go to state 26
+    modulo          shift and go to state 27
+
+
+state 30
+
+    (8) EXPRESION -> EXPRESION suma EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
+
+    suma            reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
+    resta           reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
+    p_Cierra        reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
+    coma            reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
+    multiplicacion  shift and go to state 24
+    division        shift and go to state 25
+    potencia        shift and go to state 26
+    modulo          shift and go to state 27
+
+  ! multiplicacion  [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! division        [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! potencia        [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! modulo          [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! suma            [ shift and go to state 22 ]
+  ! resta           [ shift and go to state 23 ]
+
+
+state 31
+
+    (9) EXPRESION -> EXPRESION resta EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
+
+    suma            reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
+    resta           reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
+    p_Cierra        reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
+    coma            reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
+    multiplicacion  shift and go to state 24
+    division        shift and go to state 25
+    potencia        shift and go to state 26
+    modulo          shift and go to state 27
+
+  ! multiplicacion  [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! division        [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! potencia        [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! modulo          [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! suma            [ shift and go to state 22 ]
+  ! resta           [ shift and go to state 23 ]
+
+
+state 32
+
+    (10) EXPRESION -> EXPRESION multiplicacion EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
+
+    suma            reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    resta           reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    multiplicacion  reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    division        reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    modulo          reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    p_Cierra        reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    coma            reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    potencia        shift and go to state 26
+
+  ! potencia        [ reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .) ]
+  ! suma            [ shift and go to state 22 ]
+  ! resta           [ shift and go to state 23 ]
+  ! multiplicacion  [ shift and go to state 24 ]
+  ! division        [ shift and go to state 25 ]
+  ! modulo          [ shift and go to state 27 ]
+
+
+state 33
+
+    (11) EXPRESION -> EXPRESION division EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
+
+    suma            reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
+    resta           reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
+    multiplicacion  reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
+    division        reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
+    modulo          reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
+    p_Cierra        reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
+    coma            reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
+    potencia        shift and go to state 26
+
+  ! potencia        [ reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .) ]
+  ! suma            [ shift and go to state 22 ]
+  ! resta           [ shift and go to state 23 ]
+  ! multiplicacion  [ shift and go to state 24 ]
+  ! division        [ shift and go to state 25 ]
+  ! modulo          [ shift and go to state 27 ]
+
+
+state 34
+
+    (12) EXPRESION -> EXPRESION potencia EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
+
+    suma            reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    resta           reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    multiplicacion  reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    division        reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    potencia        reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    modulo          reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    p_Cierra        reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    coma            reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+
+  ! suma            [ shift and go to state 22 ]
+  ! resta           [ shift and go to state 23 ]
+  ! multiplicacion  [ shift and go to state 24 ]
+  ! division        [ shift and go to state 25 ]
+  ! potencia        [ shift and go to state 26 ]
+  ! modulo          [ shift and go to state 27 ]
+
+
+state 35
+
+    (13) EXPRESION -> EXPRESION modulo EXPRESION .
+    (8) EXPRESION -> EXPRESION . suma EXPRESION
+    (9) EXPRESION -> EXPRESION . resta EXPRESION
+    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (11) EXPRESION -> EXPRESION . division EXPRESION
+    (12) EXPRESION -> EXPRESION . potencia EXPRESION
+    (13) EXPRESION -> EXPRESION . modulo EXPRESION
+
+    suma            reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    resta           reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    multiplicacion  reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    division        reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    modulo          reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    p_Cierra        reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    coma            reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    potencia        shift and go to state 26
+
+  ! potencia        [ reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .) ]
+  ! suma            [ shift and go to state 22 ]
+  ! resta           [ shift and go to state 23 ]
+  ! multiplicacion  [ shift and go to state 24 ]
+  ! division        [ shift and go to state 25 ]
+  ! modulo          [ shift and go to state 27 ]
 
