@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftsumarestaleftmultiplicaciondivisionmodulononassocpotencianonassocurestaany cadena coma console division false id log modulo multiplicacion null numero p_Abre p_Cierra potencia punto puntoYcoma resta suma true\n    INICIO : ENTRADAS\n    \n    ENTRADAS : ENTRADAS ENTRADA\n    \n    ENTRADAS : ENTRADA\n    \n    ENTRADA : IMPRIMIR puntoYcoma\n    \n    IMPRIMIR : console punto log p_Abre LISTAEXPRESIONES p_Cierra\n    \n    LISTAEXPRESIONES :  LISTAEXPRESIONES coma EXPRESION\n    \n    LISTAEXPRESIONES : EXPRESION\n    \n    EXPRESION : EXPRESION suma EXPRESION\n    \n    EXPRESION : EXPRESION resta EXPRESION\n    \n    EXPRESION : EXPRESION multiplicacion EXPRESION\n    \n    EXPRESION : EXPRESION division EXPRESION\n    \n    EXPRESION : EXPRESION potencia EXPRESION\n    \n    EXPRESION : EXPRESION modulo EXPRESION\n    \n    EXPRESION : resta EXPRESION %prec uresta\n    \n    EXPRESION : cadena\n    \n    EXPRESION : numero\n    \n    EXPRESION : true\n                | false\n    \n    EXPRESION : null\n    \n    EXPRESION : any\n    '
+_lr_signature = 'leftorleftandleftsumarestanonassocmenormayormenorigualmayorigualigualaciondiferenteleftmultiplicaciondivisionmoduloleftpotenciarightnotlefturestaand any cadena coma console diferente division false id igual igualacion log mayor mayorigual menor menorigual modulo multiplicacion not null numero or p_Abre p_Cierra potencia punto puntoYcoma resta suma true\n    INICIO : ENTRADAS\n    \n    ENTRADAS : ENTRADAS ENTRADA\n    \n    ENTRADAS : ENTRADA\n    \n    ENTRADA : IMPRIMIR puntoYcoma\n    \n    IMPRIMIR : console punto log p_Abre LISTAEXPRESIONES p_Cierra\n    \n    LISTAEXPRESIONES :  LISTAEXPRESIONES coma EXPRESION\n    \n    LISTAEXPRESIONES : EXPRESION\n    \n    EXPRESION : EXPRESION suma EXPRESION\n    \n    EXPRESION : EXPRESION resta EXPRESION\n    \n    EXPRESION : EXPRESION multiplicacion EXPRESION\n    \n    EXPRESION : EXPRESION division EXPRESION\n    \n    EXPRESION : EXPRESION potencia EXPRESION\n    \n    EXPRESION : EXPRESION modulo EXPRESION\n    \n    EXPRESION : resta EXPRESION %prec uresta\n    \n    EXPRESION : EXPRESION and EXPRESION\n    \n    EXPRESION : EXPRESION or EXPRESION\n    \n    EXPRESION : not EXPRESION\n    \n    EXPRESION : EXPRESION mayor EXPRESION\n    \n    EXPRESION : EXPRESION mayorigual EXPRESION\n    \n    EXPRESION : EXPRESION menor EXPRESION\n    \n    EXPRESION : EXPRESION menorigual EXPRESION\n    \n    EXPRESION : EXPRESION igualacion EXPRESION\n    \n    EXPRESION : EXPRESION diferente EXPRESION\n    \n    EXPRESION : cadena\n    \n    EXPRESION : numero\n    \n    EXPRESION : true\n                | false\n    \n    EXPRESION : null\n    \n    EXPRESION : any\n    '
     
-_lr_action_items = {'console':([0,2,3,6,7,],[5,5,-3,-2,-4,]),'$end':([1,2,3,6,7,],[0,-1,-3,-2,-4,]),'puntoYcoma':([4,20,],[7,-5,]),'punto':([5,],[8,]),'log':([8,],[9,]),'p_Abre':([9,],[10,]),'resta':([10,12,13,14,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,],[13,23,13,-15,-16,-17,-18,-19,-20,13,13,13,13,13,13,13,-14,23,-8,-9,-10,-11,-12,-13,]),'cadena':([10,13,21,22,23,24,25,26,27,],[14,14,14,14,14,14,14,14,14,]),'numero':([10,13,21,22,23,24,25,26,27,],[15,15,15,15,15,15,15,15,15,]),'true':([10,13,21,22,23,24,25,26,27,],[16,16,16,16,16,16,16,16,16,]),'false':([10,13,21,22,23,24,25,26,27,],[17,17,17,17,17,17,17,17,17,]),'null':([10,13,21,22,23,24,25,26,27,],[18,18,18,18,18,18,18,18,18,]),'any':([10,13,21,22,23,24,25,26,27,],[19,19,19,19,19,19,19,19,19,]),'p_Cierra':([11,12,14,15,16,17,18,19,28,29,30,31,32,33,34,35,],[20,-7,-15,-16,-17,-18,-19,-20,-14,-6,-8,-9,-10,-11,-12,-13,]),'coma':([11,12,14,15,16,17,18,19,28,29,30,31,32,33,34,35,],[21,-7,-15,-16,-17,-18,-19,-20,-14,-6,-8,-9,-10,-11,-12,-13,]),'suma':([12,14,15,16,17,18,19,28,29,30,31,32,33,34,35,],[22,-15,-16,-17,-18,-19,-20,-14,22,-8,-9,-10,-11,-12,-13,]),'multiplicacion':([12,14,15,16,17,18,19,28,29,30,31,32,33,34,35,],[24,-15,-16,-17,-18,-19,-20,-14,24,24,24,-10,-11,-12,-13,]),'division':([12,14,15,16,17,18,19,28,29,30,31,32,33,34,35,],[25,-15,-16,-17,-18,-19,-20,-14,25,25,25,-10,-11,-12,-13,]),'potencia':([12,14,15,16,17,18,19,28,29,30,31,32,33,34,35,],[26,-15,-16,-17,-18,-19,-20,-14,26,26,26,26,26,None,26,]),'modulo':([12,14,15,16,17,18,19,28,29,30,31,32,33,34,35,],[27,-15,-16,-17,-18,-19,-20,-14,27,27,27,-10,-11,-12,-13,]),}
+_lr_action_items = {'console':([0,2,3,6,7,],[5,5,-3,-2,-4,]),'$end':([1,2,3,6,7,],[0,-1,-3,-2,-4,]),'puntoYcoma':([4,21,],[7,-5,]),'punto':([5,],[8,]),'log':([8,],[9,]),'p_Abre':([9,],[10,]),'resta':([10,12,13,14,15,16,17,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[13,24,13,13,-24,-25,-26,-27,-28,-29,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,-14,-17,24,-8,-9,-10,-11,-12,-13,24,24,-18,-19,-20,-21,-22,-23,]),'not':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,]),'cadena':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,]),'numero':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,]),'true':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,]),'false':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,]),'null':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,]),'any':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,]),'p_Cierra':([11,12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[21,-7,-24,-25,-26,-27,-28,-29,-14,-17,-6,-8,-9,-10,-11,-12,-13,-15,-16,-18,-19,-20,-21,-22,-23,]),'coma':([11,12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[22,-7,-24,-25,-26,-27,-28,-29,-14,-17,-6,-8,-9,-10,-11,-12,-13,-15,-16,-18,-19,-20,-21,-22,-23,]),'suma':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[23,-24,-25,-26,-27,-28,-29,-14,-17,23,-8,-9,-10,-11,-12,-13,23,23,-18,-19,-20,-21,-22,-23,]),'multiplicacion':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[25,-24,-25,-26,-27,-28,-29,-14,-17,25,25,25,-10,-11,-12,-13,25,25,25,25,25,25,25,25,]),'division':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[26,-24,-25,-26,-27,-28,-29,-14,-17,26,26,26,-10,-11,-12,-13,26,26,26,26,26,26,26,26,]),'potencia':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[27,-24,-25,-26,-27,-28,-29,-14,-17,27,27,27,27,27,-12,27,27,27,27,27,27,27,27,27,]),'modulo':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[28,-24,-25,-26,-27,-28,-29,-14,-17,28,28,28,-10,-11,-12,-13,28,28,28,28,28,28,28,28,]),'and':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[29,-24,-25,-26,-27,-28,-29,-14,-17,29,-8,-9,-10,-11,-12,-13,-15,29,-18,-19,-20,-21,-22,-23,]),'or':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[30,-24,-25,-26,-27,-28,-29,-14,-17,30,-8,-9,-10,-11,-12,-13,-15,-16,-18,-19,-20,-21,-22,-23,]),'mayor':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[31,-24,-25,-26,-27,-28,-29,-14,-17,31,31,31,-10,-11,-12,-13,31,31,None,None,None,None,None,None,]),'mayorigual':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[32,-24,-25,-26,-27,-28,-29,-14,-17,32,32,32,-10,-11,-12,-13,32,32,None,None,None,None,None,None,]),'menor':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[33,-24,-25,-26,-27,-28,-29,-14,-17,33,33,33,-10,-11,-12,-13,33,33,None,None,None,None,None,None,]),'menorigual':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[34,-24,-25,-26,-27,-28,-29,-14,-17,34,34,34,-10,-11,-12,-13,34,34,None,None,None,None,None,None,]),'igualacion':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[35,-24,-25,-26,-27,-28,-29,-14,-17,35,35,35,-10,-11,-12,-13,35,35,None,None,None,None,None,None,]),'diferente':([12,15,16,17,18,19,20,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,],[36,-24,-25,-26,-27,-28,-29,-14,-17,36,36,36,-10,-11,-12,-13,36,36,None,None,None,None,None,None,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'INICIO':([0,],[1,]),'ENTRADAS':([0,],[2,]),'ENTRADA':([0,2,],[3,6,]),'IMPRIMIR':([0,2,],[4,4,]),'LISTAEXPRESIONES':([10,],[11,]),'EXPRESION':([10,13,21,22,23,24,25,26,27,],[12,28,29,30,31,32,33,34,35,]),}
+_lr_goto_items = {'INICIO':([0,],[1,]),'ENTRADAS':([0,],[2,]),'ENTRADA':([0,2,],[3,6,]),'IMPRIMIR':([0,2,],[4,4,]),'LISTAEXPRESIONES':([10,],[11,]),'EXPRESION':([10,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,],[12,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,24 +27,33 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> INICIO","S'",1,None,None,None),
-  ('INICIO -> ENTRADAS','INICIO',1,'p_INICIO','parser.py',32),
-  ('ENTRADAS -> ENTRADAS ENTRADA','ENTRADAS',2,'p_ENTRADAS_PARTE_1','parser.py',38),
-  ('ENTRADAS -> ENTRADA','ENTRADAS',1,'p_ENTRADAS_PARTE_2','parser.py',45),
-  ('ENTRADA -> IMPRIMIR puntoYcoma','ENTRADA',2,'p_ENTRADA','parser.py',51),
-  ('IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra','IMPRIMIR',6,'p_IMPRIMIR_1','parser.py',58),
-  ('LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION','LISTAEXPRESIONES',3,'p_LISTAEXPRESIONES_1','parser.py',64),
-  ('LISTAEXPRESIONES -> EXPRESION','LISTAEXPRESIONES',1,'p_LISTAEXPRESIONES_2','parser.py',72),
-  ('EXPRESION -> EXPRESION suma EXPRESION','EXPRESION',3,'p_EXPRESION_suma','parser.py',80),
-  ('EXPRESION -> EXPRESION resta EXPRESION','EXPRESION',3,'p_EXPRESION_resta','parser.py',87),
-  ('EXPRESION -> EXPRESION multiplicacion EXPRESION','EXPRESION',3,'p_EXPRESION_multiplicacion','parser.py',94),
-  ('EXPRESION -> EXPRESION division EXPRESION','EXPRESION',3,'p_EXPRESION_division','parser.py',101),
-  ('EXPRESION -> EXPRESION potencia EXPRESION','EXPRESION',3,'p_EXPRESION_potencia','parser.py',108),
-  ('EXPRESION -> EXPRESION modulo EXPRESION','EXPRESION',3,'p_EXPRESION_modulo','parser.py',115),
-  ('EXPRESION -> resta EXPRESION','EXPRESION',2,'p_EXPRESION_negativo','parser.py',122),
-  ('EXPRESION -> cadena','EXPRESION',1,'p_EXPRESION_cadena','parser.py',134),
-  ('EXPRESION -> numero','EXPRESION',1,'p_EXPRESION_numero','parser.py',141),
-  ('EXPRESION -> true','EXPRESION',1,'p_EXPRESION_booleano','parser.py',148),
-  ('EXPRESION -> false','EXPRESION',1,'p_EXPRESION_booleano','parser.py',149),
-  ('EXPRESION -> null','EXPRESION',1,'p_EXPRESION_null','parser.py',156),
-  ('EXPRESION -> any','EXPRESION',1,'p_EXPRESION_any','parser.py',163),
+  ('INICIO -> ENTRADAS','INICIO',1,'p_INICIO','parser.py',38),
+  ('ENTRADAS -> ENTRADAS ENTRADA','ENTRADAS',2,'p_ENTRADAS_PARTE_1','parser.py',44),
+  ('ENTRADAS -> ENTRADA','ENTRADAS',1,'p_ENTRADAS_PARTE_2','parser.py',51),
+  ('ENTRADA -> IMPRIMIR puntoYcoma','ENTRADA',2,'p_ENTRADA','parser.py',57),
+  ('IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra','IMPRIMIR',6,'p_IMPRIMIR_1','parser.py',64),
+  ('LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION','LISTAEXPRESIONES',3,'p_LISTAEXPRESIONES_1','parser.py',70),
+  ('LISTAEXPRESIONES -> EXPRESION','LISTAEXPRESIONES',1,'p_LISTAEXPRESIONES_2','parser.py',78),
+  ('EXPRESION -> EXPRESION suma EXPRESION','EXPRESION',3,'p_EXPRESION_suma','parser.py',86),
+  ('EXPRESION -> EXPRESION resta EXPRESION','EXPRESION',3,'p_EXPRESION_resta','parser.py',93),
+  ('EXPRESION -> EXPRESION multiplicacion EXPRESION','EXPRESION',3,'p_EXPRESION_multiplicacion','parser.py',100),
+  ('EXPRESION -> EXPRESION division EXPRESION','EXPRESION',3,'p_EXPRESION_division','parser.py',107),
+  ('EXPRESION -> EXPRESION potencia EXPRESION','EXPRESION',3,'p_EXPRESION_potencia','parser.py',114),
+  ('EXPRESION -> EXPRESION modulo EXPRESION','EXPRESION',3,'p_EXPRESION_modulo','parser.py',121),
+  ('EXPRESION -> resta EXPRESION','EXPRESION',2,'p_EXPRESION_negativo','parser.py',128),
+  ('EXPRESION -> EXPRESION and EXPRESION','EXPRESION',3,'p_EXPRESION_and','parser.py',137),
+  ('EXPRESION -> EXPRESION or EXPRESION','EXPRESION',3,'p_EXPRESION_or','parser.py',144),
+  ('EXPRESION -> not EXPRESION','EXPRESION',2,'p_EXPRESION_not','parser.py',151),
+  ('EXPRESION -> EXPRESION mayor EXPRESION','EXPRESION',3,'p_EXPRESION_mayor','parser.py',160),
+  ('EXPRESION -> EXPRESION mayorigual EXPRESION','EXPRESION',3,'p_EXPRESION_mayorigual','parser.py',167),
+  ('EXPRESION -> EXPRESION menor EXPRESION','EXPRESION',3,'p_EXPRESION_menor','parser.py',174),
+  ('EXPRESION -> EXPRESION menorigual EXPRESION','EXPRESION',3,'p_EXPRESION_menorigual','parser.py',181),
+  ('EXPRESION -> EXPRESION igualacion EXPRESION','EXPRESION',3,'p_EXPRESION_igualacion','parser.py',188),
+  ('EXPRESION -> EXPRESION diferente EXPRESION','EXPRESION',3,'p_EXPRESION_diferente','parser.py',195),
+  ('EXPRESION -> cadena','EXPRESION',1,'p_EXPRESION_cadena','parser.py',203),
+  ('EXPRESION -> numero','EXPRESION',1,'p_EXPRESION_numero','parser.py',210),
+  ('EXPRESION -> true','EXPRESION',1,'p_EXPRESION_booleano','parser.py',217),
+  ('EXPRESION -> false','EXPRESION',1,'p_EXPRESION_booleano','parser.py',218),
+  ('EXPRESION -> null','EXPRESION',1,'p_EXPRESION_null','parser.py',225),
+  ('EXPRESION -> any','EXPRESION',1,'p_EXPRESION_any','parser.py',232),
 ]

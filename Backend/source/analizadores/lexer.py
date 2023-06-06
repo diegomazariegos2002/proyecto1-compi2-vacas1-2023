@@ -25,6 +25,7 @@ tokens = [
         'cadena', 
         'p_Abre',
         'p_Cierra',
+        'igual',
         'puntoYcoma',
         'punto',
         'suma',
@@ -35,7 +36,16 @@ tokens = [
         'potencia',
         'numero',
         'coma',
-        'id'
+        'id',
+        'and',
+        'or',
+        'not',
+        'igualacion',
+        'diferente',
+        'mayor',
+        'menor',
+        'mayorigual',
+        'menorigual'
         ] + list(reservadas.values())
 
 #La r al principio de la cadena es para dar a entender que es una expresión regular
@@ -65,6 +75,7 @@ def t_numero(t):
 #Segunda forma para definir tokens mediante asignacion:
 t_p_Abre = r'\('
 t_p_Cierra = r'\)'
+t_igual = r'='
 t_puntoYcoma = r';'
 t_punto = r'\.'
 t_suma = r'\+'
@@ -74,6 +85,15 @@ t_division = r'/'
 t_modulo = r'%'
 t_potencia = r'\^'
 t_coma = r'\,'
+t_and = r'\&\&'
+t_or = r'\|\|'
+t_not = r'\!'
+t_menor = r'<'
+t_mayor = r'>'
+t_menorigual = r'<='
+t_mayorigual = r'>='
+t_igualacion = r'==='
+t_diferente = r'\!=='
 t_ignore = ' \t'
 t_ignore_COMENTARIOS = r'(\/\/.*[^\n])'
 t_ignore_MULTCOMENTARIOS = r'(\/\*([^*/]|[^*]\/|\*[^/])*\*\/)'

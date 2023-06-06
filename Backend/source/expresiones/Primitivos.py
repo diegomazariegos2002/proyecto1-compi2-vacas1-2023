@@ -17,7 +17,10 @@ class Primitivos(Expresion):
         if(self.tipo == Tipo.NUMBER):
             return Retorno(self.valor, self.tipo)
         if(self.tipo == Tipo.BOOLEAN):
-            return Retorno(self.valor, self.tipo)
+            if(self.valor == "true"):
+                return Retorno(True, self.tipo)
+            if(self.valor == "false"):
+                return Retorno(False, self.tipo)
         if(self.tipo == Tipo.NULL):
             return Retorno(None, self.tipo)
         if(self.tipo == Tipo.ANY):

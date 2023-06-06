@@ -2,9 +2,11 @@
 from ply import yacc
 from .lexer import *
 # Librerías propias
-from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico
+from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales
 from source.expresiones.Primitivos import Primitivos
 from source.expresiones.Aritmeticas import Arimeticas
+from source.expresiones.Logicas import Logicas
+from source.expresiones.Relacionales import Relacionales
 from source.instrucciones.ConsoleLog import ConsoleLog
 from source.AST.Ast import Ast
 
@@ -20,10 +22,14 @@ def calcularColumna(entrada, token):
 # arreglo para manejar la precedencia
 # precedencia
 precedence = (
+    ('left', 'or'),
+    ('left', 'and'),
     ('left', 'suma', 'resta'),
+    ('nonassoc', 'menor', 'mayor', 'menorigual', 'mayorigual', 'igualacion', 'diferente'),
     ('left', 'multiplicacion', 'division', 'modulo'),
-    ('nonassoc', 'potencia'),
-    ('nonassoc', 'uresta'),
+    ('left', 'potencia'),
+    ('right', 'not'),
+    ('left', 'uresta'),
 )
 
 #Definición de la gramática
@@ -126,7 +132,70 @@ def p_EXPRESION_negativo(p):
 
 # ------------------ LISTA DE EXPRESIONES LOGICAS ------------------
 
+def p_EXPRESION_and(p):
+    """
+    EXPRESION : EXPRESION and EXPRESION
+    """
+    p[0] = Logicas(TipoLogicas.AND, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
 
+def p_EXPRESION_or(p):
+    """
+    EXPRESION : EXPRESION or EXPRESION
+    """
+    p[0] = Logicas(TipoLogicas.OR, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
+
+def p_EXPRESION_not(p):
+    """
+    EXPRESION : not EXPRESION
+    """
+    p[0] = Logicas(TipoLogicas.NOT, p[2], None,  p.lineno(1),
+            calcularColumna(input, p.slice[1]))
+    
+# ------------------ LISTA DE EXPRESIONES RELACIONALES ------------------
+
+def p_EXPRESION_mayor(p):
+    """
+    EXPRESION : EXPRESION mayor EXPRESION
+    """
+    p[0] = Relacionales(TipoRelacionales.MAYORQUE, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
+
+def p_EXPRESION_mayorigual(p):
+    """
+    EXPRESION : EXPRESION mayorigual EXPRESION
+    """
+    p[0] = Relacionales(TipoRelacionales.MAYORIGUAL, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
+
+def p_EXPRESION_menor(p):
+    """
+    EXPRESION : EXPRESION menor EXPRESION
+    """
+    p[0] = Relacionales(TipoRelacionales.MENORQUE, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
+
+def p_EXPRESION_menorigual(p):
+    """
+    EXPRESION : EXPRESION menorigual EXPRESION
+    """
+    p[0] = Relacionales(TipoRelacionales.MENORIGUAL, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
+
+def p_EXPRESION_igualacion(p):
+    """
+    EXPRESION : EXPRESION igualacion EXPRESION
+    """
+    p[0] = Relacionales(TipoRelacionales.IGUALACION, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
+
+def p_EXPRESION_diferente(p):
+    """
+    EXPRESION : EXPRESION diferente EXPRESION
+    """
+    p[0] = Relacionales(TipoRelacionales.DIFERENTE, p[1], p[3],  p.lineno(1),
+            calcularColumna(input, p.slice[2]))
 
 # ------------------ LISTA DE EXPRESIONES PRIMITIVAS ------------------
 def p_EXPRESION_cadena(p):

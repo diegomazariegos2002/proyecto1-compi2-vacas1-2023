@@ -25,27 +25,27 @@ class Logicas(Expresion):
             valorDer : Retorno  = self.der.ejecutar(ts)
 
         if(self.operador == TipoLogicas.AND):
-            if valorIzq['tipo'] == Tipo.BOOLEAN and valorDer['tipo'] == Tipo.BOOLEAN:
-                if(valorIzq['valor'] == True and valorDer['valor'] == True):
+            if valorIzq.tipo == Tipo.BOOLEAN and valorDer.tipo == Tipo.BOOLEAN:
+                if(valorIzq.valor == True and valorDer.valor == True):
                     return Retorno(True, Tipo.BOOLEAN)
                 else: 
                     return Retorno(False, Tipo.BOOLEAN)
             else:
                 print("ERROR")
-        elif(self.tipo == TipoLogicas.OR):
-            if valorIzq['tipo'] == Tipo.bool and valorDer['tipo'] == Tipo.bool:
-                if(valorIzq['valor'] == False and valorDer['valor'] == False): 
+        elif(self.operador == TipoLogicas.OR):
+            if valorIzq.tipo == Tipo.BOOLEAN and valorDer.tipo == Tipo.BOOLEAN:
+                if(valorIzq.valor == False and valorDer.valor == False): 
                     return Retorno(False, Tipo.BOOLEAN)
                 else:
                     return Retorno(True, Tipo.BOOLEAN)
             else:
                 print("ERROR")
-        elif(self.tipo == TipoLogicas.NOT):
-            if valorIzq['tipo'] == Tipo.bool:
-                if(valorIzq['valor'] == True):
-                    resultado = {'valor': False, 'tipo': Tipo.bool}
-                elif(valorIzq['valor'] == False): 
-                    resultado = {'valor': True, 'tipo': Tipo.bool}
+        elif(self.operador == TipoLogicas.NOT):
+            if valorUnico.tipo == Tipo.BOOLEAN:
+                if(valorIzq.valor == True):
+                    return Retorno(True, Tipo.BOOLEAN)
+                elif(valorIzq.valor == False): 
+                    return Retorno(True, Tipo.BOOLEAN)
             else:
                 print("ERROR")
 

@@ -25,7 +25,10 @@ class ConsoleLog(Instruccion):
                         consola.set_Consola(str(retorno.valor))
                         continue
                     if(retorno.tipo == Tipo.BOOLEAN):
-                        consola.set_Consola(str(retorno.valor))
+                        if(retorno.valor == True):
+                            consola.set_Consola("true")
+                        elif(retorno.valor == False):
+                            consola.set_Consola("false")
                         continue
                     if(retorno.tipo == Tipo.NULL):
                         consola.set_Consola("null")

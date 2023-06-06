@@ -33,6 +33,17 @@ class TipoLogicas(Enum):
     AND = 1
     OR = 2
     NOT = 3
+    
+class TipoRelacionales(Enum):
+    """
+    Enum de operadores relacionales
+    """
+    MAYORQUE = 1
+    MAYORIGUAL = 2
+    MENORQUE = 3
+    MENORIGUAL = 4
+    DIFERENTE = 5
+    IGUALACION = 6
 
 
 def getTipo(s: str):
