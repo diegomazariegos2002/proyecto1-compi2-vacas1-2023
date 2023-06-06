@@ -1,4 +1,7 @@
 from ply import lex
+from source.consola_singleton.Consola import Consola
+
+from source.errores.Excepcion import Excepcion
 
 #Parte del analizador léxico
 
@@ -52,9 +55,11 @@ tokens = [
 #Primera forma para definir tokens mediante funciones:
 
 def t_id(t):
-     r'[a-zA-Z_][a-zA-Z_0-9]*'
-     t.type = reservadas.get(t.value)    # Check for reserved words
-     return t
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reservadas.get(t.value)    # Check for reserved words
+    if t.type == None:
+        Consola().set_Excepcion(Excepcion("ERROR LEXICO", "EL TOKEN " + t.value+" NO SE RECONOCE EN LAS RESERVADAS", t.lexer.lineno, t.lexer.lexpos))
+    return t
 
 def t_cadena(t):
     r'[\"]((\\\")|[^\"\n])*[\"]'
@@ -105,7 +110,10 @@ def t_newLine(t):
 
 #En caso de errores
 def t_error(t):
-    listaErrores.append("Error lexico")
+    Consola().set_Excepcion(Excepcion("ERROR LEXICO", "EL TOKEN " +
+                        t.value[0]+" NO SE RECONOCE", t.lexer.lineno, t.lexer.lexpos))
+    listaErrores.append(Excepcion("ERROR LEXICO", "EL TOKEN " +
+                        t.value[0]+" NO SE RECONOCE", t.lexer.lineno, t.lexer.lexpos))
     t.lexer.skip(1)
 
 analizadorLexico = lex.lex()

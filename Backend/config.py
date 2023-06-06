@@ -1,7 +1,7 @@
 #Bienvenido al archivo de configuracion de la app flask
 
 class DevelopmentConfig():
-    DEBUG = True
+    DEBUG = False
     HOST = "0.0.0.0"
     PORT = 5000
     

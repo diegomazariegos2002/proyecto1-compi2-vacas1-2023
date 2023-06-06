@@ -5,9 +5,8 @@ import json
 #Librerías implementadas
 from config import config
 from source.AST.Ast import Ast
-from source.analizadores import parser
-from source.analizadores.parser import parsear
 from source.consola_singleton.Consola import Consola
+from source.analizadores.parser import parsear, getErrores
 from source.simbolo.TablaSimbolos import TablaSimbolos
 
 
@@ -50,14 +49,20 @@ def analizar():
 
     """
     try:
-        Consola().clean_Consola()
+        consolaGlobal: Consola = Consola()
+        consolaGlobal.clean_Consola()
         textoEntrada = request.json['textoEntrada']
-        ast: Ast = parser.parsear(textoEntrada)
+        ast: Ast = parsear(textoEntrada)
+
         if(ast != None):
             ts = TablaSimbolos(None, 'Global')
             ast.ejecutar(ts)
+        
+        listaExcepciones = consolaGlobal.get_Excepciones()
+        if listaExcepciones != []:
+                consolaGlobal.set_Consola("\nSe encontraron errores léxicos o sintácticos...\n")    
 
-        salida = Consola().get_Consola()
+        salida = consolaGlobal.get_Consola()
         objeto = {
         'textoSalida': salida
         }

@@ -1,3 +1,6 @@
+from source.errores.Excepcion import Excepcion
+
+
 class SingletonMeta(type):
     """
     The Singleton class can be implemented in different ways in Python. Some
@@ -24,12 +27,21 @@ class Consola(metaclass=SingletonMeta):
     """
 
     consola = ""
+    listaExcepciones : list[Excepcion] = []
 
     def clean_Consola(self):
         self.consola = ""
+        self.listaExcepciones = []
 
     def set_Consola (self, consola):
         self.consola += consola
 
     def get_Consola (self):
         return self.consola
+    
+    def set_Excepcion(self, excepcion):
+        self.listaExcepciones.append(excepcion)
+        return
+    
+    def get_Excepciones(self):
+        return self.listaExcepciones

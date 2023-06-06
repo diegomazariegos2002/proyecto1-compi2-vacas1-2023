@@ -1,5 +1,8 @@
 # Librerías implementadas
 from ply import yacc
+from source.consola_singleton.Consola import Consola
+
+from source.errores.Excepcion import Excepcion
 from .lexer import *
 # Librerías propias
 from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales
@@ -57,6 +60,16 @@ def p_ENTRADA(p):
     ENTRADA : IMPRIMIR puntoYcoma
     """
     p[0] = p[1]
+
+def p_error(p):
+    """
+    ENTRADA : error puntoYcoma
+    """
+    if p:
+        Consola().set_Excepcion(Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
+        # este no se usa realmente
+        listaErrores.append(
+            Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
 
 # ------------------ IMPRIMIR ------------------
 def p_IMPRIMIR_1(p):
@@ -233,21 +246,22 @@ def p_EXPRESION_any(p):
     """
     p[0] = Primitivos(p[1], Tipo.ANY, p.lineno(1),
                   calcularColumna(input, p.slice[1]))
-    
-def p_error(p):
-    print("Error sintactico '%s'" % p.value)
-    print("El token \""+ str(p.value) + "\" no se esperaba.")
-    print(p.lexer.lineno)
-    print(calcularColumna(input, p.slice[1]))
-    p.lexer.skip(1)
 
 
 # Crea el analizador sintáctico
 parser = yacc.yacc()
 
 def parsear(inp):
-    generateLexer()
-    parser = yacc.yacc()
-    global input
-    result = parser.parse(inp)
-    return result
+    try:
+        listaErrores.clear()
+        generateLexer()
+        parser = yacc.yacc()
+        global input
+        result = parser.parse(inp)
+        return result
+    except Exception as error:
+        return None
+
+def getErrores():
+    listaAux = listaErrores
+    return listaAux
