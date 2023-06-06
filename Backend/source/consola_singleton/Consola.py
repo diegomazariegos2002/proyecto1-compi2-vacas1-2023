@@ -1,4 +1,5 @@
 from source.errores.Excepcion import Excepcion
+from source.simbolo.Simbolo import Simbolo
 
 
 class SingletonMeta(type):
@@ -28,10 +29,12 @@ class Consola(metaclass=SingletonMeta):
 
     consola = ""
     listaExcepciones : list[Excepcion] = []
+    listaSimbolos : list[Simbolo] = []
 
     def clean_Consola(self):
         self.consola = ""
         self.listaExcepciones = []
+        self.listaSimbolos = []
 
     def set_Consola (self, consola):
         self.consola += consola
@@ -45,3 +48,10 @@ class Consola(metaclass=SingletonMeta):
     
     def get_Excepciones(self):
         return self.listaExcepciones
+    
+    def set_Simbolo(self, simbolo):
+        self.listaSimbolos.append(simbolo)
+        return
+
+    def get_Simbolos(self):
+        return self.listaSimbolos
