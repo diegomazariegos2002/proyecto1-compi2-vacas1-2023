@@ -25,7 +25,14 @@ reservadas = {
     'any': 'any',
     'number': 'number',
     'boolean': 'boolean',
-    'string': 'string'
+    'string': 'string',
+    'toFixed': 'toFixed',
+    'toExponential': 'toExponential',
+    'toString': 'toString',
+    'toLowerCase': 'toLowerCase',
+    'toUpperCase': 'toUpperCase',
+    'split': 'split',
+    'concat': 'concat',
 }
 
 

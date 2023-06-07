@@ -252,6 +252,57 @@ def p_EXPRESION_diferente(p):
     p[0] = Relacionales(TipoRelacionales.DIFERENTE, p[1], p[3],  p.lineno(1),
             calcularColumna(input, p.slice[2]))
 
+# ------------------ LISTA DE FUNCIONES NATIVAS ------------------
+
+def p_EXPRESION_funcionesnativas(p):
+    """
+    EXPRESION : FUNCION_TOFIXED
+            | FUNCION_TOEXPONENTIAL
+            | FUNCION_TOSTRING
+            | FUNCION_TOLOWERCASE
+            | FUNCION_TOUPPERCASE
+            | FUNCION_SPLIT
+    """
+    p[0] = p[1]
+
+def p_FUNCION_TOFIXED(p):
+    """
+    FUNCION_TOFIXED : id punto toFixed p_Abre EXPRESION p_Cierra
+    """
+    # semantico
+
+def p_FUNCION_TOEXPONENTIAL(p):
+    """
+    FUNCION_TOEXPONENTIAL : id punto toExponential p_Abre EXPRESION p_Cierra
+    """
+    # semantico
+
+def p_FUNCION_TOSTRING(p):
+    """
+    FUNCION_TOSTRING : id punto toString p_Abre p_Cierra
+    """
+    # semantico
+
+def p_FUNCION_TOLOWERCASE(p):
+    """
+    FUNCION_TOLOWERCASE : id punto toLowerCase p_Abre p_Cierra
+    """
+    # semantico
+
+def p_FUNCION_TOUPPERCASE(p):
+    """
+    FUNCION_TOUPPERCASE : id punto toUpperCase p_Abre p_Cierra
+    """
+    # semantico
+
+def p_FUNCION_SPLIT(p):
+    """
+    FUNCION_SPLIT : id punto split p_Abre cadena p_Cierra
+    """
+    # semantico
+
+#   Queda pendiente CONCAT pues utiliza arrays.
+
 # ------------------ LISTA DE EXPRESIONES PRIMITIVAS ------------------
 def p_EXPRESION_cadena(p):
     """

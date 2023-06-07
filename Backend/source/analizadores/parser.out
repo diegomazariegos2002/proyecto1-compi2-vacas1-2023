@@ -1,5 +1,9 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    concat
+
 Grammar
 
 Rule 0     S' -> INICIO
@@ -31,30 +35,43 @@ Rule 25    EXPRESION -> EXPRESION menor EXPRESION
 Rule 26    EXPRESION -> EXPRESION menorigual EXPRESION
 Rule 27    EXPRESION -> EXPRESION igualacion EXPRESION
 Rule 28    EXPRESION -> EXPRESION diferente EXPRESION
-Rule 29    EXPRESION -> cadena
-Rule 30    EXPRESION -> numero
-Rule 31    EXPRESION -> true
-Rule 32    EXPRESION -> false
-Rule 33    EXPRESION -> null
-Rule 34    TIPO -> number
-Rule 35    TIPO -> string
-Rule 36    TIPO -> boolean
-Rule 37    TIPO -> any
+Rule 29    EXPRESION -> FUNCION_TOFIXED
+Rule 30    EXPRESION -> FUNCION_TOEXPONENTIAL
+Rule 31    EXPRESION -> FUNCION_TOSTRING
+Rule 32    EXPRESION -> FUNCION_TOLOWERCASE
+Rule 33    EXPRESION -> FUNCION_TOUPPERCASE
+Rule 34    EXPRESION -> FUNCION_SPLIT
+Rule 35    FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra
+Rule 36    FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra
+Rule 37    FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra
+Rule 38    FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra
+Rule 39    FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra
+Rule 40    FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra
+Rule 41    EXPRESION -> cadena
+Rule 42    EXPRESION -> numero
+Rule 43    EXPRESION -> true
+Rule 44    EXPRESION -> false
+Rule 45    EXPRESION -> null
+Rule 46    TIPO -> number
+Rule 47    TIPO -> string
+Rule 48    TIPO -> boolean
+Rule 49    TIPO -> any
 
 Terminals, with rules where they appear
 
 and                  : 20
-any                  : 37
-boolean              : 36
-cadena               : 29
+any                  : 49
+boolean              : 48
+cadena               : 40 41
 coma                 : 11
+concat               : 
 console              : 10
 diferente            : 28
 division             : 16
 dosPuntos            : 7
 error                : 
-false                : 32
-id                   : 6 7 9
+false                : 44
+id                   : 6 7 9 35 36 37 38 39 40
 igual                : 6 7 9
 igualacion           : 27
 let                  : 6 7
@@ -66,19 +83,25 @@ menorigual           : 26
 modulo               : 18
 multiplicacion       : 15
 not                  : 22
-null                 : 33
-number               : 34
-numero               : 30
+null                 : 45
+number               : 46
+numero               : 42
 or                   : 21
-p_Abre               : 10
-p_Cierra             : 10
+p_Abre               : 10 35 36 37 38 39 40
+p_Cierra             : 10 35 36 37 38 39 40
 potencia             : 17
-punto                : 10
+punto                : 10 35 36 37 38 39 40
 puntoYcoma           : 4 5 8
 resta                : 14 19
-string               : 35
+split                : 40
+string               : 47
 suma                 : 13
-true                 : 31
+toExponential        : 36
+toFixed              : 35
+toLowerCase          : 38
+toString             : 37
+toUpperCase          : 39
+true                 : 43
 
 Nonterminals, with rules where they appear
 
@@ -86,7 +109,13 @@ ASIGNACION           : 8
 DECLARACION          : 5
 ENTRADA              : 2 3
 ENTRADAS             : 1 2
-EXPRESION            : 6 7 9 11 12 13 13 14 14 15 15 16 16 17 17 18 18 19 20 20 21 21 22 23 23 24 24 25 25 26 26 27 27 28 28
+EXPRESION            : 6 7 9 11 12 13 13 14 14 15 15 16 16 17 17 18 18 19 20 20 21 21 22 23 23 24 24 25 25 26 26 27 27 28 28 35 36
+FUNCION_SPLIT        : 34
+FUNCION_TOEXPONENTIAL : 30
+FUNCION_TOFIXED      : 29
+FUNCION_TOLOWERCASE  : 32
+FUNCION_TOSTRING     : 31
+FUNCION_TOUPPERCASE  : 33
 IMPRIMIR             : 4
 INICIO               : 0
 LISTAEXPRESIONES     : 10 11
@@ -275,27 +304,46 @@ state 16
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 20
+    EXPRESION                      shift and go to state 21
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
 state 17
 
     (10) IMPRIMIR -> console punto log . p_Abre LISTAEXPRESIONES p_Cierra
 
-    p_Abre          shift and go to state 28
+    p_Abre          shift and go to state 35
 
 
 state 18
@@ -317,38 +365,69 @@ state 18
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 29
+    EXPRESION                      shift and go to state 36
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
 state 19
 
     (7) DECLARACION -> let id dosPuntos . TIPO igual EXPRESION
-    (34) TIPO -> . number
-    (35) TIPO -> . string
-    (36) TIPO -> . boolean
-    (37) TIPO -> . any
+    (46) TIPO -> . number
+    (47) TIPO -> . string
+    (48) TIPO -> . boolean
+    (49) TIPO -> . any
 
-    number          shift and go to state 31
-    string          shift and go to state 32
-    boolean         shift and go to state 33
-    any             shift and go to state 34
+    number          shift and go to state 38
+    string          shift and go to state 39
+    boolean         shift and go to state 40
+    any             shift and go to state 41
 
-    TIPO                           shift and go to state 30
+    TIPO                           shift and go to state 37
 
 state 20
+
+    (35) FUNCION_TOFIXED -> id . punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> id . punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> id . punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> id . punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> id . punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> id . punto split p_Abre cadena p_Cierra
+
+    punto           shift and go to state 42
+
+
+state 21
 
     (9) ASIGNACION -> id igual EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -367,23 +446,23 @@ state 20
     (28) EXPRESION -> EXPRESION . diferente EXPRESION
 
     puntoYcoma      reduce using rule 9 (ASIGNACION -> id igual EXPRESION .)
-    suma            shift and go to state 35
-    resta           shift and go to state 36
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    and             shift and go to state 41
-    or              shift and go to state 42
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    or              shift and go to state 50
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
 
-state 21
+state 22
 
     (19) EXPRESION -> resta . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -402,23 +481,42 @@ state 21
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 49
+    EXPRESION                      shift and go to state 57
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 22
+state 23
 
     (22) EXPRESION -> not . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -437,138 +535,295 @@ state 22
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 50
-
-state 23
-
-    (29) EXPRESION -> cadena .
-
-    suma            reduce using rule 29 (EXPRESION -> cadena .)
-    resta           reduce using rule 29 (EXPRESION -> cadena .)
-    multiplicacion  reduce using rule 29 (EXPRESION -> cadena .)
-    division        reduce using rule 29 (EXPRESION -> cadena .)
-    potencia        reduce using rule 29 (EXPRESION -> cadena .)
-    modulo          reduce using rule 29 (EXPRESION -> cadena .)
-    and             reduce using rule 29 (EXPRESION -> cadena .)
-    or              reduce using rule 29 (EXPRESION -> cadena .)
-    mayor           reduce using rule 29 (EXPRESION -> cadena .)
-    mayorigual      reduce using rule 29 (EXPRESION -> cadena .)
-    menor           reduce using rule 29 (EXPRESION -> cadena .)
-    menorigual      reduce using rule 29 (EXPRESION -> cadena .)
-    igualacion      reduce using rule 29 (EXPRESION -> cadena .)
-    diferente       reduce using rule 29 (EXPRESION -> cadena .)
-    puntoYcoma      reduce using rule 29 (EXPRESION -> cadena .)
-    p_Cierra        reduce using rule 29 (EXPRESION -> cadena .)
-    coma            reduce using rule 29 (EXPRESION -> cadena .)
-
+    EXPRESION                      shift and go to state 58
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
 state 24
 
-    (30) EXPRESION -> numero .
+    (29) EXPRESION -> FUNCION_TOFIXED .
 
-    suma            reduce using rule 30 (EXPRESION -> numero .)
-    resta           reduce using rule 30 (EXPRESION -> numero .)
-    multiplicacion  reduce using rule 30 (EXPRESION -> numero .)
-    division        reduce using rule 30 (EXPRESION -> numero .)
-    potencia        reduce using rule 30 (EXPRESION -> numero .)
-    modulo          reduce using rule 30 (EXPRESION -> numero .)
-    and             reduce using rule 30 (EXPRESION -> numero .)
-    or              reduce using rule 30 (EXPRESION -> numero .)
-    mayor           reduce using rule 30 (EXPRESION -> numero .)
-    mayorigual      reduce using rule 30 (EXPRESION -> numero .)
-    menor           reduce using rule 30 (EXPRESION -> numero .)
-    menorigual      reduce using rule 30 (EXPRESION -> numero .)
-    igualacion      reduce using rule 30 (EXPRESION -> numero .)
-    diferente       reduce using rule 30 (EXPRESION -> numero .)
-    puntoYcoma      reduce using rule 30 (EXPRESION -> numero .)
-    p_Cierra        reduce using rule 30 (EXPRESION -> numero .)
-    coma            reduce using rule 30 (EXPRESION -> numero .)
+    suma            reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    resta           reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    multiplicacion  reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    division        reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    potencia        reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    modulo          reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    and             reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    or              reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    mayor           reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    mayorigual      reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    menor           reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    menorigual      reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    igualacion      reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    diferente       reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    puntoYcoma      reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    p_Cierra        reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
+    coma            reduce using rule 29 (EXPRESION -> FUNCION_TOFIXED .)
 
 
 state 25
 
-    (31) EXPRESION -> true .
+    (30) EXPRESION -> FUNCION_TOEXPONENTIAL .
 
-    suma            reduce using rule 31 (EXPRESION -> true .)
-    resta           reduce using rule 31 (EXPRESION -> true .)
-    multiplicacion  reduce using rule 31 (EXPRESION -> true .)
-    division        reduce using rule 31 (EXPRESION -> true .)
-    potencia        reduce using rule 31 (EXPRESION -> true .)
-    modulo          reduce using rule 31 (EXPRESION -> true .)
-    and             reduce using rule 31 (EXPRESION -> true .)
-    or              reduce using rule 31 (EXPRESION -> true .)
-    mayor           reduce using rule 31 (EXPRESION -> true .)
-    mayorigual      reduce using rule 31 (EXPRESION -> true .)
-    menor           reduce using rule 31 (EXPRESION -> true .)
-    menorigual      reduce using rule 31 (EXPRESION -> true .)
-    igualacion      reduce using rule 31 (EXPRESION -> true .)
-    diferente       reduce using rule 31 (EXPRESION -> true .)
-    puntoYcoma      reduce using rule 31 (EXPRESION -> true .)
-    p_Cierra        reduce using rule 31 (EXPRESION -> true .)
-    coma            reduce using rule 31 (EXPRESION -> true .)
+    suma            reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    resta           reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    multiplicacion  reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    division        reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    potencia        reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    modulo          reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    and             reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    or              reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    mayor           reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    mayorigual      reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    menor           reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    menorigual      reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    igualacion      reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    diferente       reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    puntoYcoma      reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    p_Cierra        reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
+    coma            reduce using rule 30 (EXPRESION -> FUNCION_TOEXPONENTIAL .)
 
 
 state 26
 
-    (32) EXPRESION -> false .
+    (31) EXPRESION -> FUNCION_TOSTRING .
 
-    suma            reduce using rule 32 (EXPRESION -> false .)
-    resta           reduce using rule 32 (EXPRESION -> false .)
-    multiplicacion  reduce using rule 32 (EXPRESION -> false .)
-    division        reduce using rule 32 (EXPRESION -> false .)
-    potencia        reduce using rule 32 (EXPRESION -> false .)
-    modulo          reduce using rule 32 (EXPRESION -> false .)
-    and             reduce using rule 32 (EXPRESION -> false .)
-    or              reduce using rule 32 (EXPRESION -> false .)
-    mayor           reduce using rule 32 (EXPRESION -> false .)
-    mayorigual      reduce using rule 32 (EXPRESION -> false .)
-    menor           reduce using rule 32 (EXPRESION -> false .)
-    menorigual      reduce using rule 32 (EXPRESION -> false .)
-    igualacion      reduce using rule 32 (EXPRESION -> false .)
-    diferente       reduce using rule 32 (EXPRESION -> false .)
-    puntoYcoma      reduce using rule 32 (EXPRESION -> false .)
-    p_Cierra        reduce using rule 32 (EXPRESION -> false .)
-    coma            reduce using rule 32 (EXPRESION -> false .)
+    suma            reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    resta           reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    multiplicacion  reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    division        reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    potencia        reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    modulo          reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    and             reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    or              reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    mayor           reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    mayorigual      reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    menor           reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    menorigual      reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    igualacion      reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    diferente       reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    puntoYcoma      reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    p_Cierra        reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
+    coma            reduce using rule 31 (EXPRESION -> FUNCION_TOSTRING .)
 
 
 state 27
 
-    (33) EXPRESION -> null .
+    (32) EXPRESION -> FUNCION_TOLOWERCASE .
 
-    suma            reduce using rule 33 (EXPRESION -> null .)
-    resta           reduce using rule 33 (EXPRESION -> null .)
-    multiplicacion  reduce using rule 33 (EXPRESION -> null .)
-    division        reduce using rule 33 (EXPRESION -> null .)
-    potencia        reduce using rule 33 (EXPRESION -> null .)
-    modulo          reduce using rule 33 (EXPRESION -> null .)
-    and             reduce using rule 33 (EXPRESION -> null .)
-    or              reduce using rule 33 (EXPRESION -> null .)
-    mayor           reduce using rule 33 (EXPRESION -> null .)
-    mayorigual      reduce using rule 33 (EXPRESION -> null .)
-    menor           reduce using rule 33 (EXPRESION -> null .)
-    menorigual      reduce using rule 33 (EXPRESION -> null .)
-    igualacion      reduce using rule 33 (EXPRESION -> null .)
-    diferente       reduce using rule 33 (EXPRESION -> null .)
-    puntoYcoma      reduce using rule 33 (EXPRESION -> null .)
-    p_Cierra        reduce using rule 33 (EXPRESION -> null .)
-    coma            reduce using rule 33 (EXPRESION -> null .)
+    suma            reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    resta           reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    multiplicacion  reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    division        reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    potencia        reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    modulo          reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    and             reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    or              reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    mayor           reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    mayorigual      reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    menor           reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    menorigual      reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    igualacion      reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    diferente       reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    puntoYcoma      reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    p_Cierra        reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
+    coma            reduce using rule 32 (EXPRESION -> FUNCION_TOLOWERCASE .)
 
 
 state 28
+
+    (33) EXPRESION -> FUNCION_TOUPPERCASE .
+
+    suma            reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    resta           reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    multiplicacion  reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    division        reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    potencia        reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    modulo          reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    and             reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    or              reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    mayor           reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    mayorigual      reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    menor           reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    menorigual      reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    igualacion      reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    diferente       reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    puntoYcoma      reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    p_Cierra        reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+    coma            reduce using rule 33 (EXPRESION -> FUNCION_TOUPPERCASE .)
+
+
+state 29
+
+    (34) EXPRESION -> FUNCION_SPLIT .
+
+    suma            reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    resta           reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    multiplicacion  reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    division        reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    potencia        reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    modulo          reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    and             reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    or              reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    mayor           reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    mayorigual      reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    menor           reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    menorigual      reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    igualacion      reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    diferente       reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    puntoYcoma      reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    p_Cierra        reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+    coma            reduce using rule 34 (EXPRESION -> FUNCION_SPLIT .)
+
+
+state 30
+
+    (41) EXPRESION -> cadena .
+
+    suma            reduce using rule 41 (EXPRESION -> cadena .)
+    resta           reduce using rule 41 (EXPRESION -> cadena .)
+    multiplicacion  reduce using rule 41 (EXPRESION -> cadena .)
+    division        reduce using rule 41 (EXPRESION -> cadena .)
+    potencia        reduce using rule 41 (EXPRESION -> cadena .)
+    modulo          reduce using rule 41 (EXPRESION -> cadena .)
+    and             reduce using rule 41 (EXPRESION -> cadena .)
+    or              reduce using rule 41 (EXPRESION -> cadena .)
+    mayor           reduce using rule 41 (EXPRESION -> cadena .)
+    mayorigual      reduce using rule 41 (EXPRESION -> cadena .)
+    menor           reduce using rule 41 (EXPRESION -> cadena .)
+    menorigual      reduce using rule 41 (EXPRESION -> cadena .)
+    igualacion      reduce using rule 41 (EXPRESION -> cadena .)
+    diferente       reduce using rule 41 (EXPRESION -> cadena .)
+    puntoYcoma      reduce using rule 41 (EXPRESION -> cadena .)
+    p_Cierra        reduce using rule 41 (EXPRESION -> cadena .)
+    coma            reduce using rule 41 (EXPRESION -> cadena .)
+
+
+state 31
+
+    (42) EXPRESION -> numero .
+
+    suma            reduce using rule 42 (EXPRESION -> numero .)
+    resta           reduce using rule 42 (EXPRESION -> numero .)
+    multiplicacion  reduce using rule 42 (EXPRESION -> numero .)
+    division        reduce using rule 42 (EXPRESION -> numero .)
+    potencia        reduce using rule 42 (EXPRESION -> numero .)
+    modulo          reduce using rule 42 (EXPRESION -> numero .)
+    and             reduce using rule 42 (EXPRESION -> numero .)
+    or              reduce using rule 42 (EXPRESION -> numero .)
+    mayor           reduce using rule 42 (EXPRESION -> numero .)
+    mayorigual      reduce using rule 42 (EXPRESION -> numero .)
+    menor           reduce using rule 42 (EXPRESION -> numero .)
+    menorigual      reduce using rule 42 (EXPRESION -> numero .)
+    igualacion      reduce using rule 42 (EXPRESION -> numero .)
+    diferente       reduce using rule 42 (EXPRESION -> numero .)
+    puntoYcoma      reduce using rule 42 (EXPRESION -> numero .)
+    p_Cierra        reduce using rule 42 (EXPRESION -> numero .)
+    coma            reduce using rule 42 (EXPRESION -> numero .)
+
+
+state 32
+
+    (43) EXPRESION -> true .
+
+    suma            reduce using rule 43 (EXPRESION -> true .)
+    resta           reduce using rule 43 (EXPRESION -> true .)
+    multiplicacion  reduce using rule 43 (EXPRESION -> true .)
+    division        reduce using rule 43 (EXPRESION -> true .)
+    potencia        reduce using rule 43 (EXPRESION -> true .)
+    modulo          reduce using rule 43 (EXPRESION -> true .)
+    and             reduce using rule 43 (EXPRESION -> true .)
+    or              reduce using rule 43 (EXPRESION -> true .)
+    mayor           reduce using rule 43 (EXPRESION -> true .)
+    mayorigual      reduce using rule 43 (EXPRESION -> true .)
+    menor           reduce using rule 43 (EXPRESION -> true .)
+    menorigual      reduce using rule 43 (EXPRESION -> true .)
+    igualacion      reduce using rule 43 (EXPRESION -> true .)
+    diferente       reduce using rule 43 (EXPRESION -> true .)
+    puntoYcoma      reduce using rule 43 (EXPRESION -> true .)
+    p_Cierra        reduce using rule 43 (EXPRESION -> true .)
+    coma            reduce using rule 43 (EXPRESION -> true .)
+
+
+state 33
+
+    (44) EXPRESION -> false .
+
+    suma            reduce using rule 44 (EXPRESION -> false .)
+    resta           reduce using rule 44 (EXPRESION -> false .)
+    multiplicacion  reduce using rule 44 (EXPRESION -> false .)
+    division        reduce using rule 44 (EXPRESION -> false .)
+    potencia        reduce using rule 44 (EXPRESION -> false .)
+    modulo          reduce using rule 44 (EXPRESION -> false .)
+    and             reduce using rule 44 (EXPRESION -> false .)
+    or              reduce using rule 44 (EXPRESION -> false .)
+    mayor           reduce using rule 44 (EXPRESION -> false .)
+    mayorigual      reduce using rule 44 (EXPRESION -> false .)
+    menor           reduce using rule 44 (EXPRESION -> false .)
+    menorigual      reduce using rule 44 (EXPRESION -> false .)
+    igualacion      reduce using rule 44 (EXPRESION -> false .)
+    diferente       reduce using rule 44 (EXPRESION -> false .)
+    puntoYcoma      reduce using rule 44 (EXPRESION -> false .)
+    p_Cierra        reduce using rule 44 (EXPRESION -> false .)
+    coma            reduce using rule 44 (EXPRESION -> false .)
+
+
+state 34
+
+    (45) EXPRESION -> null .
+
+    suma            reduce using rule 45 (EXPRESION -> null .)
+    resta           reduce using rule 45 (EXPRESION -> null .)
+    multiplicacion  reduce using rule 45 (EXPRESION -> null .)
+    division        reduce using rule 45 (EXPRESION -> null .)
+    potencia        reduce using rule 45 (EXPRESION -> null .)
+    modulo          reduce using rule 45 (EXPRESION -> null .)
+    and             reduce using rule 45 (EXPRESION -> null .)
+    or              reduce using rule 45 (EXPRESION -> null .)
+    mayor           reduce using rule 45 (EXPRESION -> null .)
+    mayorigual      reduce using rule 45 (EXPRESION -> null .)
+    menor           reduce using rule 45 (EXPRESION -> null .)
+    menorigual      reduce using rule 45 (EXPRESION -> null .)
+    igualacion      reduce using rule 45 (EXPRESION -> null .)
+    diferente       reduce using rule 45 (EXPRESION -> null .)
+    puntoYcoma      reduce using rule 45 (EXPRESION -> null .)
+    p_Cierra        reduce using rule 45 (EXPRESION -> null .)
+    coma            reduce using rule 45 (EXPRESION -> null .)
+
+
+state 35
 
     (10) IMPRIMIR -> console punto log p_Abre . LISTAEXPRESIONES p_Cierra
     (11) LISTAEXPRESIONES -> . LISTAEXPRESIONES coma EXPRESION
@@ -589,24 +844,43 @@ state 28
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    LISTAEXPRESIONES               shift and go to state 51
-    EXPRESION                      shift and go to state 52
+    LISTAEXPRESIONES               shift and go to state 59
+    EXPRESION                      shift and go to state 60
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 29
+state 36
 
     (6) DECLARACION -> let id igual EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -625,58 +899,75 @@ state 29
     (28) EXPRESION -> EXPRESION . diferente EXPRESION
 
     puntoYcoma      reduce using rule 6 (DECLARACION -> let id igual EXPRESION .)
-    suma            shift and go to state 35
-    resta           shift and go to state 36
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    and             shift and go to state 41
-    or              shift and go to state 42
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    or              shift and go to state 50
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
 
-state 30
+state 37
 
     (7) DECLARACION -> let id dosPuntos TIPO . igual EXPRESION
 
-    igual           shift and go to state 53
+    igual           shift and go to state 61
 
 
-state 31
+state 38
 
-    (34) TIPO -> number .
+    (46) TIPO -> number .
 
-    igual           reduce using rule 34 (TIPO -> number .)
-
-
-state 32
-
-    (35) TIPO -> string .
-
-    igual           reduce using rule 35 (TIPO -> string .)
+    igual           reduce using rule 46 (TIPO -> number .)
 
 
-state 33
+state 39
 
-    (36) TIPO -> boolean .
+    (47) TIPO -> string .
 
-    igual           reduce using rule 36 (TIPO -> boolean .)
-
-
-state 34
-
-    (37) TIPO -> any .
-
-    igual           reduce using rule 37 (TIPO -> any .)
+    igual           reduce using rule 47 (TIPO -> string .)
 
 
-state 35
+state 40
+
+    (48) TIPO -> boolean .
+
+    igual           reduce using rule 48 (TIPO -> boolean .)
+
+
+state 41
+
+    (49) TIPO -> any .
+
+    igual           reduce using rule 49 (TIPO -> any .)
+
+
+state 42
+
+    (35) FUNCION_TOFIXED -> id punto . toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> id punto . toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> id punto . toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> id punto . toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> id punto . toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> id punto . split p_Abre cadena p_Cierra
+
+    toFixed         shift and go to state 62
+    toExponential   shift and go to state 63
+    toString        shift and go to state 64
+    toLowerCase     shift and go to state 65
+    toUpperCase     shift and go to state 66
+    split           shift and go to state 67
+
+
+state 43
 
     (13) EXPRESION -> EXPRESION suma . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -695,23 +986,42 @@ state 35
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 54
+    EXPRESION                      shift and go to state 68
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 36
+state 44
 
     (14) EXPRESION -> EXPRESION resta . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -730,23 +1040,42 @@ state 36
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 55
+    EXPRESION                      shift and go to state 69
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 37
+state 45
 
     (15) EXPRESION -> EXPRESION multiplicacion . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -765,23 +1094,42 @@ state 37
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 56
+    EXPRESION                      shift and go to state 70
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 38
+state 46
 
     (16) EXPRESION -> EXPRESION division . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -800,23 +1148,42 @@ state 38
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 57
+    EXPRESION                      shift and go to state 71
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 39
+state 47
 
     (17) EXPRESION -> EXPRESION potencia . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -835,23 +1202,42 @@ state 39
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 58
+    EXPRESION                      shift and go to state 72
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 40
+state 48
 
     (18) EXPRESION -> EXPRESION modulo . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -870,23 +1256,42 @@ state 40
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 59
+    EXPRESION                      shift and go to state 73
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 41
+state 49
 
     (20) EXPRESION -> EXPRESION and . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -905,23 +1310,42 @@ state 41
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 60
+    EXPRESION                      shift and go to state 74
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 42
+state 50
 
     (21) EXPRESION -> EXPRESION or . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -940,23 +1364,42 @@ state 42
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 61
+    EXPRESION                      shift and go to state 75
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 43
+state 51
 
     (23) EXPRESION -> EXPRESION mayor . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -975,23 +1418,42 @@ state 43
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 62
+    EXPRESION                      shift and go to state 76
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 44
+state 52
 
     (24) EXPRESION -> EXPRESION mayorigual . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -1010,23 +1472,42 @@ state 44
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 63
+    EXPRESION                      shift and go to state 77
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 45
+state 53
 
     (25) EXPRESION -> EXPRESION menor . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -1045,23 +1526,42 @@ state 45
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 64
+    EXPRESION                      shift and go to state 78
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 46
+state 54
 
     (26) EXPRESION -> EXPRESION menorigual . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -1080,23 +1580,42 @@ state 46
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 65
+    EXPRESION                      shift and go to state 79
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 47
+state 55
 
     (27) EXPRESION -> EXPRESION igualacion . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -1115,23 +1634,42 @@ state 47
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 66
+    EXPRESION                      shift and go to state 80
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 48
+state 56
 
     (28) EXPRESION -> EXPRESION diferente . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -1150,23 +1688,42 @@ state 48
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 67
+    EXPRESION                      shift and go to state 81
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 49
+state 57
 
     (19) EXPRESION -> resta EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1202,23 +1759,23 @@ state 49
     p_Cierra        reduce using rule 19 (EXPRESION -> resta EXPRESION .)
     coma            reduce using rule 19 (EXPRESION -> resta EXPRESION .)
 
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! multiplicacion  [ shift and go to state 37 ]
-  ! division        [ shift and go to state 38 ]
-  ! potencia        [ shift and go to state 39 ]
-  ! modulo          [ shift and go to state 40 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! multiplicacion  [ shift and go to state 45 ]
+  ! division        [ shift and go to state 46 ]
+  ! potencia        [ shift and go to state 47 ]
+  ! modulo          [ shift and go to state 48 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 50
+state 58
 
     (22) EXPRESION -> not EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1254,32 +1811,32 @@ state 50
     p_Cierra        reduce using rule 22 (EXPRESION -> not EXPRESION .)
     coma            reduce using rule 22 (EXPRESION -> not EXPRESION .)
 
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! multiplicacion  [ shift and go to state 37 ]
-  ! division        [ shift and go to state 38 ]
-  ! potencia        [ shift and go to state 39 ]
-  ! modulo          [ shift and go to state 40 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! multiplicacion  [ shift and go to state 45 ]
+  ! division        [ shift and go to state 46 ]
+  ! potencia        [ shift and go to state 47 ]
+  ! modulo          [ shift and go to state 48 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 51
+state 59
 
     (10) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES . p_Cierra
     (11) LISTAEXPRESIONES -> LISTAEXPRESIONES . coma EXPRESION
 
-    p_Cierra        shift and go to state 68
-    coma            shift and go to state 69
+    p_Cierra        shift and go to state 82
+    coma            shift and go to state 83
 
 
-state 52
+state 60
 
     (12) LISTAEXPRESIONES -> EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1299,23 +1856,23 @@ state 52
 
     p_Cierra        reduce using rule 12 (LISTAEXPRESIONES -> EXPRESION .)
     coma            reduce using rule 12 (LISTAEXPRESIONES -> EXPRESION .)
-    suma            shift and go to state 35
-    resta           shift and go to state 36
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    and             shift and go to state 41
-    or              shift and go to state 42
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    or              shift and go to state 50
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
 
-state 53
+state 61
 
     (7) DECLARACION -> let id dosPuntos TIPO igual . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -1334,23 +1891,84 @@ state 53
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 70
+    EXPRESION                      shift and go to state 84
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 54
+state 62
+
+    (35) FUNCION_TOFIXED -> id punto toFixed . p_Abre EXPRESION p_Cierra
+
+    p_Abre          shift and go to state 85
+
+
+state 63
+
+    (36) FUNCION_TOEXPONENTIAL -> id punto toExponential . p_Abre EXPRESION p_Cierra
+
+    p_Abre          shift and go to state 86
+
+
+state 64
+
+    (37) FUNCION_TOSTRING -> id punto toString . p_Abre p_Cierra
+
+    p_Abre          shift and go to state 87
+
+
+state 65
+
+    (38) FUNCION_TOLOWERCASE -> id punto toLowerCase . p_Abre p_Cierra
+
+    p_Abre          shift and go to state 88
+
+
+state 66
+
+    (39) FUNCION_TOUPPERCASE -> id punto toUpperCase . p_Abre p_Cierra
+
+    p_Abre          shift and go to state 89
+
+
+state 67
+
+    (40) FUNCION_SPLIT -> id punto split . p_Abre cadena p_Cierra
+
+    p_Abre          shift and go to state 90
+
+
+state 68
 
     (13) EXPRESION -> EXPRESION suma EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1375,16 +1993,16 @@ state 54
     puntoYcoma      reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
     p_Cierra        reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
     coma            reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
   ! multiplicacion  [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
   ! division        [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
@@ -1396,13 +2014,13 @@ state 54
   ! menorigual      [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
   ! igualacion      [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
   ! diferente       [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
 
 
-state 55
+state 69
 
     (14) EXPRESION -> EXPRESION resta EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1427,16 +2045,16 @@ state 55
     puntoYcoma      reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
     p_Cierra        reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
     coma            reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
   ! multiplicacion  [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
   ! division        [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
@@ -1448,13 +2066,13 @@ state 55
   ! menorigual      [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
   ! igualacion      [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
   ! diferente       [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
 
 
-state 56
+state 70
 
     (15) EXPRESION -> EXPRESION multiplicacion EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1488,25 +2106,25 @@ state 56
     puntoYcoma      reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
     p_Cierra        reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
     coma            reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    potencia        shift and go to state 39
+    potencia        shift and go to state 47
 
   ! potencia        [ reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! multiplicacion  [ shift and go to state 37 ]
-  ! division        [ shift and go to state 38 ]
-  ! modulo          [ shift and go to state 40 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! multiplicacion  [ shift and go to state 45 ]
+  ! division        [ shift and go to state 46 ]
+  ! modulo          [ shift and go to state 48 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 57
+state 71
 
     (16) EXPRESION -> EXPRESION division EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1540,25 +2158,25 @@ state 57
     puntoYcoma      reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
     p_Cierra        reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
     coma            reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
-    potencia        shift and go to state 39
+    potencia        shift and go to state 47
 
   ! potencia        [ reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! multiplicacion  [ shift and go to state 37 ]
-  ! division        [ shift and go to state 38 ]
-  ! modulo          [ shift and go to state 40 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! multiplicacion  [ shift and go to state 45 ]
+  ! division        [ shift and go to state 46 ]
+  ! modulo          [ shift and go to state 48 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 58
+state 72
 
     (17) EXPRESION -> EXPRESION potencia EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1594,23 +2212,23 @@ state 58
     p_Cierra        reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
     coma            reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
 
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! multiplicacion  [ shift and go to state 37 ]
-  ! division        [ shift and go to state 38 ]
-  ! potencia        [ shift and go to state 39 ]
-  ! modulo          [ shift and go to state 40 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! multiplicacion  [ shift and go to state 45 ]
+  ! division        [ shift and go to state 46 ]
+  ! potencia        [ shift and go to state 47 ]
+  ! modulo          [ shift and go to state 48 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 59
+state 73
 
     (18) EXPRESION -> EXPRESION modulo EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1644,25 +2262,25 @@ state 59
     puntoYcoma      reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
     p_Cierra        reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
     coma            reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    potencia        shift and go to state 39
+    potencia        shift and go to state 47
 
   ! potencia        [ reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! multiplicacion  [ shift and go to state 37 ]
-  ! division        [ shift and go to state 38 ]
-  ! modulo          [ shift and go to state 40 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! multiplicacion  [ shift and go to state 45 ]
+  ! division        [ shift and go to state 46 ]
+  ! modulo          [ shift and go to state 48 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 60
+state 74
 
     (20) EXPRESION -> EXPRESION and EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1685,18 +2303,18 @@ state 60
     puntoYcoma      reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
     p_Cierra        reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
     coma            reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
-    suma            shift and go to state 35
-    resta           shift and go to state 36
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
   ! suma            [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
   ! resta           [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
@@ -1710,11 +2328,11 @@ state 60
   ! menorigual      [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
   ! igualacion      [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
   ! diferente       [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
 
 
-state 61
+state 75
 
     (21) EXPRESION -> EXPRESION or EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1736,19 +2354,19 @@ state 61
     puntoYcoma      reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .)
     p_Cierra        reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .)
     coma            reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .)
-    suma            shift and go to state 35
-    resta           shift and go to state 36
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    and             shift and go to state 41
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
   ! suma            [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
   ! resta           [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
@@ -1763,10 +2381,10 @@ state 61
   ! menorigual      [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
   ! igualacion      [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
   ! diferente       [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! or              [ shift and go to state 42 ]
+  ! or              [ shift and go to state 50 ]
 
 
-state 62
+state 76
 
     (23) EXPRESION -> EXPRESION mayor EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1797,28 +2415,28 @@ state 62
     puntoYcoma      reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
     p_Cierra        reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
     coma            reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
 
   ! multiplicacion  [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
   ! division        [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
   ! potencia        [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
   ! modulo          [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 63
+state 77
 
     (24) EXPRESION -> EXPRESION mayorigual EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1849,28 +2467,28 @@ state 63
     puntoYcoma      reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
     p_Cierra        reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
     coma            reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
 
   ! multiplicacion  [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
   ! division        [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
   ! potencia        [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
   ! modulo          [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 64
+state 78
 
     (25) EXPRESION -> EXPRESION menor EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1901,28 +2519,28 @@ state 64
     puntoYcoma      reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
     p_Cierra        reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
     coma            reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
 
   ! multiplicacion  [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
   ! division        [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
   ! potencia        [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
   ! modulo          [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 65
+state 79
 
     (26) EXPRESION -> EXPRESION menorigual EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -1953,28 +2571,28 @@ state 65
     puntoYcoma      reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
     p_Cierra        reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
     coma            reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
 
   ! multiplicacion  [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
   ! division        [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
   ! potencia        [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
   ! modulo          [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 66
+state 80
 
     (27) EXPRESION -> EXPRESION igualacion EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -2005,28 +2623,28 @@ state 66
     puntoYcoma      reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
     p_Cierra        reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
     coma            reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
 
   ! multiplicacion  [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
   ! division        [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
   ! potencia        [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
   ! modulo          [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 67
+state 81
 
     (28) EXPRESION -> EXPRESION diferente EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -2057,35 +2675,35 @@ state 67
     puntoYcoma      reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
     p_Cierra        reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
     coma            reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
 
   ! multiplicacion  [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
   ! division        [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
   ! potencia        [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
   ! modulo          [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
-  ! suma            [ shift and go to state 35 ]
-  ! resta           [ shift and go to state 36 ]
-  ! and             [ shift and go to state 41 ]
-  ! or              [ shift and go to state 42 ]
-  ! mayor           [ shift and go to state 43 ]
-  ! mayorigual      [ shift and go to state 44 ]
-  ! menor           [ shift and go to state 45 ]
-  ! menorigual      [ shift and go to state 46 ]
-  ! igualacion      [ shift and go to state 47 ]
-  ! diferente       [ shift and go to state 48 ]
+  ! suma            [ shift and go to state 43 ]
+  ! resta           [ shift and go to state 44 ]
+  ! and             [ shift and go to state 49 ]
+  ! or              [ shift and go to state 50 ]
+  ! mayor           [ shift and go to state 51 ]
+  ! mayorigual      [ shift and go to state 52 ]
+  ! menor           [ shift and go to state 53 ]
+  ! menorigual      [ shift and go to state 54 ]
+  ! igualacion      [ shift and go to state 55 ]
+  ! diferente       [ shift and go to state 56 ]
 
 
-state 68
+state 82
 
     (10) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .
 
     puntoYcoma      reduce using rule 10 (IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .)
 
 
-state 69
+state 83
 
     (11) LISTAEXPRESIONES -> LISTAEXPRESIONES coma . EXPRESION
     (13) EXPRESION -> . EXPRESION suma EXPRESION
@@ -2104,23 +2722,42 @@ state 69
     (26) EXPRESION -> . EXPRESION menorigual EXPRESION
     (27) EXPRESION -> . EXPRESION igualacion EXPRESION
     (28) EXPRESION -> . EXPRESION diferente EXPRESION
-    (29) EXPRESION -> . cadena
-    (30) EXPRESION -> . numero
-    (31) EXPRESION -> . true
-    (32) EXPRESION -> . false
-    (33) EXPRESION -> . null
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
 
-    resta           shift and go to state 21
-    not             shift and go to state 22
-    cadena          shift and go to state 23
-    numero          shift and go to state 24
-    true            shift and go to state 25
-    false           shift and go to state 26
-    null            shift and go to state 27
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
 
-    EXPRESION                      shift and go to state 71
+    EXPRESION                      shift and go to state 91
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
 
-state 70
+state 84
 
     (7) DECLARACION -> let id dosPuntos TIPO igual EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -2139,23 +2776,159 @@ state 70
     (28) EXPRESION -> EXPRESION . diferente EXPRESION
 
     puntoYcoma      reduce using rule 7 (DECLARACION -> let id dosPuntos TIPO igual EXPRESION .)
-    suma            shift and go to state 35
-    resta           shift and go to state 36
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    and             shift and go to state 41
-    or              shift and go to state 42
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    or              shift and go to state 50
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
 
 
-state 71
+state 85
+
+    (35) FUNCION_TOFIXED -> id punto toFixed p_Abre . EXPRESION p_Cierra
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
+
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
+
+    EXPRESION                      shift and go to state 92
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
+
+state 86
+
+    (36) FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre . EXPRESION p_Cierra
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . FUNCION_TOFIXED
+    (30) EXPRESION -> . FUNCION_TOEXPONENTIAL
+    (31) EXPRESION -> . FUNCION_TOSTRING
+    (32) EXPRESION -> . FUNCION_TOLOWERCASE
+    (33) EXPRESION -> . FUNCION_TOUPPERCASE
+    (34) EXPRESION -> . FUNCION_SPLIT
+    (41) EXPRESION -> . cadena
+    (42) EXPRESION -> . numero
+    (43) EXPRESION -> . true
+    (44) EXPRESION -> . false
+    (45) EXPRESION -> . null
+    (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
+    (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
+    (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
+    (38) FUNCION_TOLOWERCASE -> . id punto toLowerCase p_Abre p_Cierra
+    (39) FUNCION_TOUPPERCASE -> . id punto toUpperCase p_Abre p_Cierra
+    (40) FUNCION_SPLIT -> . id punto split p_Abre cadena p_Cierra
+
+    resta           shift and go to state 22
+    not             shift and go to state 23
+    cadena          shift and go to state 30
+    numero          shift and go to state 31
+    true            shift and go to state 32
+    false           shift and go to state 33
+    null            shift and go to state 34
+    id              shift and go to state 20
+
+    EXPRESION                      shift and go to state 93
+    FUNCION_TOFIXED                shift and go to state 24
+    FUNCION_TOEXPONENTIAL          shift and go to state 25
+    FUNCION_TOSTRING               shift and go to state 26
+    FUNCION_TOLOWERCASE            shift and go to state 27
+    FUNCION_TOUPPERCASE            shift and go to state 28
+    FUNCION_SPLIT                  shift and go to state 29
+
+state 87
+
+    (37) FUNCION_TOSTRING -> id punto toString p_Abre . p_Cierra
+
+    p_Cierra        shift and go to state 94
+
+
+state 88
+
+    (38) FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre . p_Cierra
+
+    p_Cierra        shift and go to state 95
+
+
+state 89
+
+    (39) FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre . p_Cierra
+
+    p_Cierra        shift and go to state 96
+
+
+state 90
+
+    (40) FUNCION_SPLIT -> id punto split p_Abre . cadena p_Cierra
+
+    cadena          shift and go to state 97
+
+
+state 91
 
     (11) LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .
     (13) EXPRESION -> EXPRESION . suma EXPRESION
@@ -2175,18 +2948,233 @@ state 71
 
     p_Cierra        reduce using rule 11 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
     coma            reduce using rule 11 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
-    suma            shift and go to state 35
-    resta           shift and go to state 36
-    multiplicacion  shift and go to state 37
-    division        shift and go to state 38
-    potencia        shift and go to state 39
-    modulo          shift and go to state 40
-    and             shift and go to state 41
-    or              shift and go to state 42
-    mayor           shift and go to state 43
-    mayorigual      shift and go to state 44
-    menor           shift and go to state 45
-    menorigual      shift and go to state 46
-    igualacion      shift and go to state 47
-    diferente       shift and go to state 48
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    or              shift and go to state 50
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
+
+
+state 92
+
+    (35) FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION . p_Cierra
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    p_Cierra        shift and go to state 98
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    or              shift and go to state 50
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
+
+
+state 93
+
+    (36) FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION . p_Cierra
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    p_Cierra        shift and go to state 99
+    suma            shift and go to state 43
+    resta           shift and go to state 44
+    multiplicacion  shift and go to state 45
+    division        shift and go to state 46
+    potencia        shift and go to state 47
+    modulo          shift and go to state 48
+    and             shift and go to state 49
+    or              shift and go to state 50
+    mayor           shift and go to state 51
+    mayorigual      shift and go to state 52
+    menor           shift and go to state 53
+    menorigual      shift and go to state 54
+    igualacion      shift and go to state 55
+    diferente       shift and go to state 56
+
+
+state 94
+
+    (37) FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .
+
+    suma            reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    resta           reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    multiplicacion  reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    division        reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    potencia        reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    modulo          reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    and             reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    or              reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    mayor           reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    mayorigual      reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    menor           reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    menorigual      reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    igualacion      reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    diferente       reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    puntoYcoma      reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    p_Cierra        reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+    coma            reduce using rule 37 (FUNCION_TOSTRING -> id punto toString p_Abre p_Cierra .)
+
+
+state 95
+
+    (38) FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .
+
+    suma            reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    resta           reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    multiplicacion  reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    division        reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    potencia        reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    modulo          reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    and             reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    or              reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    mayor           reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    mayorigual      reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    menor           reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    menorigual      reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    igualacion      reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    diferente       reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    puntoYcoma      reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    p_Cierra        reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+    coma            reduce using rule 38 (FUNCION_TOLOWERCASE -> id punto toLowerCase p_Abre p_Cierra .)
+
+
+state 96
+
+    (39) FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .
+
+    suma            reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    resta           reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    multiplicacion  reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    division        reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    potencia        reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    modulo          reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    and             reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    or              reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    mayor           reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    mayorigual      reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    menor           reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    menorigual      reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    igualacion      reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    diferente       reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    puntoYcoma      reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    p_Cierra        reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+    coma            reduce using rule 39 (FUNCION_TOUPPERCASE -> id punto toUpperCase p_Abre p_Cierra .)
+
+
+state 97
+
+    (40) FUNCION_SPLIT -> id punto split p_Abre cadena . p_Cierra
+
+    p_Cierra        shift and go to state 100
+
+
+state 98
+
+    (35) FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .
+
+    suma            reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    resta           reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    multiplicacion  reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    division        reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    potencia        reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    modulo          reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    and             reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    or              reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    mayor           reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    mayorigual      reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    menor           reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    menorigual      reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    igualacion      reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    diferente       reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    puntoYcoma      reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    p_Cierra        reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+    coma            reduce using rule 35 (FUNCION_TOFIXED -> id punto toFixed p_Abre EXPRESION p_Cierra .)
+
+
+state 99
+
+    (36) FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .
+
+    suma            reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    resta           reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    multiplicacion  reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    division        reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    potencia        reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    modulo          reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    and             reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    or              reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    mayor           reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    mayorigual      reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    menor           reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    menorigual      reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    igualacion      reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    diferente       reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    puntoYcoma      reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    p_Cierra        reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+    coma            reduce using rule 36 (FUNCION_TOEXPONENTIAL -> id punto toExponential p_Abre EXPRESION p_Cierra .)
+
+
+state 100
+
+    (40) FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .
+
+    suma            reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    resta           reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    multiplicacion  reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    division        reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    potencia        reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    modulo          reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    and             reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    or              reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    mayor           reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    mayorigual      reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    menor           reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    menorigual      reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    igualacion      reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    diferente       reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    puntoYcoma      reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    p_Cierra        reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
+    coma            reduce using rule 40 (FUNCION_SPLIT -> id punto split p_Abre cadena p_Cierra .)
 
