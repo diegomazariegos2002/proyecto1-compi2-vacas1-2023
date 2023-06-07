@@ -10,6 +10,7 @@ from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas,
 from source.expresiones.Primitivos import Primitivos
 from source.expresiones.Aritmeticas import Arimeticas
 from source.expresiones.Logicas import Logicas
+from source.expresiones.Acceso import Acceso
 from source.expresiones.Relacionales import Relacionales
 from source.instrucciones.ConsoleLog import ConsoleLog
 from source.instrucciones.Declaracion import Declaracion
@@ -328,6 +329,13 @@ def p_EXPRESION_null(p):
     EXPRESION : null
     """
     p[0] = Primitivos(p[1], TipoDato.NULL, p.lineno(1),
+                  calcularColumna(input, p.slice[1]))
+    
+def p_EXPRESION_Acceso(p):
+    """
+    EXPRESION : id
+    """
+    p[0] = Acceso(p[1], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
 
 

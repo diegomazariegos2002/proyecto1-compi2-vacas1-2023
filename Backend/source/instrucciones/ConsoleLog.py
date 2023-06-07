@@ -33,9 +33,6 @@ class ConsoleLog(Instruccion):
                     if(retorno.tipo == TipoDato.NULL):
                         consola.set_Consola("null")
                         continue
-                    if(retorno.tipo == TipoDato.ANY):
-                        consola.set_Consola(str(retorno.valor))
-                        continue
                     continue
                 continue
             # consola.set_Consola("Error en la ejecucion de la instruccion ConsoleLog")

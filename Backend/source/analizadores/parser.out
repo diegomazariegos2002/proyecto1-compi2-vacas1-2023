@@ -52,16 +52,17 @@ Rule 42    EXPRESION -> numero
 Rule 43    EXPRESION -> true
 Rule 44    EXPRESION -> false
 Rule 45    EXPRESION -> null
-Rule 46    TIPO -> number
-Rule 47    TIPO -> string
-Rule 48    TIPO -> boolean
-Rule 49    TIPO -> any
+Rule 46    EXPRESION -> id
+Rule 47    TIPO -> number
+Rule 48    TIPO -> string
+Rule 49    TIPO -> boolean
+Rule 50    TIPO -> any
 
 Terminals, with rules where they appear
 
 and                  : 20
-any                  : 49
-boolean              : 48
+any                  : 50
+boolean              : 49
 cadena               : 40 41
 coma                 : 11
 concat               : 
@@ -71,7 +72,7 @@ division             : 16
 dosPuntos            : 7
 error                : 
 false                : 44
-id                   : 6 7 9 35 36 37 38 39 40
+id                   : 6 7 9 35 36 37 38 39 40 46
 igual                : 6 7 9
 igualacion           : 27
 let                  : 6 7
@@ -84,7 +85,7 @@ modulo               : 18
 multiplicacion       : 15
 not                  : 22
 null                 : 45
-number               : 46
+number               : 47
 numero               : 42
 or                   : 21
 p_Abre               : 10 35 36 37 38 39 40
@@ -94,7 +95,7 @@ punto                : 10 35 36 37 38 39 40
 puntoYcoma           : 4 5 8
 resta                : 14 19
 split                : 40
-string               : 47
+string               : 48
 suma                 : 13
 toExponential        : 36
 toFixed              : 35
@@ -315,6 +316,7 @@ state 16
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -376,6 +378,7 @@ state 18
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -403,10 +406,10 @@ state 18
 state 19
 
     (7) DECLARACION -> let id dosPuntos . TIPO igual EXPRESION
-    (46) TIPO -> . number
-    (47) TIPO -> . string
-    (48) TIPO -> . boolean
-    (49) TIPO -> . any
+    (47) TIPO -> . number
+    (48) TIPO -> . string
+    (49) TIPO -> . boolean
+    (50) TIPO -> . any
 
     number          shift and go to state 38
     string          shift and go to state 39
@@ -417,6 +420,7 @@ state 19
 
 state 20
 
+    (46) EXPRESION -> id .
     (35) FUNCION_TOFIXED -> id . punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> id . punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> id . punto toString p_Abre p_Cierra
@@ -424,6 +428,23 @@ state 20
     (39) FUNCION_TOUPPERCASE -> id . punto toUpperCase p_Abre p_Cierra
     (40) FUNCION_SPLIT -> id . punto split p_Abre cadena p_Cierra
 
+    suma            reduce using rule 46 (EXPRESION -> id .)
+    resta           reduce using rule 46 (EXPRESION -> id .)
+    multiplicacion  reduce using rule 46 (EXPRESION -> id .)
+    division        reduce using rule 46 (EXPRESION -> id .)
+    potencia        reduce using rule 46 (EXPRESION -> id .)
+    modulo          reduce using rule 46 (EXPRESION -> id .)
+    and             reduce using rule 46 (EXPRESION -> id .)
+    or              reduce using rule 46 (EXPRESION -> id .)
+    mayor           reduce using rule 46 (EXPRESION -> id .)
+    mayorigual      reduce using rule 46 (EXPRESION -> id .)
+    menor           reduce using rule 46 (EXPRESION -> id .)
+    menorigual      reduce using rule 46 (EXPRESION -> id .)
+    igualacion      reduce using rule 46 (EXPRESION -> id .)
+    diferente       reduce using rule 46 (EXPRESION -> id .)
+    puntoYcoma      reduce using rule 46 (EXPRESION -> id .)
+    p_Cierra        reduce using rule 46 (EXPRESION -> id .)
+    coma            reduce using rule 46 (EXPRESION -> id .)
     punto           shift and go to state 42
 
 
@@ -492,6 +513,7 @@ state 22
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -546,6 +568,7 @@ state 23
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -855,6 +878,7 @@ state 35
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -924,30 +948,30 @@ state 37
 
 state 38
 
-    (46) TIPO -> number .
+    (47) TIPO -> number .
 
-    igual           reduce using rule 46 (TIPO -> number .)
+    igual           reduce using rule 47 (TIPO -> number .)
 
 
 state 39
 
-    (47) TIPO -> string .
+    (48) TIPO -> string .
 
-    igual           reduce using rule 47 (TIPO -> string .)
+    igual           reduce using rule 48 (TIPO -> string .)
 
 
 state 40
 
-    (48) TIPO -> boolean .
+    (49) TIPO -> boolean .
 
-    igual           reduce using rule 48 (TIPO -> boolean .)
+    igual           reduce using rule 49 (TIPO -> boolean .)
 
 
 state 41
 
-    (49) TIPO -> any .
+    (50) TIPO -> any .
 
-    igual           reduce using rule 49 (TIPO -> any .)
+    igual           reduce using rule 50 (TIPO -> any .)
 
 
 state 42
@@ -997,6 +1021,7 @@ state 43
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1051,6 +1076,7 @@ state 44
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1105,6 +1131,7 @@ state 45
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1159,6 +1186,7 @@ state 46
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1213,6 +1241,7 @@ state 47
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1267,6 +1296,7 @@ state 48
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1321,6 +1351,7 @@ state 49
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1375,6 +1406,7 @@ state 50
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1429,6 +1461,7 @@ state 51
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1483,6 +1516,7 @@ state 52
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1537,6 +1571,7 @@ state 53
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1591,6 +1626,7 @@ state 54
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1645,6 +1681,7 @@ state 55
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1699,6 +1736,7 @@ state 56
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -1902,6 +1940,7 @@ state 61
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -2733,6 +2772,7 @@ state 83
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -2822,6 +2862,7 @@ state 85
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
@@ -2876,6 +2917,7 @@ state 86
     (43) EXPRESION -> . true
     (44) EXPRESION -> . false
     (45) EXPRESION -> . null
+    (46) EXPRESION -> . id
     (35) FUNCION_TOFIXED -> . id punto toFixed p_Abre EXPRESION p_Cierra
     (36) FUNCION_TOEXPONENTIAL -> . id punto toExponential p_Abre EXPRESION p_Cierra
     (37) FUNCION_TOSTRING -> . id punto toString p_Abre p_Cierra
