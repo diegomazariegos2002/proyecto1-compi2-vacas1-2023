@@ -1,5 +1,8 @@
+from datetime import datetime
 from source.abstracto.Expresion import Expresion
-from source.abstracto.Retorno import Retorno, Tipo, TipoRelacionales
+from source.abstracto.Retorno import Retorno, Tipo, TipoRelacionales, TipoDato
+from source.consola_singleton.Consola import Consola
+from source.errores.Excepcion import Excepcion
 from source.simbolo.TablaSimbolos import TablaSimbolos
 
 class Relacionales(Expresion):
@@ -11,93 +14,103 @@ class Relacionales(Expresion):
         
 
     def ejecutar(self, ts: TablaSimbolos) -> Retorno:
-            
+        consolaGlobal = Consola()
         valorIzq : Retorno = self.izq.ejecutar(ts)
         if(self.der != None):
             valorDer : Retorno  = self.der.ejecutar(ts)
-            
-        print(self.operador)
-        print(valorIzq.tipo)
-        print(valorDer.tipo)
 
         if(self.operador == TipoRelacionales.MAYORQUE):
-            if valorIzq.tipo == Tipo.NUMBER and valorDer.tipo == Tipo.NUMBER:
+            if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 if(valorIzq.valor > valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
-            elif valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
+                    return Retorno(False, TipoDato.BOOLEANO)
+            elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
                 if(valorIzq.valor > valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR) 
         elif(self.operador == TipoRelacionales.MAYORIGUAL):
-            if valorIzq.tipo == Tipo.NUMBER and valorDer.tipo == Tipo.NUMBER:
+            if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 if(valorIzq.valor >= valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
-            elif valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
+                    return Retorno(False, TipoDato.BOOLEANO)
+            elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
                 if(valorIzq.valor >= valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
         elif(self.operador == TipoRelacionales.MENORQUE):
-            if valorIzq.tipo == Tipo.NUMBER and valorDer.tipo == Tipo.NUMBER:
+            if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 if(valorIzq.valor < valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
-            elif valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
+                    return Retorno(False, TipoDato.BOOLEANO)
+            elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
                 if(valorIzq.valor < valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
         elif(self.operador == TipoRelacionales.MENORIGUAL):
-            if valorIzq.tipo == Tipo.NUMBER and valorDer.tipo == Tipo.NUMBER:
+            if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 if(valorIzq.valor <= valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
-            elif valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
+                    return Retorno(False, TipoDato.BOOLEANO)
+            elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
                 if(valorIzq.valor <= valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
         
         elif(self.operador == TipoRelacionales.IGUALACION):
-            if valorIzq.tipo == Tipo.NUMBER and valorDer.tipo == Tipo.NUMBER:
+            if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 if(valorIzq.valor == valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
-            elif valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
+                    return Retorno(False, TipoDato.BOOLEANO)
+            elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
                 if(valorIzq.valor == valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
         elif(self.operador == TipoRelacionales.DIFERENTE):
-            if valorIzq.tipo == Tipo.NUMBER and valorDer.tipo == Tipo.NUMBER:
+            if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 if(valorIzq.valor != valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
-            elif valorIzq.tipo == Tipo.STRING and valorDer.tipo == Tipo.STRING:
+                    return Retorno(False, TipoDato.BOOLEANO)
+            elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
                 if(valorIzq.valor != valorDer.valor):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
 
-        return Retorno(0, Tipo.ERROR)
+        # ERROR
+        consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error ese tipo en operacion relacional no existe", self.line, self.column, datetime.now()))
+        return Retorno("Error", TipoDato.ERROR)

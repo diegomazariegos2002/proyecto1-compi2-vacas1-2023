@@ -1,3 +1,4 @@
+from datetime import datetime
 from ply import lex
 from source.consola_singleton.Consola import Consola
 
@@ -15,12 +16,16 @@ listaErrores = []
 
 #Declaración de tokens
 reservadas = {
+    'let': 'let',
     'console': 'console',
     'log': 'log',
     'true': 'true',
     'false': 'false',
     'null': 'null',
-    'any': 'any'
+    'any': 'any',
+    'number': 'number',
+    'boolean': 'boolean',
+    'string': 'string'
 }
 
 
@@ -39,7 +44,6 @@ tokens = [
         'potencia',
         'numero',
         'coma',
-        'id',
         'and',
         'or',
         'not',
@@ -48,39 +52,17 @@ tokens = [
         'mayor',
         'menor',
         'mayorigual',
-        'menorigual'
+        'menorigual',
+        'dosPuntos',
+        'id',
         ] + list(reservadas.values())
 
-#La r al principio de la cadena es para dar a entender que es una expresión regular
-#Primera forma para definir tokens mediante funciones:
 
-def t_id(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reservadas.get(t.value)    # Check for reserved words
-    if t.type == None:
-        Consola().set_Excepcion(Excepcion("ERROR LEXICO", "EL TOKEN " + t.value+" NO SE RECONOCE EN LAS RESERVADAS", t.lexer.lineno, t.lexer.lexpos))
-    return t
-
-def t_cadena(t):
-    r'[\"]((\\\")|[^\"\n])*[\"]'
-    t.value = t.value[1:-1]
-    t.value = t.value.replace('\\n', '\n')
-    t.value = t.value.replace('\\r', '\r')
-    t.value = t.value.replace('\\\\', '\\')
-    t.value = t.value.replace('\\"', '\"')
-    t.value = t.value.replace('\\t', '\t')
-    t.value = t.value.replace("\\'", '\'')
-    return t
-
-def t_numero(t):
-    r'\d+(\.\d+)?'
-    t.value = float(t.value) if '.' in t.value else int(t.value)
-    return t
 
 #Segunda forma para definir tokens mediante asignacion:
 t_p_Abre = r'\('
 t_p_Cierra = r'\)'
-t_igual = r'='
+t_igual = r'\='
 t_puntoYcoma = r';'
 t_punto = r'\.'
 t_suma = r'\+'
@@ -99,10 +81,38 @@ t_menorigual = r'<='
 t_mayorigual = r'>='
 t_igualacion = r'==='
 t_diferente = r'\!=='
+t_dosPuntos = r':'
 t_ignore = ' \t'
 t_ignore_COMENTARIOS = r'(\/\/.*[^\n])'
 t_ignore_MULTCOMENTARIOS = r'(\/\*([^*/]|[^*]\/|\*[^/])*\*\/)'
 
+#La r al principio de la cadena es para dar a entender que es una expresión regular
+#Primera forma para definir tokens mediante funciones:
+
+
+def t_cadena(t):
+    r'[\"]((\\\")|[^\"\n])*[\"]'
+    t.value = t.value[1:-1]
+    t.value = t.value.replace('\\n', '\n')
+    t.value = t.value.replace('\\r', '\r')
+    t.value = t.value.replace('\\\\', '\\')
+    t.value = t.value.replace('\\"', '\"')
+    t.value = t.value.replace('\\t', '\t')
+    t.value = t.value.replace("\\'", '\'')
+    print(t) 
+    return t
+
+def t_numero(t):
+    r'\d+(\.\d+)?'
+    t.value = float(t.value) if '.' in t.value else int(t.value)
+    print(t) 
+    return t
+
+def t_id(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reservadas.get(t.value, 'id')    # Check for reserved words
+    print(t) 
+    return t
 
 def t_newLine(t):
     r'\n+'
@@ -111,7 +121,7 @@ def t_newLine(t):
 #En caso de errores
 def t_error(t):
     Consola().set_Excepcion(Excepcion("ERROR LEXICO", "EL TOKEN " +
-                        t.value[0]+" NO SE RECONOCE", t.lexer.lineno, t.lexer.lexpos))
+                        t.value[0]+" NO SE RECONOCE", t.lexer.lineno, t.lexer.lexpos, datetime.now()))
     listaErrores.append(Excepcion("ERROR LEXICO", "EL TOKEN " +
                         t.value[0]+" NO SE RECONOCE", t.lexer.lineno, t.lexer.lexpos))
     t.lexer.skip(1)

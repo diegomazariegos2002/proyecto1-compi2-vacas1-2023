@@ -1,4 +1,5 @@
 from source.simbolo.Simbolo import Simbolo
+from source.consola_singleton.Consola import Consola
 
 
 class TablaSimbolos:
@@ -9,6 +10,7 @@ class TablaSimbolos:
         self.tablaActual = {}       # diccionario de simbolos
 
     def insertar(self, id: str, simbolo: Simbolo):
+        consolaGlobal = Consola()
         """
         Inserta un símbolo en la tabla actual.
 
@@ -16,7 +18,19 @@ class TablaSimbolos:
         :param simbolo: El objeto Simbolo a insertar en la tabla.
         :return: None
         """
-        self.tablaActual[id] = simbolo
+
+        if self.buscar_variable(id) == False :
+            self.tablaActual[id] = simbolo
+            consolaGlobal.set_Simbolo(simbolo)
+            self.recorrerTablaSimbolos()
+            return True
+        return False
+
+    def buscar_variable(self, nombre):
+        if(self.tablaActual.get(nombre) != None):
+            return True
+        else:
+            return False
 
     def buscar(self, id: str) -> Simbolo:
         ts = self
@@ -33,3 +47,18 @@ class TablaSimbolos:
 
     def buscarActual(self, id: str) -> Simbolo:
         return self.tablaActual.get(id)
+    
+    def actualizarVariable(self, nombre, valor):
+        env = self
+
+        while env != None:
+            if(env.tablaActual.get(nombre) != None):
+                variable:Simbolo = env.tablaActual.get(nombre)
+                variable.valor = valor
+                return 
+            env = env.anterior
+
+    def recorrerTablaSimbolos(self):
+        for simbolo in self.tablaActual:
+            valor:Simbolo = self.tablaActual[simbolo]
+            print(str(simbolo) +": "+str(valor.id) +" / " + str(valor.valor))

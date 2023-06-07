@@ -14,6 +14,17 @@ class Tipo(Enum):
     INTERFACE = 7
     ERROR = 10
 
+class TipoDato(Enum):
+    """
+    Enum de tipos de datos que se pueden manejar en el lenguaje
+    """
+
+    NULL = 1
+    NUMERO = 2
+    BOOLEANO = 3
+    CADENA = 4
+    ERROR = 5
+
 class Tipo_OperadorAritmetico(Enum):
     """
     Enum de operadores aritmeticos
@@ -68,7 +79,7 @@ class Retorno:
     Retorno de una expresion
     """
 
-    def __init__(self, valor:None, tipo:Tipo) -> None:
+    def __init__(self, valor:None, tipo:TipoDato) -> None:
         self.valor = valor
         self.tipo = tipo
 

@@ -1,5 +1,5 @@
 from enum import Enum
-from source.abstracto.Retorno import Tipo
+from source.abstracto.Retorno import Tipo, TipoDato
 
 class TiposSimbolos(Enum):
     """
@@ -12,8 +12,9 @@ def getTipoSimbolo(s):
         return TiposSimbolos.VARIABLE
 
 class Simbolo:
-    def __init__(self, tipoSimbolo:int, tipo: Tipo, id: str, valor):
+    def __init__(self, tipoSimbolo:int, tipo: Tipo, tipoDato: TipoDato, id: str, valor):
         self.valor = valor
-        self.id = id
-        self.tipo = tipo
-        self.tipoSimbolo = getTipoSimbolo(tipoSimbolo)
+        self.id : str = id
+        self.tipo : Tipo = tipo
+        self.tipoDato : TipoDato = tipoDato
+        self.tipoSimbolo : TiposSimbolos = getTipoSimbolo(tipoSimbolo)

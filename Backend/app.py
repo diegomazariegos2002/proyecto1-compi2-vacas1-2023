@@ -60,7 +60,10 @@ def analizar():
         
         listaExcepciones = consolaGlobal.get_Excepciones()
         if listaExcepciones != []:
-                consolaGlobal.set_Consola("\nSe encontraron errores léxicos o sintácticos...\n")    
+            consolaGlobal.set_Consola("\nSe encontraron errores léxicos o sintácticos...\n")   
+            
+        for x in listaExcepciones:
+            print(x.descripcion) 
 
         salida = consolaGlobal.get_Consola()
         objeto = {

@@ -1,18 +1,21 @@
-class Excepcion:
+from datetime import datetime
 
-    def __init__(self, titulo:str, descripcion:str, linea:str, columna:str):
+class Excepcion:
+    def __init__(self, titulo: str, descripcion: str, linea: str, columna: str, fecha_hora: datetime):
         self.titulo = titulo
         self.descripcion = descripcion
         self.linea = linea
         self.columna = columna
+        self.fecha_hora = fecha_hora
 
     def __str__(self) -> str:
-        return f"{self.titulo} {self.descripcion} en la linea {self.linea} y columna {self.columna}"
-    
+        return f"{self.titulo} {self.descripcion} en la línea {self.linea} y columna {self.columna} ({self.fecha_hora})"
+
     def json(self):
         return {
             "titulo": self.titulo,
             "descripcion": self.descripcion,
             "linea": self.linea,
-            "columna": self.columna
+            "columna": self.columna,
+            "fecha_hora": self.fecha_hora.strftime("%Y-%m-%d %H:%M:%S")
         }

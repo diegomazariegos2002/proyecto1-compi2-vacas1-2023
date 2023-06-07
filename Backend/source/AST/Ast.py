@@ -16,4 +16,5 @@ class Ast:
     def ejecutar(self, ts):
         for instruccion in self.instrucciones:
             if isinstance(instruccion, Instruccion):
+                print(type(instruccion))
                 instruccion.ejecutar(ts)

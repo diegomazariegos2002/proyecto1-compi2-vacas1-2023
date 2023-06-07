@@ -1,5 +1,6 @@
 from source.errores.Excepcion import Excepcion
 from source.simbolo.Simbolo import Simbolo
+from source.abstracto.Retorno import TipoDato, Tipo
 
 
 class SingletonMeta(type):
@@ -42,7 +43,7 @@ class Consola(metaclass=SingletonMeta):
     def get_Consola (self):
         return self.consola
     
-    def set_Excepcion(self, excepcion):
+    def set_Excepcion(self, excepcion: Excepcion):
         self.listaExcepciones.append(excepcion)
         return
     
@@ -55,3 +56,15 @@ class Consola(metaclass=SingletonMeta):
 
     def get_Simbolos(self):
         return self.listaSimbolos
+    
+    def relacionarTipos(self, tipo:TipoDato):
+        if tipo == TipoDato.NUMERO:
+            return Tipo.NUMBER
+        elif tipo == TipoDato.CADENA:
+            return Tipo.STRING
+        elif tipo == TipoDato.BOOLEANO:
+            return Tipo.BOOLEAN
+        elif tipo == TipoDato.NULL:
+            return Tipo.NULL
+        elif tipo == TipoDato.ERROR:
+            return Tipo.ERROR

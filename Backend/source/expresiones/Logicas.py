@@ -1,5 +1,8 @@
+from datetime import datetime
 from source.abstracto.Expresion import Expresion
-from source.abstracto.Retorno import Retorno, Tipo, TipoLogicas
+from source.abstracto.Retorno import Retorno, Tipo, TipoLogicas, TipoDato
+from source.consola_singleton.Consola import Consola
+from source.errores.Excepcion import Excepcion
 from source.simbolo.TablaSimbolos import TablaSimbolos
 
 class Logicas(Expresion):
@@ -14,39 +17,50 @@ class Logicas(Expresion):
         
 
     def ejecutar(self, ts: TablaSimbolos) -> Retorno:
+        consolaGlobal = Consola()
         valorUnico : Retorno = None
         if self.unico != None:
             valorUnico = self.unico.ejecutar(ts)
-            if valorUnico.tipo == Tipo.ERROR:
-                return 
+            if valorUnico.tipo == TipoDato.ERROR:
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion logica", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR) 
             
         valorIzq : Retorno = self.izq.ejecutar(ts)
         if(self.der != None):
             valorDer : Retorno  = self.der.ejecutar(ts)
 
         if(self.operador == TipoLogicas.AND):
-            if valorIzq.tipo == Tipo.BOOLEAN and valorDer.tipo == Tipo.BOOLEAN:
+            if valorIzq.tipo == TipoDato.BOOLEANO and valorDer.tipo == TipoDato.BOOLEANO:
                 if(valorIzq.valor == True and valorDer.valor == True):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 else: 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion logica", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
         elif(self.operador == TipoLogicas.OR):
-            if valorIzq.tipo == Tipo.BOOLEAN and valorDer.tipo == Tipo.BOOLEAN:
+            if valorIzq.tipo == TipoDato.BOOLEANO and valorDer.tipo == TipoDato.BOOLEANO:
                 if(valorIzq.valor == False and valorDer.valor == False): 
-                    return Retorno(False, Tipo.BOOLEAN)
+                    return Retorno(False, TipoDato.BOOLEANO)
                 else:
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion logica", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
         elif(self.operador == TipoLogicas.NOT):
-            if valorUnico.tipo == Tipo.BOOLEAN:
+            if valorUnico.tipo == TipoDato.BOOLEANO:
                 if(valorIzq.valor == True):
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
                 elif(valorIzq.valor == False): 
-                    return Retorno(True, Tipo.BOOLEAN)
+                    return Retorno(True, TipoDato.BOOLEANO)
             else:
-                print("ERROR")
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion logica", self.line, self.column, datetime.now()))
+                return Retorno("Error", TipoDato.ERROR)
 
-        return Retorno(0, Tipo.ERROR)
+        # ERROR
+        consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe ese tipo de logica", self.line, self.column, datetime.now()))
+        return Retorno("Error", TipoDato.ERROR)

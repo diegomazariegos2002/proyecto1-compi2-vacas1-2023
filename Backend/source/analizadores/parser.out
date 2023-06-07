@@ -1,10 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    id
-    igual
-
 Grammar
 
 Rule 0     S' -> INICIO
@@ -12,74 +7,90 @@ Rule 1     INICIO -> ENTRADAS
 Rule 2     ENTRADAS -> ENTRADAS ENTRADA
 Rule 3     ENTRADAS -> ENTRADA
 Rule 4     ENTRADA -> IMPRIMIR puntoYcoma
-Rule 5     IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra
-Rule 6     LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION
-Rule 7     LISTAEXPRESIONES -> EXPRESION
-Rule 8     EXPRESION -> EXPRESION suma EXPRESION
-Rule 9     EXPRESION -> EXPRESION resta EXPRESION
-Rule 10    EXPRESION -> EXPRESION multiplicacion EXPRESION
-Rule 11    EXPRESION -> EXPRESION division EXPRESION
-Rule 12    EXPRESION -> EXPRESION potencia EXPRESION
-Rule 13    EXPRESION -> EXPRESION modulo EXPRESION
-Rule 14    EXPRESION -> resta EXPRESION
-Rule 15    EXPRESION -> EXPRESION and EXPRESION
-Rule 16    EXPRESION -> EXPRESION or EXPRESION
-Rule 17    EXPRESION -> not EXPRESION
-Rule 18    EXPRESION -> EXPRESION mayor EXPRESION
-Rule 19    EXPRESION -> EXPRESION mayorigual EXPRESION
-Rule 20    EXPRESION -> EXPRESION menor EXPRESION
-Rule 21    EXPRESION -> EXPRESION menorigual EXPRESION
-Rule 22    EXPRESION -> EXPRESION igualacion EXPRESION
-Rule 23    EXPRESION -> EXPRESION diferente EXPRESION
-Rule 24    EXPRESION -> cadena
-Rule 25    EXPRESION -> numero
-Rule 26    EXPRESION -> true
-Rule 27    EXPRESION -> false
-Rule 28    EXPRESION -> null
-Rule 29    EXPRESION -> any
+Rule 5     ENTRADA -> DECLARACION puntoYcoma
+Rule 6     DECLARACION -> let id igual EXPRESION
+Rule 7     DECLARACION -> let id dosPuntos TIPO igual EXPRESION
+Rule 8     ENTRADA -> ASIGNACION puntoYcoma
+Rule 9     ASIGNACION -> id igual EXPRESION
+Rule 10    IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra
+Rule 11    LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION
+Rule 12    LISTAEXPRESIONES -> EXPRESION
+Rule 13    EXPRESION -> EXPRESION suma EXPRESION
+Rule 14    EXPRESION -> EXPRESION resta EXPRESION
+Rule 15    EXPRESION -> EXPRESION multiplicacion EXPRESION
+Rule 16    EXPRESION -> EXPRESION division EXPRESION
+Rule 17    EXPRESION -> EXPRESION potencia EXPRESION
+Rule 18    EXPRESION -> EXPRESION modulo EXPRESION
+Rule 19    EXPRESION -> resta EXPRESION
+Rule 20    EXPRESION -> EXPRESION and EXPRESION
+Rule 21    EXPRESION -> EXPRESION or EXPRESION
+Rule 22    EXPRESION -> not EXPRESION
+Rule 23    EXPRESION -> EXPRESION mayor EXPRESION
+Rule 24    EXPRESION -> EXPRESION mayorigual EXPRESION
+Rule 25    EXPRESION -> EXPRESION menor EXPRESION
+Rule 26    EXPRESION -> EXPRESION menorigual EXPRESION
+Rule 27    EXPRESION -> EXPRESION igualacion EXPRESION
+Rule 28    EXPRESION -> EXPRESION diferente EXPRESION
+Rule 29    EXPRESION -> cadena
+Rule 30    EXPRESION -> numero
+Rule 31    EXPRESION -> true
+Rule 32    EXPRESION -> false
+Rule 33    EXPRESION -> null
+Rule 34    TIPO -> number
+Rule 35    TIPO -> string
+Rule 36    TIPO -> boolean
+Rule 37    TIPO -> any
 
 Terminals, with rules where they appear
 
-and                  : 15
-any                  : 29
-cadena               : 24
-coma                 : 6
-console              : 5
-diferente            : 23
-division             : 11
+and                  : 20
+any                  : 37
+boolean              : 36
+cadena               : 29
+coma                 : 11
+console              : 10
+diferente            : 28
+division             : 16
+dosPuntos            : 7
 error                : 
-false                : 27
-id                   : 
-igual                : 
-igualacion           : 22
-log                  : 5
-mayor                : 18
-mayorigual           : 19
-menor                : 20
-menorigual           : 21
-modulo               : 13
-multiplicacion       : 10
-not                  : 17
-null                 : 28
-numero               : 25
-or                   : 16
-p_Abre               : 5
-p_Cierra             : 5
-potencia             : 12
-punto                : 5
-puntoYcoma           : 4
-resta                : 9 14
-suma                 : 8
-true                 : 26
+false                : 32
+id                   : 6 7 9
+igual                : 6 7 9
+igualacion           : 27
+let                  : 6 7
+log                  : 10
+mayor                : 23
+mayorigual           : 24
+menor                : 25
+menorigual           : 26
+modulo               : 18
+multiplicacion       : 15
+not                  : 22
+null                 : 33
+number               : 34
+numero               : 30
+or                   : 21
+p_Abre               : 10
+p_Cierra             : 10
+potencia             : 17
+punto                : 10
+puntoYcoma           : 4 5 8
+resta                : 14 19
+string               : 35
+suma                 : 13
+true                 : 31
 
 Nonterminals, with rules where they appear
 
+ASIGNACION           : 8
+DECLARACION          : 5
 ENTRADA              : 2 3
 ENTRADAS             : 1 2
-EXPRESION            : 6 7 8 8 9 9 10 10 11 11 12 12 13 13 14 15 15 16 16 17 18 18 19 19 20 20 21 21 22 22 23 23
+EXPRESION            : 6 7 9 11 12 13 13 14 14 15 15 16 16 17 17 18 18 19 20 20 21 21 22 23 23 24 24 25 25 26 26 27 27 28 28
 IMPRIMIR             : 4
 INICIO               : 0
-LISTAEXPRESIONES     : 5 6
+LISTAEXPRESIONES     : 10 11
+TIPO                 : 7
 
 Parsing method: LALR
 
@@ -90,14 +101,23 @@ state 0
     (2) ENTRADAS -> . ENTRADAS ENTRADA
     (3) ENTRADAS -> . ENTRADA
     (4) ENTRADA -> . IMPRIMIR puntoYcoma
-    (5) IMPRIMIR -> . console punto log p_Abre LISTAEXPRESIONES p_Cierra
+    (5) ENTRADA -> . DECLARACION puntoYcoma
+    (8) ENTRADA -> . ASIGNACION puntoYcoma
+    (10) IMPRIMIR -> . console punto log p_Abre LISTAEXPRESIONES p_Cierra
+    (6) DECLARACION -> . let id igual EXPRESION
+    (7) DECLARACION -> . let id dosPuntos TIPO igual EXPRESION
+    (9) ASIGNACION -> . id igual EXPRESION
 
-    console         shift and go to state 5
+    console         shift and go to state 7
+    let             shift and go to state 8
+    id              shift and go to state 9
 
     INICIO                         shift and go to state 1
     ENTRADAS                       shift and go to state 2
     ENTRADA                        shift and go to state 3
     IMPRIMIR                       shift and go to state 4
+    DECLARACION                    shift and go to state 5
+    ASIGNACION                     shift and go to state 6
 
 state 1
 
@@ -110,19 +130,30 @@ state 2
     (1) INICIO -> ENTRADAS .
     (2) ENTRADAS -> ENTRADAS . ENTRADA
     (4) ENTRADA -> . IMPRIMIR puntoYcoma
-    (5) IMPRIMIR -> . console punto log p_Abre LISTAEXPRESIONES p_Cierra
+    (5) ENTRADA -> . DECLARACION puntoYcoma
+    (8) ENTRADA -> . ASIGNACION puntoYcoma
+    (10) IMPRIMIR -> . console punto log p_Abre LISTAEXPRESIONES p_Cierra
+    (6) DECLARACION -> . let id igual EXPRESION
+    (7) DECLARACION -> . let id dosPuntos TIPO igual EXPRESION
+    (9) ASIGNACION -> . id igual EXPRESION
 
     $end            reduce using rule 1 (INICIO -> ENTRADAS .)
-    console         shift and go to state 5
+    console         shift and go to state 7
+    let             shift and go to state 8
+    id              shift and go to state 9
 
-    ENTRADA                        shift and go to state 6
+    ENTRADA                        shift and go to state 10
     IMPRIMIR                       shift and go to state 4
+    DECLARACION                    shift and go to state 5
+    ASIGNACION                     shift and go to state 6
 
 state 3
 
     (3) ENTRADAS -> ENTRADA .
 
     console         reduce using rule 3 (ENTRADAS -> ENTRADA .)
+    let             reduce using rule 3 (ENTRADAS -> ENTRADA .)
+    id              reduce using rule 3 (ENTRADAS -> ENTRADA .)
     $end            reduce using rule 3 (ENTRADAS -> ENTRADA .)
 
 
@@ -130,1747 +161,2032 @@ state 4
 
     (4) ENTRADA -> IMPRIMIR . puntoYcoma
 
-    puntoYcoma      shift and go to state 7
+    puntoYcoma      shift and go to state 11
 
 
 state 5
 
-    (5) IMPRIMIR -> console . punto log p_Abre LISTAEXPRESIONES p_Cierra
+    (5) ENTRADA -> DECLARACION . puntoYcoma
 
-    punto           shift and go to state 8
+    puntoYcoma      shift and go to state 12
 
 
 state 6
 
-    (2) ENTRADAS -> ENTRADAS ENTRADA .
+    (8) ENTRADA -> ASIGNACION . puntoYcoma
 
-    console         reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
-    $end            reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+    puntoYcoma      shift and go to state 13
 
 
 state 7
 
-    (4) ENTRADA -> IMPRIMIR puntoYcoma .
+    (10) IMPRIMIR -> console . punto log p_Abre LISTAEXPRESIONES p_Cierra
 
-    console         reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
-    $end            reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
+    punto           shift and go to state 14
 
 
 state 8
 
-    (5) IMPRIMIR -> console punto . log p_Abre LISTAEXPRESIONES p_Cierra
+    (6) DECLARACION -> let . id igual EXPRESION
+    (7) DECLARACION -> let . id dosPuntos TIPO igual EXPRESION
 
-    log             shift and go to state 9
+    id              shift and go to state 15
 
 
 state 9
 
-    (5) IMPRIMIR -> console punto log . p_Abre LISTAEXPRESIONES p_Cierra
+    (9) ASIGNACION -> id . igual EXPRESION
 
-    p_Abre          shift and go to state 10
+    igual           shift and go to state 16
 
 
 state 10
 
-    (5) IMPRIMIR -> console punto log p_Abre . LISTAEXPRESIONES p_Cierra
-    (6) LISTAEXPRESIONES -> . LISTAEXPRESIONES coma EXPRESION
-    (7) LISTAEXPRESIONES -> . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
+    (2) ENTRADAS -> ENTRADAS ENTRADA .
 
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    console         reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+    let             reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+    id              reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
+    $end            reduce using rule 2 (ENTRADAS -> ENTRADAS ENTRADA .)
 
-    LISTAEXPRESIONES               shift and go to state 11
-    EXPRESION                      shift and go to state 12
 
 state 11
 
-    (5) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES . p_Cierra
-    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES . coma EXPRESION
+    (4) ENTRADA -> IMPRIMIR puntoYcoma .
 
-    p_Cierra        shift and go to state 21
-    coma            shift and go to state 22
+    console         reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
+    let             reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
+    id              reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
+    $end            reduce using rule 4 (ENTRADA -> IMPRIMIR puntoYcoma .)
 
 
 state 12
 
-    (7) LISTAEXPRESIONES -> EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (5) ENTRADA -> DECLARACION puntoYcoma .
 
-    p_Cierra        reduce using rule 7 (LISTAEXPRESIONES -> EXPRESION .)
-    coma            reduce using rule 7 (LISTAEXPRESIONES -> EXPRESION .)
-    suma            shift and go to state 23
-    resta           shift and go to state 24
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-    and             shift and go to state 29
-    or              shift and go to state 30
-    mayor           shift and go to state 31
-    mayorigual      shift and go to state 32
-    menor           shift and go to state 33
-    menorigual      shift and go to state 34
-    igualacion      shift and go to state 35
-    diferente       shift and go to state 36
+    console         reduce using rule 5 (ENTRADA -> DECLARACION puntoYcoma .)
+    let             reduce using rule 5 (ENTRADA -> DECLARACION puntoYcoma .)
+    id              reduce using rule 5 (ENTRADA -> DECLARACION puntoYcoma .)
+    $end            reduce using rule 5 (ENTRADA -> DECLARACION puntoYcoma .)
 
 
 state 13
 
-    (14) EXPRESION -> resta . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
+    (8) ENTRADA -> ASIGNACION puntoYcoma .
 
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    console         reduce using rule 8 (ENTRADA -> ASIGNACION puntoYcoma .)
+    let             reduce using rule 8 (ENTRADA -> ASIGNACION puntoYcoma .)
+    id              reduce using rule 8 (ENTRADA -> ASIGNACION puntoYcoma .)
+    $end            reduce using rule 8 (ENTRADA -> ASIGNACION puntoYcoma .)
 
-    EXPRESION                      shift and go to state 37
 
 state 14
 
-    (17) EXPRESION -> not . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
+    (10) IMPRIMIR -> console punto . log p_Abre LISTAEXPRESIONES p_Cierra
 
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    log             shift and go to state 17
 
-    EXPRESION                      shift and go to state 38
 
 state 15
 
-    (24) EXPRESION -> cadena .
+    (6) DECLARACION -> let id . igual EXPRESION
+    (7) DECLARACION -> let id . dosPuntos TIPO igual EXPRESION
 
-    suma            reduce using rule 24 (EXPRESION -> cadena .)
-    resta           reduce using rule 24 (EXPRESION -> cadena .)
-    multiplicacion  reduce using rule 24 (EXPRESION -> cadena .)
-    division        reduce using rule 24 (EXPRESION -> cadena .)
-    potencia        reduce using rule 24 (EXPRESION -> cadena .)
-    modulo          reduce using rule 24 (EXPRESION -> cadena .)
-    and             reduce using rule 24 (EXPRESION -> cadena .)
-    or              reduce using rule 24 (EXPRESION -> cadena .)
-    mayor           reduce using rule 24 (EXPRESION -> cadena .)
-    mayorigual      reduce using rule 24 (EXPRESION -> cadena .)
-    menor           reduce using rule 24 (EXPRESION -> cadena .)
-    menorigual      reduce using rule 24 (EXPRESION -> cadena .)
-    igualacion      reduce using rule 24 (EXPRESION -> cadena .)
-    diferente       reduce using rule 24 (EXPRESION -> cadena .)
-    p_Cierra        reduce using rule 24 (EXPRESION -> cadena .)
-    coma            reduce using rule 24 (EXPRESION -> cadena .)
+    igual           shift and go to state 18
+    dosPuntos       shift and go to state 19
 
 
 state 16
 
-    (25) EXPRESION -> numero .
+    (9) ASIGNACION -> id igual . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 25 (EXPRESION -> numero .)
-    resta           reduce using rule 25 (EXPRESION -> numero .)
-    multiplicacion  reduce using rule 25 (EXPRESION -> numero .)
-    division        reduce using rule 25 (EXPRESION -> numero .)
-    potencia        reduce using rule 25 (EXPRESION -> numero .)
-    modulo          reduce using rule 25 (EXPRESION -> numero .)
-    and             reduce using rule 25 (EXPRESION -> numero .)
-    or              reduce using rule 25 (EXPRESION -> numero .)
-    mayor           reduce using rule 25 (EXPRESION -> numero .)
-    mayorigual      reduce using rule 25 (EXPRESION -> numero .)
-    menor           reduce using rule 25 (EXPRESION -> numero .)
-    menorigual      reduce using rule 25 (EXPRESION -> numero .)
-    igualacion      reduce using rule 25 (EXPRESION -> numero .)
-    diferente       reduce using rule 25 (EXPRESION -> numero .)
-    p_Cierra        reduce using rule 25 (EXPRESION -> numero .)
-    coma            reduce using rule 25 (EXPRESION -> numero .)
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
+    EXPRESION                      shift and go to state 20
 
 state 17
 
-    (26) EXPRESION -> true .
+    (10) IMPRIMIR -> console punto log . p_Abre LISTAEXPRESIONES p_Cierra
 
-    suma            reduce using rule 26 (EXPRESION -> true .)
-    resta           reduce using rule 26 (EXPRESION -> true .)
-    multiplicacion  reduce using rule 26 (EXPRESION -> true .)
-    division        reduce using rule 26 (EXPRESION -> true .)
-    potencia        reduce using rule 26 (EXPRESION -> true .)
-    modulo          reduce using rule 26 (EXPRESION -> true .)
-    and             reduce using rule 26 (EXPRESION -> true .)
-    or              reduce using rule 26 (EXPRESION -> true .)
-    mayor           reduce using rule 26 (EXPRESION -> true .)
-    mayorigual      reduce using rule 26 (EXPRESION -> true .)
-    menor           reduce using rule 26 (EXPRESION -> true .)
-    menorigual      reduce using rule 26 (EXPRESION -> true .)
-    igualacion      reduce using rule 26 (EXPRESION -> true .)
-    diferente       reduce using rule 26 (EXPRESION -> true .)
-    p_Cierra        reduce using rule 26 (EXPRESION -> true .)
-    coma            reduce using rule 26 (EXPRESION -> true .)
+    p_Abre          shift and go to state 28
 
 
 state 18
 
-    (27) EXPRESION -> false .
+    (6) DECLARACION -> let id igual . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 27 (EXPRESION -> false .)
-    resta           reduce using rule 27 (EXPRESION -> false .)
-    multiplicacion  reduce using rule 27 (EXPRESION -> false .)
-    division        reduce using rule 27 (EXPRESION -> false .)
-    potencia        reduce using rule 27 (EXPRESION -> false .)
-    modulo          reduce using rule 27 (EXPRESION -> false .)
-    and             reduce using rule 27 (EXPRESION -> false .)
-    or              reduce using rule 27 (EXPRESION -> false .)
-    mayor           reduce using rule 27 (EXPRESION -> false .)
-    mayorigual      reduce using rule 27 (EXPRESION -> false .)
-    menor           reduce using rule 27 (EXPRESION -> false .)
-    menorigual      reduce using rule 27 (EXPRESION -> false .)
-    igualacion      reduce using rule 27 (EXPRESION -> false .)
-    diferente       reduce using rule 27 (EXPRESION -> false .)
-    p_Cierra        reduce using rule 27 (EXPRESION -> false .)
-    coma            reduce using rule 27 (EXPRESION -> false .)
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
+    EXPRESION                      shift and go to state 29
 
 state 19
 
-    (28) EXPRESION -> null .
+    (7) DECLARACION -> let id dosPuntos . TIPO igual EXPRESION
+    (34) TIPO -> . number
+    (35) TIPO -> . string
+    (36) TIPO -> . boolean
+    (37) TIPO -> . any
 
-    suma            reduce using rule 28 (EXPRESION -> null .)
-    resta           reduce using rule 28 (EXPRESION -> null .)
-    multiplicacion  reduce using rule 28 (EXPRESION -> null .)
-    division        reduce using rule 28 (EXPRESION -> null .)
-    potencia        reduce using rule 28 (EXPRESION -> null .)
-    modulo          reduce using rule 28 (EXPRESION -> null .)
-    and             reduce using rule 28 (EXPRESION -> null .)
-    or              reduce using rule 28 (EXPRESION -> null .)
-    mayor           reduce using rule 28 (EXPRESION -> null .)
-    mayorigual      reduce using rule 28 (EXPRESION -> null .)
-    menor           reduce using rule 28 (EXPRESION -> null .)
-    menorigual      reduce using rule 28 (EXPRESION -> null .)
-    igualacion      reduce using rule 28 (EXPRESION -> null .)
-    diferente       reduce using rule 28 (EXPRESION -> null .)
-    p_Cierra        reduce using rule 28 (EXPRESION -> null .)
-    coma            reduce using rule 28 (EXPRESION -> null .)
+    number          shift and go to state 31
+    string          shift and go to state 32
+    boolean         shift and go to state 33
+    any             shift and go to state 34
 
+    TIPO                           shift and go to state 30
 
 state 20
 
-    (29) EXPRESION -> any .
+    (9) ASIGNACION -> id igual EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
 
-    suma            reduce using rule 29 (EXPRESION -> any .)
-    resta           reduce using rule 29 (EXPRESION -> any .)
-    multiplicacion  reduce using rule 29 (EXPRESION -> any .)
-    division        reduce using rule 29 (EXPRESION -> any .)
-    potencia        reduce using rule 29 (EXPRESION -> any .)
-    modulo          reduce using rule 29 (EXPRESION -> any .)
-    and             reduce using rule 29 (EXPRESION -> any .)
-    or              reduce using rule 29 (EXPRESION -> any .)
-    mayor           reduce using rule 29 (EXPRESION -> any .)
-    mayorigual      reduce using rule 29 (EXPRESION -> any .)
-    menor           reduce using rule 29 (EXPRESION -> any .)
-    menorigual      reduce using rule 29 (EXPRESION -> any .)
-    igualacion      reduce using rule 29 (EXPRESION -> any .)
-    diferente       reduce using rule 29 (EXPRESION -> any .)
-    p_Cierra        reduce using rule 29 (EXPRESION -> any .)
-    coma            reduce using rule 29 (EXPRESION -> any .)
+    puntoYcoma      reduce using rule 9 (ASIGNACION -> id igual EXPRESION .)
+    suma            shift and go to state 35
+    resta           shift and go to state 36
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    and             shift and go to state 41
+    or              shift and go to state 42
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
 
 
 state 21
 
-    (5) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .
+    (19) EXPRESION -> resta . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    puntoYcoma      reduce using rule 5 (IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .)
-
-
-state 22
-
-    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES coma . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 39
-
-state 23
-
-    (8) EXPRESION -> EXPRESION suma . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 40
-
-state 24
-
-    (9) EXPRESION -> EXPRESION resta . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 41
-
-state 25
-
-    (10) EXPRESION -> EXPRESION multiplicacion . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 42
-
-state 26
-
-    (11) EXPRESION -> EXPRESION division . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 43
-
-state 27
-
-    (12) EXPRESION -> EXPRESION potencia . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 44
-
-state 28
-
-    (13) EXPRESION -> EXPRESION modulo . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 45
-
-state 29
-
-    (15) EXPRESION -> EXPRESION and . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 46
-
-state 30
-
-    (16) EXPRESION -> EXPRESION or . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 47
-
-state 31
-
-    (18) EXPRESION -> EXPRESION mayor . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
-
-    EXPRESION                      shift and go to state 48
-
-state 32
-
-    (19) EXPRESION -> EXPRESION mayorigual . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
-
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
     EXPRESION                      shift and go to state 49
 
-state 33
+state 22
 
-    (20) EXPRESION -> EXPRESION menor . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
+    (22) EXPRESION -> not . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
     EXPRESION                      shift and go to state 50
 
+state 23
+
+    (29) EXPRESION -> cadena .
+
+    suma            reduce using rule 29 (EXPRESION -> cadena .)
+    resta           reduce using rule 29 (EXPRESION -> cadena .)
+    multiplicacion  reduce using rule 29 (EXPRESION -> cadena .)
+    division        reduce using rule 29 (EXPRESION -> cadena .)
+    potencia        reduce using rule 29 (EXPRESION -> cadena .)
+    modulo          reduce using rule 29 (EXPRESION -> cadena .)
+    and             reduce using rule 29 (EXPRESION -> cadena .)
+    or              reduce using rule 29 (EXPRESION -> cadena .)
+    mayor           reduce using rule 29 (EXPRESION -> cadena .)
+    mayorigual      reduce using rule 29 (EXPRESION -> cadena .)
+    menor           reduce using rule 29 (EXPRESION -> cadena .)
+    menorigual      reduce using rule 29 (EXPRESION -> cadena .)
+    igualacion      reduce using rule 29 (EXPRESION -> cadena .)
+    diferente       reduce using rule 29 (EXPRESION -> cadena .)
+    puntoYcoma      reduce using rule 29 (EXPRESION -> cadena .)
+    p_Cierra        reduce using rule 29 (EXPRESION -> cadena .)
+    coma            reduce using rule 29 (EXPRESION -> cadena .)
+
+
+state 24
+
+    (30) EXPRESION -> numero .
+
+    suma            reduce using rule 30 (EXPRESION -> numero .)
+    resta           reduce using rule 30 (EXPRESION -> numero .)
+    multiplicacion  reduce using rule 30 (EXPRESION -> numero .)
+    division        reduce using rule 30 (EXPRESION -> numero .)
+    potencia        reduce using rule 30 (EXPRESION -> numero .)
+    modulo          reduce using rule 30 (EXPRESION -> numero .)
+    and             reduce using rule 30 (EXPRESION -> numero .)
+    or              reduce using rule 30 (EXPRESION -> numero .)
+    mayor           reduce using rule 30 (EXPRESION -> numero .)
+    mayorigual      reduce using rule 30 (EXPRESION -> numero .)
+    menor           reduce using rule 30 (EXPRESION -> numero .)
+    menorigual      reduce using rule 30 (EXPRESION -> numero .)
+    igualacion      reduce using rule 30 (EXPRESION -> numero .)
+    diferente       reduce using rule 30 (EXPRESION -> numero .)
+    puntoYcoma      reduce using rule 30 (EXPRESION -> numero .)
+    p_Cierra        reduce using rule 30 (EXPRESION -> numero .)
+    coma            reduce using rule 30 (EXPRESION -> numero .)
+
+
+state 25
+
+    (31) EXPRESION -> true .
+
+    suma            reduce using rule 31 (EXPRESION -> true .)
+    resta           reduce using rule 31 (EXPRESION -> true .)
+    multiplicacion  reduce using rule 31 (EXPRESION -> true .)
+    division        reduce using rule 31 (EXPRESION -> true .)
+    potencia        reduce using rule 31 (EXPRESION -> true .)
+    modulo          reduce using rule 31 (EXPRESION -> true .)
+    and             reduce using rule 31 (EXPRESION -> true .)
+    or              reduce using rule 31 (EXPRESION -> true .)
+    mayor           reduce using rule 31 (EXPRESION -> true .)
+    mayorigual      reduce using rule 31 (EXPRESION -> true .)
+    menor           reduce using rule 31 (EXPRESION -> true .)
+    menorigual      reduce using rule 31 (EXPRESION -> true .)
+    igualacion      reduce using rule 31 (EXPRESION -> true .)
+    diferente       reduce using rule 31 (EXPRESION -> true .)
+    puntoYcoma      reduce using rule 31 (EXPRESION -> true .)
+    p_Cierra        reduce using rule 31 (EXPRESION -> true .)
+    coma            reduce using rule 31 (EXPRESION -> true .)
+
+
+state 26
+
+    (32) EXPRESION -> false .
+
+    suma            reduce using rule 32 (EXPRESION -> false .)
+    resta           reduce using rule 32 (EXPRESION -> false .)
+    multiplicacion  reduce using rule 32 (EXPRESION -> false .)
+    division        reduce using rule 32 (EXPRESION -> false .)
+    potencia        reduce using rule 32 (EXPRESION -> false .)
+    modulo          reduce using rule 32 (EXPRESION -> false .)
+    and             reduce using rule 32 (EXPRESION -> false .)
+    or              reduce using rule 32 (EXPRESION -> false .)
+    mayor           reduce using rule 32 (EXPRESION -> false .)
+    mayorigual      reduce using rule 32 (EXPRESION -> false .)
+    menor           reduce using rule 32 (EXPRESION -> false .)
+    menorigual      reduce using rule 32 (EXPRESION -> false .)
+    igualacion      reduce using rule 32 (EXPRESION -> false .)
+    diferente       reduce using rule 32 (EXPRESION -> false .)
+    puntoYcoma      reduce using rule 32 (EXPRESION -> false .)
+    p_Cierra        reduce using rule 32 (EXPRESION -> false .)
+    coma            reduce using rule 32 (EXPRESION -> false .)
+
+
+state 27
+
+    (33) EXPRESION -> null .
+
+    suma            reduce using rule 33 (EXPRESION -> null .)
+    resta           reduce using rule 33 (EXPRESION -> null .)
+    multiplicacion  reduce using rule 33 (EXPRESION -> null .)
+    division        reduce using rule 33 (EXPRESION -> null .)
+    potencia        reduce using rule 33 (EXPRESION -> null .)
+    modulo          reduce using rule 33 (EXPRESION -> null .)
+    and             reduce using rule 33 (EXPRESION -> null .)
+    or              reduce using rule 33 (EXPRESION -> null .)
+    mayor           reduce using rule 33 (EXPRESION -> null .)
+    mayorigual      reduce using rule 33 (EXPRESION -> null .)
+    menor           reduce using rule 33 (EXPRESION -> null .)
+    menorigual      reduce using rule 33 (EXPRESION -> null .)
+    igualacion      reduce using rule 33 (EXPRESION -> null .)
+    diferente       reduce using rule 33 (EXPRESION -> null .)
+    puntoYcoma      reduce using rule 33 (EXPRESION -> null .)
+    p_Cierra        reduce using rule 33 (EXPRESION -> null .)
+    coma            reduce using rule 33 (EXPRESION -> null .)
+
+
+state 28
+
+    (10) IMPRIMIR -> console punto log p_Abre . LISTAEXPRESIONES p_Cierra
+    (11) LISTAEXPRESIONES -> . LISTAEXPRESIONES coma EXPRESION
+    (12) LISTAEXPRESIONES -> . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
+
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
+
+    LISTAEXPRESIONES               shift and go to state 51
+    EXPRESION                      shift and go to state 52
+
+state 29
+
+    (6) DECLARACION -> let id igual EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    puntoYcoma      reduce using rule 6 (DECLARACION -> let id igual EXPRESION .)
+    suma            shift and go to state 35
+    resta           shift and go to state 36
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    and             shift and go to state 41
+    or              shift and go to state 42
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
+
+
+state 30
+
+    (7) DECLARACION -> let id dosPuntos TIPO . igual EXPRESION
+
+    igual           shift and go to state 53
+
+
+state 31
+
+    (34) TIPO -> number .
+
+    igual           reduce using rule 34 (TIPO -> number .)
+
+
+state 32
+
+    (35) TIPO -> string .
+
+    igual           reduce using rule 35 (TIPO -> string .)
+
+
+state 33
+
+    (36) TIPO -> boolean .
+
+    igual           reduce using rule 36 (TIPO -> boolean .)
+
+
 state 34
 
-    (21) EXPRESION -> EXPRESION menorigual . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
+    (37) TIPO -> any .
 
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    igual           reduce using rule 37 (TIPO -> any .)
 
-    EXPRESION                      shift and go to state 51
 
 state 35
 
-    (22) EXPRESION -> EXPRESION igualacion . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
+    (13) EXPRESION -> EXPRESION suma . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-    EXPRESION                      shift and go to state 52
+    EXPRESION                      shift and go to state 54
 
 state 36
 
-    (23) EXPRESION -> EXPRESION diferente . EXPRESION
-    (8) EXPRESION -> . EXPRESION suma EXPRESION
-    (9) EXPRESION -> . EXPRESION resta EXPRESION
-    (10) EXPRESION -> . EXPRESION multiplicacion EXPRESION
-    (11) EXPRESION -> . EXPRESION division EXPRESION
-    (12) EXPRESION -> . EXPRESION potencia EXPRESION
-    (13) EXPRESION -> . EXPRESION modulo EXPRESION
-    (14) EXPRESION -> . resta EXPRESION
-    (15) EXPRESION -> . EXPRESION and EXPRESION
-    (16) EXPRESION -> . EXPRESION or EXPRESION
-    (17) EXPRESION -> . not EXPRESION
-    (18) EXPRESION -> . EXPRESION mayor EXPRESION
-    (19) EXPRESION -> . EXPRESION mayorigual EXPRESION
-    (20) EXPRESION -> . EXPRESION menor EXPRESION
-    (21) EXPRESION -> . EXPRESION menorigual EXPRESION
-    (22) EXPRESION -> . EXPRESION igualacion EXPRESION
-    (23) EXPRESION -> . EXPRESION diferente EXPRESION
-    (24) EXPRESION -> . cadena
-    (25) EXPRESION -> . numero
-    (26) EXPRESION -> . true
-    (27) EXPRESION -> . false
-    (28) EXPRESION -> . null
-    (29) EXPRESION -> . any
+    (14) EXPRESION -> EXPRESION resta . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    resta           shift and go to state 13
-    not             shift and go to state 14
-    cadena          shift and go to state 15
-    numero          shift and go to state 16
-    true            shift and go to state 17
-    false           shift and go to state 18
-    null            shift and go to state 19
-    any             shift and go to state 20
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-    EXPRESION                      shift and go to state 53
+    EXPRESION                      shift and go to state 55
 
 state 37
 
-    (14) EXPRESION -> resta EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (15) EXPRESION -> EXPRESION multiplicacion . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    resta           reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    multiplicacion  reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    division        reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    potencia        reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    modulo          reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    and             reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    or              reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    mayor           reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    mayorigual      reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    menor           reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    menorigual      reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    igualacion      reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    diferente       reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    p_Cierra        reduce using rule 14 (EXPRESION -> resta EXPRESION .)
-    coma            reduce using rule 14 (EXPRESION -> resta EXPRESION .)
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! multiplicacion  [ shift and go to state 25 ]
-  ! division        [ shift and go to state 26 ]
-  ! potencia        [ shift and go to state 27 ]
-  ! modulo          [ shift and go to state 28 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
-
+    EXPRESION                      shift and go to state 56
 
 state 38
 
-    (17) EXPRESION -> not EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (16) EXPRESION -> EXPRESION division . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    resta           reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    multiplicacion  reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    division        reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    potencia        reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    modulo          reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    and             reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    or              reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    mayor           reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    mayorigual      reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    menor           reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    menorigual      reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    igualacion      reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    diferente       reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    p_Cierra        reduce using rule 17 (EXPRESION -> not EXPRESION .)
-    coma            reduce using rule 17 (EXPRESION -> not EXPRESION .)
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! multiplicacion  [ shift and go to state 25 ]
-  ! division        [ shift and go to state 26 ]
-  ! potencia        [ shift and go to state 27 ]
-  ! modulo          [ shift and go to state 28 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
-
+    EXPRESION                      shift and go to state 57
 
 state 39
 
-    (6) LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (17) EXPRESION -> EXPRESION potencia . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    p_Cierra        reduce using rule 6 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
-    coma            reduce using rule 6 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
-    suma            shift and go to state 23
-    resta           shift and go to state 24
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-    and             shift and go to state 29
-    or              shift and go to state 30
-    mayor           shift and go to state 31
-    mayorigual      shift and go to state 32
-    menor           shift and go to state 33
-    menorigual      shift and go to state 34
-    igualacion      shift and go to state 35
-    diferente       shift and go to state 36
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
+    EXPRESION                      shift and go to state 58
 
 state 40
 
-    (8) EXPRESION -> EXPRESION suma EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (18) EXPRESION -> EXPRESION modulo . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
-    resta           reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
-    and             reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
-    or              reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
-    p_Cierra        reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
-    coma            reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-    mayor           shift and go to state 31
-    mayorigual      shift and go to state 32
-    menor           shift and go to state 33
-    menorigual      shift and go to state 34
-    igualacion      shift and go to state 35
-    diferente       shift and go to state 36
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! multiplicacion  [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! division        [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! potencia        [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! modulo          [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! mayor           [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! mayorigual      [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! menor           [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! menorigual      [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! igualacion      [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! diferente       [ reduce using rule 8 (EXPRESION -> EXPRESION suma EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-
+    EXPRESION                      shift and go to state 59
 
 state 41
 
-    (9) EXPRESION -> EXPRESION resta EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (20) EXPRESION -> EXPRESION and . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
-    resta           reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
-    and             reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
-    or              reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
-    p_Cierra        reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
-    coma            reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-    mayor           shift and go to state 31
-    mayorigual      shift and go to state 32
-    menor           shift and go to state 33
-    menorigual      shift and go to state 34
-    igualacion      shift and go to state 35
-    diferente       shift and go to state 36
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! multiplicacion  [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! division        [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! potencia        [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! modulo          [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! mayor           [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! mayorigual      [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! menor           [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! menorigual      [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! igualacion      [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! diferente       [ reduce using rule 9 (EXPRESION -> EXPRESION resta EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-
+    EXPRESION                      shift and go to state 60
 
 state 42
 
-    (10) EXPRESION -> EXPRESION multiplicacion EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (21) EXPRESION -> EXPRESION or . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    resta           reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    multiplicacion  reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    division        reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    modulo          reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    and             reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    or              reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    mayor           reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    mayorigual      reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    menor           reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    menorigual      reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    igualacion      reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    diferente       reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    p_Cierra        reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    coma            reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
-    potencia        shift and go to state 27
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! potencia        [ reduce using rule 10 (EXPRESION -> EXPRESION multiplicacion EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! multiplicacion  [ shift and go to state 25 ]
-  ! division        [ shift and go to state 26 ]
-  ! modulo          [ shift and go to state 28 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
-
+    EXPRESION                      shift and go to state 61
 
 state 43
 
-    (11) EXPRESION -> EXPRESION division EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (23) EXPRESION -> EXPRESION mayor . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    resta           reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    multiplicacion  reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    division        reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    modulo          reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    and             reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    or              reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    mayor           reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    mayorigual      reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    menor           reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    menorigual      reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    igualacion      reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    diferente       reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    p_Cierra        reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    coma            reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .)
-    potencia        shift and go to state 27
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! potencia        [ reduce using rule 11 (EXPRESION -> EXPRESION division EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! multiplicacion  [ shift and go to state 25 ]
-  ! division        [ shift and go to state 26 ]
-  ! modulo          [ shift and go to state 28 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
-
+    EXPRESION                      shift and go to state 62
 
 state 44
 
-    (12) EXPRESION -> EXPRESION potencia EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (24) EXPRESION -> EXPRESION mayorigual . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    resta           reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    multiplicacion  reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    division        reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    potencia        reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    modulo          reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    and             reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    or              reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    mayor           reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    mayorigual      reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    menor           reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    menorigual      reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    igualacion      reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    diferente       reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    p_Cierra        reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
-    coma            reduce using rule 12 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! multiplicacion  [ shift and go to state 25 ]
-  ! division        [ shift and go to state 26 ]
-  ! potencia        [ shift and go to state 27 ]
-  ! modulo          [ shift and go to state 28 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
-
+    EXPRESION                      shift and go to state 63
 
 state 45
 
-    (13) EXPRESION -> EXPRESION modulo EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (25) EXPRESION -> EXPRESION menor . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    resta           reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    multiplicacion  reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    division        reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    modulo          reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    and             reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    or              reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    mayor           reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    mayorigual      reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    menor           reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    menorigual      reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    igualacion      reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    diferente       reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    p_Cierra        reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    coma            reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .)
-    potencia        shift and go to state 27
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! potencia        [ reduce using rule 13 (EXPRESION -> EXPRESION modulo EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! multiplicacion  [ shift and go to state 25 ]
-  ! division        [ shift and go to state 26 ]
-  ! modulo          [ shift and go to state 28 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
-
+    EXPRESION                      shift and go to state 64
 
 state 46
 
-    (15) EXPRESION -> EXPRESION and EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (26) EXPRESION -> EXPRESION menorigual . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    and             reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .)
-    or              reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .)
-    p_Cierra        reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .)
-    coma            reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .)
-    suma            shift and go to state 23
-    resta           shift and go to state 24
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-    mayor           shift and go to state 31
-    mayorigual      shift and go to state 32
-    menor           shift and go to state 33
-    menorigual      shift and go to state 34
-    igualacion      shift and go to state 35
-    diferente       shift and go to state 36
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! suma            [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! resta           [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! multiplicacion  [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! division        [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! potencia        [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! modulo          [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! mayor           [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! mayorigual      [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! menor           [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! menorigual      [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! igualacion      [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! diferente       [ reduce using rule 15 (EXPRESION -> EXPRESION and EXPRESION .) ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-
+    EXPRESION                      shift and go to state 65
 
 state 47
 
-    (16) EXPRESION -> EXPRESION or EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (27) EXPRESION -> EXPRESION igualacion . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    or              reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .)
-    p_Cierra        reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .)
-    coma            reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .)
-    suma            shift and go to state 23
-    resta           shift and go to state 24
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-    and             shift and go to state 29
-    mayor           shift and go to state 31
-    mayorigual      shift and go to state 32
-    menor           shift and go to state 33
-    menorigual      shift and go to state 34
-    igualacion      shift and go to state 35
-    diferente       shift and go to state 36
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! suma            [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! resta           [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! multiplicacion  [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! division        [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! potencia        [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! modulo          [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! and             [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! mayor           [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! mayorigual      [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! menor           [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! menorigual      [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! igualacion      [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! diferente       [ reduce using rule 16 (EXPRESION -> EXPRESION or EXPRESION .) ]
-  ! or              [ shift and go to state 30 ]
-
+    EXPRESION                      shift and go to state 66
 
 state 48
 
-    (18) EXPRESION -> EXPRESION mayor EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (28) EXPRESION -> EXPRESION diferente . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    resta           reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    and             reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    or              reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    mayor           reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    mayorigual      reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    menor           reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    menorigual      reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    igualacion      reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    diferente       reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    p_Cierra        reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    coma            reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! multiplicacion  [ reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
-  ! division        [ reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
-  ! potencia        [ reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
-  ! modulo          [ reduce using rule 18 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
-
+    EXPRESION                      shift and go to state 67
 
 state 49
 
-    (19) EXPRESION -> EXPRESION mayorigual EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (19) EXPRESION -> resta EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
 
-    suma            reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    resta           reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    and             reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    or              reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    mayor           reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    mayorigual      reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    menor           reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    menorigual      reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    igualacion      reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    diferente       reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    p_Cierra        reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    coma            reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
+    suma            reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    resta           reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    multiplicacion  reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    division        reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    potencia        reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    modulo          reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    and             reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    or              reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    mayor           reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    mayorigual      reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    menor           reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    menorigual      reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    igualacion      reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    diferente       reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    puntoYcoma      reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    p_Cierra        reduce using rule 19 (EXPRESION -> resta EXPRESION .)
+    coma            reduce using rule 19 (EXPRESION -> resta EXPRESION .)
 
-  ! multiplicacion  [ reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
-  ! division        [ reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
-  ! potencia        [ reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
-  ! modulo          [ reduce using rule 19 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! multiplicacion  [ shift and go to state 37 ]
+  ! division        [ shift and go to state 38 ]
+  ! potencia        [ shift and go to state 39 ]
+  ! modulo          [ shift and go to state 40 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
 
 
 state 50
 
-    (20) EXPRESION -> EXPRESION menor EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (22) EXPRESION -> not EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
 
-    suma            reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    resta           reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    and             reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    or              reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    mayor           reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    mayorigual      reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    menor           reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    menorigual      reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    igualacion      reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    diferente       reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    p_Cierra        reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    coma            reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
+    suma            reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    resta           reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    multiplicacion  reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    division        reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    potencia        reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    modulo          reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    and             reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    or              reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    mayor           reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    mayorigual      reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    menor           reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    menorigual      reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    igualacion      reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    diferente       reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    puntoYcoma      reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    p_Cierra        reduce using rule 22 (EXPRESION -> not EXPRESION .)
+    coma            reduce using rule 22 (EXPRESION -> not EXPRESION .)
 
-  ! multiplicacion  [ reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .) ]
-  ! division        [ reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .) ]
-  ! potencia        [ reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .) ]
-  ! modulo          [ reduce using rule 20 (EXPRESION -> EXPRESION menor EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! multiplicacion  [ shift and go to state 37 ]
+  ! division        [ shift and go to state 38 ]
+  ! potencia        [ shift and go to state 39 ]
+  ! modulo          [ shift and go to state 40 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
 
 
 state 51
 
-    (21) EXPRESION -> EXPRESION menorigual EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (10) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES . p_Cierra
+    (11) LISTAEXPRESIONES -> LISTAEXPRESIONES . coma EXPRESION
 
-    suma            reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    resta           reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    and             reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    or              reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    mayor           reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    mayorigual      reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    menor           reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    menorigual      reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    igualacion      reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    diferente       reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    p_Cierra        reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    coma            reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-
-  ! multiplicacion  [ reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
-  ! division        [ reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
-  ! potencia        [ reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
-  ! modulo          [ reduce using rule 21 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
+    p_Cierra        shift and go to state 68
+    coma            shift and go to state 69
 
 
 state 52
 
-    (22) EXPRESION -> EXPRESION igualacion EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (12) LISTAEXPRESIONES -> EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
 
-    suma            reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    resta           reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    and             reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    or              reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    mayor           reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    mayorigual      reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    menor           reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    menorigual      reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    igualacion      reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    diferente       reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    p_Cierra        reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    coma            reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
-
-  ! multiplicacion  [ reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
-  ! division        [ reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
-  ! potencia        [ reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
-  ! modulo          [ reduce using rule 22 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
+    p_Cierra        reduce using rule 12 (LISTAEXPRESIONES -> EXPRESION .)
+    coma            reduce using rule 12 (LISTAEXPRESIONES -> EXPRESION .)
+    suma            shift and go to state 35
+    resta           shift and go to state 36
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    and             shift and go to state 41
+    or              shift and go to state 42
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
 
 
 state 53
 
-    (23) EXPRESION -> EXPRESION diferente EXPRESION .
-    (8) EXPRESION -> EXPRESION . suma EXPRESION
-    (9) EXPRESION -> EXPRESION . resta EXPRESION
-    (10) EXPRESION -> EXPRESION . multiplicacion EXPRESION
-    (11) EXPRESION -> EXPRESION . division EXPRESION
-    (12) EXPRESION -> EXPRESION . potencia EXPRESION
-    (13) EXPRESION -> EXPRESION . modulo EXPRESION
-    (15) EXPRESION -> EXPRESION . and EXPRESION
-    (16) EXPRESION -> EXPRESION . or EXPRESION
-    (18) EXPRESION -> EXPRESION . mayor EXPRESION
-    (19) EXPRESION -> EXPRESION . mayorigual EXPRESION
-    (20) EXPRESION -> EXPRESION . menor EXPRESION
-    (21) EXPRESION -> EXPRESION . menorigual EXPRESION
-    (22) EXPRESION -> EXPRESION . igualacion EXPRESION
-    (23) EXPRESION -> EXPRESION . diferente EXPRESION
+    (7) DECLARACION -> let id dosPuntos TIPO igual . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
 
-    suma            reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    resta           reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    and             reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    or              reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    mayor           reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    mayorigual      reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    menor           reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    menorigual      reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    igualacion      reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    diferente       reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    p_Cierra        reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    coma            reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .)
-    multiplicacion  shift and go to state 25
-    division        shift and go to state 26
-    potencia        shift and go to state 27
-    modulo          shift and go to state 28
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
 
-  ! multiplicacion  [ reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
-  ! division        [ reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
-  ! potencia        [ reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
-  ! modulo          [ reduce using rule 23 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
-  ! suma            [ shift and go to state 23 ]
-  ! resta           [ shift and go to state 24 ]
-  ! and             [ shift and go to state 29 ]
-  ! or              [ shift and go to state 30 ]
-  ! mayor           [ shift and go to state 31 ]
-  ! mayorigual      [ shift and go to state 32 ]
-  ! menor           [ shift and go to state 33 ]
-  ! menorigual      [ shift and go to state 34 ]
-  ! igualacion      [ shift and go to state 35 ]
-  ! diferente       [ shift and go to state 36 ]
+    EXPRESION                      shift and go to state 70
+
+state 54
+
+    (13) EXPRESION -> EXPRESION suma EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
+    resta           reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
+    and             reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
+    or              reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
+    puntoYcoma      reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
+    p_Cierra        reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
+    coma            reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
+
+  ! multiplicacion  [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! division        [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! potencia        [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! modulo          [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! mayor           [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! mayorigual      [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! menor           [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! menorigual      [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! igualacion      [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! diferente       [ reduce using rule 13 (EXPRESION -> EXPRESION suma EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+
+
+state 55
+
+    (14) EXPRESION -> EXPRESION resta EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
+    resta           reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
+    and             reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
+    or              reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
+    puntoYcoma      reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
+    p_Cierra        reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
+    coma            reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
+
+  ! multiplicacion  [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! division        [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! potencia        [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! modulo          [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! mayor           [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! mayorigual      [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! menor           [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! menorigual      [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! igualacion      [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! diferente       [ reduce using rule 14 (EXPRESION -> EXPRESION resta EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+
+
+state 56
+
+    (15) EXPRESION -> EXPRESION multiplicacion EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    resta           reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    multiplicacion  reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    division        reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    modulo          reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    and             reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    or              reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    mayor           reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    mayorigual      reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    menor           reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    menorigual      reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    igualacion      reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    diferente       reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    puntoYcoma      reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    p_Cierra        reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    coma            reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .)
+    potencia        shift and go to state 39
+
+  ! potencia        [ reduce using rule 15 (EXPRESION -> EXPRESION multiplicacion EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! multiplicacion  [ shift and go to state 37 ]
+  ! division        [ shift and go to state 38 ]
+  ! modulo          [ shift and go to state 40 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 57
+
+    (16) EXPRESION -> EXPRESION division EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    resta           reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    multiplicacion  reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    division        reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    modulo          reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    and             reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    or              reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    mayor           reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    mayorigual      reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    menor           reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    menorigual      reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    igualacion      reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    diferente       reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    puntoYcoma      reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    p_Cierra        reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    coma            reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .)
+    potencia        shift and go to state 39
+
+  ! potencia        [ reduce using rule 16 (EXPRESION -> EXPRESION division EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! multiplicacion  [ shift and go to state 37 ]
+  ! division        [ shift and go to state 38 ]
+  ! modulo          [ shift and go to state 40 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 58
+
+    (17) EXPRESION -> EXPRESION potencia EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    resta           reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    multiplicacion  reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    division        reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    potencia        reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    modulo          reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    and             reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    or              reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    mayor           reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    mayorigual      reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    menor           reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    menorigual      reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    igualacion      reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    diferente       reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    puntoYcoma      reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    p_Cierra        reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+    coma            reduce using rule 17 (EXPRESION -> EXPRESION potencia EXPRESION .)
+
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! multiplicacion  [ shift and go to state 37 ]
+  ! division        [ shift and go to state 38 ]
+  ! potencia        [ shift and go to state 39 ]
+  ! modulo          [ shift and go to state 40 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 59
+
+    (18) EXPRESION -> EXPRESION modulo EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    resta           reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    multiplicacion  reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    division        reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    modulo          reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    and             reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    or              reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    mayor           reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    mayorigual      reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    menor           reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    menorigual      reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    igualacion      reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    diferente       reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    puntoYcoma      reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    p_Cierra        reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    coma            reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .)
+    potencia        shift and go to state 39
+
+  ! potencia        [ reduce using rule 18 (EXPRESION -> EXPRESION modulo EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! multiplicacion  [ shift and go to state 37 ]
+  ! division        [ shift and go to state 38 ]
+  ! modulo          [ shift and go to state 40 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 60
+
+    (20) EXPRESION -> EXPRESION and EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    and             reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
+    or              reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
+    puntoYcoma      reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
+    p_Cierra        reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
+    coma            reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .)
+    suma            shift and go to state 35
+    resta           shift and go to state 36
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
+
+  ! suma            [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! resta           [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! multiplicacion  [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! division        [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! potencia        [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! modulo          [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! mayor           [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! mayorigual      [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! menor           [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! menorigual      [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! igualacion      [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! diferente       [ reduce using rule 20 (EXPRESION -> EXPRESION and EXPRESION .) ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+
+
+state 61
+
+    (21) EXPRESION -> EXPRESION or EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    or              reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .)
+    puntoYcoma      reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .)
+    p_Cierra        reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .)
+    coma            reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .)
+    suma            shift and go to state 35
+    resta           shift and go to state 36
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    and             shift and go to state 41
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
+
+  ! suma            [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! resta           [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! multiplicacion  [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! division        [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! potencia        [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! modulo          [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! and             [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! mayor           [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! mayorigual      [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! menor           [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! menorigual      [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! igualacion      [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! diferente       [ reduce using rule 21 (EXPRESION -> EXPRESION or EXPRESION .) ]
+  ! or              [ shift and go to state 42 ]
+
+
+state 62
+
+    (23) EXPRESION -> EXPRESION mayor EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    resta           reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    and             reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    or              reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    mayor           reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    mayorigual      reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    menor           reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    menorigual      reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    igualacion      reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    diferente       reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    puntoYcoma      reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    p_Cierra        reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    coma            reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+
+  ! multiplicacion  [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
+  ! division        [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
+  ! potencia        [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
+  ! modulo          [ reduce using rule 23 (EXPRESION -> EXPRESION mayor EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 63
+
+    (24) EXPRESION -> EXPRESION mayorigual EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    resta           reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    and             reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    or              reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    mayor           reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    mayorigual      reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    menor           reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    menorigual      reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    igualacion      reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    diferente       reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    puntoYcoma      reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    p_Cierra        reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    coma            reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+
+  ! multiplicacion  [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
+  ! division        [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
+  ! potencia        [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
+  ! modulo          [ reduce using rule 24 (EXPRESION -> EXPRESION mayorigual EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 64
+
+    (25) EXPRESION -> EXPRESION menor EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    resta           reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    and             reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    or              reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    mayor           reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    mayorigual      reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    menor           reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    menorigual      reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    igualacion      reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    diferente       reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    puntoYcoma      reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    p_Cierra        reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    coma            reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+
+  ! multiplicacion  [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
+  ! division        [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
+  ! potencia        [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
+  ! modulo          [ reduce using rule 25 (EXPRESION -> EXPRESION menor EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 65
+
+    (26) EXPRESION -> EXPRESION menorigual EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    resta           reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    and             reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    or              reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    mayor           reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    mayorigual      reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    menor           reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    menorigual      reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    igualacion      reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    diferente       reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    puntoYcoma      reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    p_Cierra        reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    coma            reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+
+  ! multiplicacion  [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
+  ! division        [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
+  ! potencia        [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
+  ! modulo          [ reduce using rule 26 (EXPRESION -> EXPRESION menorigual EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 66
+
+    (27) EXPRESION -> EXPRESION igualacion EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    resta           reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    and             reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    or              reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    mayor           reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    mayorigual      reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    menor           reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    menorigual      reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    igualacion      reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    diferente       reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    puntoYcoma      reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    p_Cierra        reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    coma            reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+
+  ! multiplicacion  [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
+  ! division        [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
+  ! potencia        [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
+  ! modulo          [ reduce using rule 27 (EXPRESION -> EXPRESION igualacion EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 67
+
+    (28) EXPRESION -> EXPRESION diferente EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    suma            reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    resta           reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    and             reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    or              reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    mayor           reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    mayorigual      reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    menor           reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    menorigual      reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    igualacion      reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    diferente       reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    puntoYcoma      reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    p_Cierra        reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    coma            reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .)
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+
+  ! multiplicacion  [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
+  ! division        [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
+  ! potencia        [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
+  ! modulo          [ reduce using rule 28 (EXPRESION -> EXPRESION diferente EXPRESION .) ]
+  ! suma            [ shift and go to state 35 ]
+  ! resta           [ shift and go to state 36 ]
+  ! and             [ shift and go to state 41 ]
+  ! or              [ shift and go to state 42 ]
+  ! mayor           [ shift and go to state 43 ]
+  ! mayorigual      [ shift and go to state 44 ]
+  ! menor           [ shift and go to state 45 ]
+  ! menorigual      [ shift and go to state 46 ]
+  ! igualacion      [ shift and go to state 47 ]
+  ! diferente       [ shift and go to state 48 ]
+
+
+state 68
+
+    (10) IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .
+
+    puntoYcoma      reduce using rule 10 (IMPRIMIR -> console punto log p_Abre LISTAEXPRESIONES p_Cierra .)
+
+
+state 69
+
+    (11) LISTAEXPRESIONES -> LISTAEXPRESIONES coma . EXPRESION
+    (13) EXPRESION -> . EXPRESION suma EXPRESION
+    (14) EXPRESION -> . EXPRESION resta EXPRESION
+    (15) EXPRESION -> . EXPRESION multiplicacion EXPRESION
+    (16) EXPRESION -> . EXPRESION division EXPRESION
+    (17) EXPRESION -> . EXPRESION potencia EXPRESION
+    (18) EXPRESION -> . EXPRESION modulo EXPRESION
+    (19) EXPRESION -> . resta EXPRESION
+    (20) EXPRESION -> . EXPRESION and EXPRESION
+    (21) EXPRESION -> . EXPRESION or EXPRESION
+    (22) EXPRESION -> . not EXPRESION
+    (23) EXPRESION -> . EXPRESION mayor EXPRESION
+    (24) EXPRESION -> . EXPRESION mayorigual EXPRESION
+    (25) EXPRESION -> . EXPRESION menor EXPRESION
+    (26) EXPRESION -> . EXPRESION menorigual EXPRESION
+    (27) EXPRESION -> . EXPRESION igualacion EXPRESION
+    (28) EXPRESION -> . EXPRESION diferente EXPRESION
+    (29) EXPRESION -> . cadena
+    (30) EXPRESION -> . numero
+    (31) EXPRESION -> . true
+    (32) EXPRESION -> . false
+    (33) EXPRESION -> . null
+
+    resta           shift and go to state 21
+    not             shift and go to state 22
+    cadena          shift and go to state 23
+    numero          shift and go to state 24
+    true            shift and go to state 25
+    false           shift and go to state 26
+    null            shift and go to state 27
+
+    EXPRESION                      shift and go to state 71
+
+state 70
+
+    (7) DECLARACION -> let id dosPuntos TIPO igual EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    puntoYcoma      reduce using rule 7 (DECLARACION -> let id dosPuntos TIPO igual EXPRESION .)
+    suma            shift and go to state 35
+    resta           shift and go to state 36
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    and             shift and go to state 41
+    or              shift and go to state 42
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
+
+
+state 71
+
+    (11) LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .
+    (13) EXPRESION -> EXPRESION . suma EXPRESION
+    (14) EXPRESION -> EXPRESION . resta EXPRESION
+    (15) EXPRESION -> EXPRESION . multiplicacion EXPRESION
+    (16) EXPRESION -> EXPRESION . division EXPRESION
+    (17) EXPRESION -> EXPRESION . potencia EXPRESION
+    (18) EXPRESION -> EXPRESION . modulo EXPRESION
+    (20) EXPRESION -> EXPRESION . and EXPRESION
+    (21) EXPRESION -> EXPRESION . or EXPRESION
+    (23) EXPRESION -> EXPRESION . mayor EXPRESION
+    (24) EXPRESION -> EXPRESION . mayorigual EXPRESION
+    (25) EXPRESION -> EXPRESION . menor EXPRESION
+    (26) EXPRESION -> EXPRESION . menorigual EXPRESION
+    (27) EXPRESION -> EXPRESION . igualacion EXPRESION
+    (28) EXPRESION -> EXPRESION . diferente EXPRESION
+
+    p_Cierra        reduce using rule 11 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
+    coma            reduce using rule 11 (LISTAEXPRESIONES -> LISTAEXPRESIONES coma EXPRESION .)
+    suma            shift and go to state 35
+    resta           shift and go to state 36
+    multiplicacion  shift and go to state 37
+    division        shift and go to state 38
+    potencia        shift and go to state 39
+    modulo          shift and go to state 40
+    and             shift and go to state 41
+    or              shift and go to state 42
+    mayor           shift and go to state 43
+    mayorigual      shift and go to state 44
+    menor           shift and go to state 45
+    menorigual      shift and go to state 46
+    igualacion      shift and go to state 47
+    diferente       shift and go to state 48
 

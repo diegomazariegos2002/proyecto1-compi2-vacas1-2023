@@ -1,5 +1,5 @@
 
-from source.abstracto.Retorno import Retorno, Tipo
+from source.abstracto.Retorno import Retorno, Tipo, TipoDato
 from source.consola_singleton.Consola import Consola
 from source.abstracto.Expresion import Expresion
 from source.abstracto.Instruccion import Instruccion
@@ -16,24 +16,24 @@ class ConsoleLog(Instruccion):
         consola = Consola()
         for expresion in self.valor:
             retorno:Retorno = expresion.ejecutar(ts)
-            if(retorno.tipo != Tipo.ERROR):
+            if(retorno.tipo != TipoDato.ERROR):
                 if(retorno != None):
-                    if(retorno.tipo == Tipo.STRING):
+                    if(retorno.tipo == TipoDato.CADENA):
                         consola.set_Consola(retorno.valor)
                         continue
-                    if(retorno.tipo == Tipo.NUMBER):
+                    if(retorno.tipo == TipoDato.NUMERO):
                         consola.set_Consola(str(retorno.valor))
                         continue
-                    if(retorno.tipo == Tipo.BOOLEAN):
+                    if(retorno.tipo == TipoDato.BOOLEANO):
                         if(retorno.valor == True):
                             consola.set_Consola("true")
                         elif(retorno.valor == False):
                             consola.set_Consola("false")
                         continue
-                    if(retorno.tipo == Tipo.NULL):
+                    if(retorno.tipo == TipoDato.NULL):
                         consola.set_Consola("null")
                         continue
-                    if(retorno.tipo == Tipo.ANY):
+                    if(retorno.tipo == TipoDato.ANY):
                         consola.set_Consola(str(retorno.valor))
                         continue
                     continue

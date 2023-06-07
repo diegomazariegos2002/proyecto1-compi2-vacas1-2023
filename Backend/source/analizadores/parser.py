@@ -1,16 +1,19 @@
 # Librerías implementadas
+from datetime import datetime
 from ply import yacc
 from source.consola_singleton.Consola import Consola
 
 from source.errores.Excepcion import Excepcion
 from .lexer import *
 # Librerías propias
-from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales
+from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato
 from source.expresiones.Primitivos import Primitivos
 from source.expresiones.Aritmeticas import Arimeticas
 from source.expresiones.Logicas import Logicas
 from source.expresiones.Relacionales import Relacionales
 from source.instrucciones.ConsoleLog import ConsoleLog
+from source.instrucciones.Declaracion import Declaracion
+from source.instrucciones.Asignacion import Asignacion
 from source.AST.Ast import Ast
 
 
@@ -65,12 +68,51 @@ def p_error(p):
     """
     ENTRADA : error puntoYcoma
     """
+    print(p)
     if p:
-        Consola().set_Excepcion(Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
+        Consola().set_Excepcion(Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos, datetime.now()))
         # este no se usa realmente
         listaErrores.append(
             Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
+        
+# ----------------- DECLARACION ----------------
 
+def p_ENTRADA_Declaracion(p):
+    """
+    ENTRADA : DECLARACION puntoYcoma
+    """
+    p[0] = p[1]
+
+def p_DECLARACION_NoTipada(p):
+    """
+    DECLARACION : let id igual EXPRESION
+    """
+    print("DECLARACION")
+    p[0] = Declaracion(p[2], None, p[4], p.lineno(1), calcularColumna(input, p.slice[1]))
+
+
+def p_DECLARACION_Tipada(p):
+    """
+    DECLARACION : let id dosPuntos TIPO igual EXPRESION
+    """
+    print("DECLARACION")
+    p[0] = Declaracion(p[2], p[4], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+# ------------------ ASIGNACION ------------------
+    
+def p_ENTRADA_Asignacion(p):
+    """
+    ENTRADA : ASIGNACION puntoYcoma
+    """
+    p[0] = p[1]
+
+def p_ASIGNACION(p):
+    """
+    ASIGNACION : id igual EXPRESION
+    """
+    print("ASIGNACION")
+    p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
+    
 # ------------------ IMPRIMIR ------------------
 def p_IMPRIMIR_1(p):
     """
@@ -215,14 +257,14 @@ def p_EXPRESION_cadena(p):
     """
     EXPRESION : cadena
     """
-    p[0] = Primitivos(p[1], Tipo.STRING, p.lineno(1),
+    p[0] = Primitivos(p[1], TipoDato.CADENA, p.lineno(1),
                   calcularColumna(input, p.slice[1]))
     
 def p_EXPRESION_numero(p):
     """
     EXPRESION : numero
     """
-    p[0] = Primitivos(p[1], Tipo.NUMBER, p.lineno(1),
+    p[0] = Primitivos(p[1], TipoDato.NUMERO, p.lineno(1),
                   calcularColumna(input, p.slice[1]))
 
 def p_EXPRESION_booleano(p):
@@ -230,22 +272,40 @@ def p_EXPRESION_booleano(p):
     EXPRESION : true
                 | false
     """
-    p[0] = Primitivos(p[1], Tipo.BOOLEAN, p.lineno(1),
+    p[0] = Primitivos(p[1], TipoDato.BOOLEANO, p.lineno(1),
                   calcularColumna(input, p.slice[1]))
     
 def p_EXPRESION_null(p):
     """
     EXPRESION : null
     """
-    p[0] = Primitivos(p[1], Tipo.NULL, p.lineno(1),
+    p[0] = Primitivos(p[1], TipoDato.NULL, p.lineno(1),
                   calcularColumna(input, p.slice[1]))
-    
-def p_EXPRESION_any(p):
+
+
+def p_TIPO_NUMBER(p):
     """
-    EXPRESION : any
+    TIPO : number
     """
-    p[0] = Primitivos(p[1], Tipo.ANY, p.lineno(1),
-                  calcularColumna(input, p.slice[1]))
+    p[0] = Tipo.NUMBER
+
+def p_TIPO_STRING(p):
+    """
+    TIPO : string
+    """
+    p[0] = Tipo.STRING
+
+def p_TIPO_BOOLEAN(p):
+    """
+    TIPO : boolean
+    """
+    p[0] = Tipo.BOOLEAN
+
+def p_TIPO_ANY(p):
+    """
+    TIPO : any
+    """
+    p[0] = Tipo.ANY
 
 
 # Crea el analizador sintáctico
