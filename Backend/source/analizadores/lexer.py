@@ -99,19 +99,16 @@ def t_cadena(t):
     t.value = t.value.replace('\\"', '\"')
     t.value = t.value.replace('\\t', '\t')
     t.value = t.value.replace("\\'", '\'')
-    print(t) 
     return t
 
 def t_numero(t):
     r'\d+(\.\d+)?'
     t.value = float(t.value) if '.' in t.value else int(t.value)
-    print(t) 
     return t
 
 def t_id(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reservadas.get(t.value, 'id')    # Check for reserved words
-    print(t) 
     return t
 
 def t_newLine(t):
