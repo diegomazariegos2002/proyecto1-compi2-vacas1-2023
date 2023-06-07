@@ -18,7 +18,6 @@ class Declaracion(Instruccion):
 
 
     def ejecutar(self, ts: TablaSimbolos):
-        print("DECLARACION")
         consola = Consola()
         expreValor:Retorno = self.expresion.ejecutar(ts)
         if(expreValor.tipo != Tipo.ERROR):
@@ -30,22 +29,22 @@ class Declaracion(Instruccion):
                         if existeVariable == False:
                             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                     elif consola.relacionarTipos(expreValor.tipo) == Tipo.NULL:
-                        simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor)
+                        simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None)
                         existeVariable = ts.insertar(self.id, simbol)
                         if existeVariable == False:
                             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                     elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
-                        simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None)
+                        simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor)
                         existeVariable = ts.insertar(self.id, simbol)
                         if existeVariable == False:
                             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                     else:
                             consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de la variable y el tipo del dato asignado no coinciden.", self.line, self.column, datetime.now()))
-            else:
-                simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor)
-                existeVariable = ts.insertar(self.id, simbol)
-                if existeVariable == False:
-                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                else:
+                    simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor)
+                    existeVariable = ts.insertar(self.id, simbol)
+                    if existeVariable == False:
+                        consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                             
         else:
             consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de dato declarado a una variable no puede ser un error.", self.line, self.column, datetime.now()))
