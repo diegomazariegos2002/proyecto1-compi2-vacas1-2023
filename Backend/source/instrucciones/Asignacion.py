@@ -29,8 +29,9 @@ class Asignacion(Instruccion):
                 # Actualizando el tipoDato de la variable ANY
                 variable.tipoDato = expresionRetorno.tipo
             else:   # si no, se lanza un error
-                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{expresionRetorno.tipo}]", self.line, self.column, datetime.now()))                
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
                 return
         
         # si todo esta bien, se actualiza la variable    
         ts.actualizarVariable(self.nombreVar, expresionRetorno.valor)
+        ts.recorrerTablaSimbolos()

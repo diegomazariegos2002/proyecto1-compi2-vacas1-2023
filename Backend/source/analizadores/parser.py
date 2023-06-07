@@ -87,7 +87,6 @@ def p_DECLARACION_NoTipada(p):
     """
     DECLARACION : let id igual EXPRESION
     """
-    print("DECLARACION")
     p[0] = Declaracion(p[2], None, p[4], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 
@@ -95,7 +94,6 @@ def p_DECLARACION_Tipada(p):
     """
     DECLARACION : let id dosPuntos TIPO igual EXPRESION
     """
-    print("DECLARACION")
     p[0] = Declaracion(p[2], p[4], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
     
 # ------------------ ASIGNACION ------------------
@@ -110,7 +108,6 @@ def p_ASIGNACION(p):
     """
     ASIGNACION : id igual EXPRESION
     """
-    print("ASIGNACION")
     p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
     
 # ------------------ IMPRIMIR ------------------
