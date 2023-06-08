@@ -1,6 +1,6 @@
 
 from source.abstracto.Expresion import Expresion
-from source.abstracto.Retorno import Retorno, Tipo, TipoDato
+from source.abstracto.Retorno import Retorno, Tipo, TipoDato, TipoVariable
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.simbolo.TablaSimbolos import TablaSimbolos
@@ -16,18 +16,18 @@ class Primitivos(Expresion):
     def ejecutar(self, ts: TablaSimbolos) -> Retorno:
         consolaGlobal = Consola()
         if(self.tipo == TipoDato.CADENA):
-            return Retorno(self.valor, self.tipo)
+            return Retorno(self.valor, self.tipo, TipoVariable.NORMAL)
         if(self.tipo == TipoDato.NUMERO):
-            return Retorno(self.valor, self.tipo)
+            return Retorno(self.valor, self.tipo, TipoVariable.NORMAL)
         if(self.tipo == TipoDato.BOOLEANO):
             if(self.valor == "true"):
-                return Retorno(True, self.tipo)
+                return Retorno(True, self.tipo, TipoVariable.NORMAL)
             if(self.valor == "false"):
-                return Retorno(False, self.tipo)
+                return Retorno(False, self.tipo, TipoVariable.NORMAL)
         if(self.tipo == TipoDato.NULL):
-            return Retorno(None, self.tipo)
+            return Retorno(None, self.tipo, TipoVariable.NORMAL)
         if(self.tipo == TipoDato.ANY):
-            return Retorno(self.valor, self.tipo)
+            return Retorno(self.valor, self.tipo, TipoVariable.NORMAL)
 
         consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Tipo de dato no reconocido", self.line, self.column))
-        return Retorno(0, Tipo.ERROR)
+        return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)

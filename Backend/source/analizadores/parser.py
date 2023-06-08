@@ -4,6 +4,11 @@ from ply import yacc
 from source.consola_singleton.Consola import Consola
 
 from source.errores.Excepcion import Excepcion
+from source.expresiones.nativas.ToExponential import ToExponential
+from source.expresiones.nativas.ToFixed import ToFixed
+from source.expresiones.nativas.ToLowerCase import ToLowerCase
+from source.expresiones.nativas.ToString import ToString
+from source.expresiones.nativas.ToUpperCase import ToUpperCase
 from .lexer import *
 # Librerías propias
 from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato
@@ -268,30 +273,35 @@ def p_FUNCION_TOFIXED(p):
     FUNCION_TOFIXED : id punto toFixed p_Abre EXPRESION p_Cierra
     """
     # semantico
+    p[0] = ToFixed(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_FUNCION_TOEXPONENTIAL(p):
     """
     FUNCION_TOEXPONENTIAL : id punto toExponential p_Abre EXPRESION p_Cierra
     """
     # semantico
+    p[0] = ToExponential(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_FUNCION_TOSTRING(p):
     """
     FUNCION_TOSTRING : id punto toString p_Abre p_Cierra
     """
     # semantico
+    p[0] = ToString(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_FUNCION_TOLOWERCASE(p):
     """
     FUNCION_TOLOWERCASE : id punto toLowerCase p_Abre p_Cierra
     """
     # semantico
+    p[0] = ToLowerCase(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_FUNCION_TOUPPERCASE(p):
     """
     FUNCION_TOUPPERCASE : id punto toUpperCase p_Abre p_Cierra
     """
     # semantico
+    p[0] = ToUpperCase(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_FUNCION_SPLIT(p):
     """

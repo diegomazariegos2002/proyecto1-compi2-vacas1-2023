@@ -68,3 +68,5 @@ class Consola(metaclass=SingletonMeta):
             return Tipo.NULL
         elif tipo == TipoDato.ERROR:
             return Tipo.ERROR
+        elif tipo == TipoDato.ANY:
+            return Tipo.ANY

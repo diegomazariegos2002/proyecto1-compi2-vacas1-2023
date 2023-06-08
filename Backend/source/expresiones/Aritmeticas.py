@@ -1,6 +1,6 @@
 from datetime import datetime
 from source.abstracto.Expresion import Expresion
-from source.abstracto.Retorno import Retorno, Tipo, Tipo_OperadorAritmetico, TipoDato
+from source.abstracto.Retorno import Retorno, Tipo, Tipo_OperadorAritmetico, TipoDato, TipoVariable
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.simbolo.TablaSimbolos import TablaSimbolos
@@ -26,7 +26,7 @@ class Arimeticas(Expresion):
             if valorUnico.tipo == TipoDato.ERROR:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
 
         valorIzq = self.izq.ejecutar(ts)
         if(self.der != None):
@@ -34,62 +34,62 @@ class Arimeticas(Expresion):
 
         if(self.operador == Tipo_OperadorAritmetico.SUMA):
             if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
-                return Retorno(valorIzq.valor + valorDer.valor, TipoDato.NUMERO)
+                return Retorno(valorIzq.valor + valorDer.valor, TipoDato.NUMERO, TipoVariable.NORMAL)
             elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
-                return Retorno(str(valorIzq.valor) + str(valorDer.valor), TipoDato.CADENA)
+                return Retorno(str(valorIzq.valor) + str(valorDer.valor), TipoDato.CADENA, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         elif(self.operador == Tipo_OperadorAritmetico.RESTA):
             if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
-                return Retorno(valorIzq.valor-valorDer.valor, TipoDato.NUMERO)
+                return Retorno(valorIzq.valor-valorDer.valor, TipoDato.NUMERO, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         elif(self.operador == Tipo_OperadorAritmetico.MULTIPLICACION):
             if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
-                return Retorno(valorIzq.valor*valorDer.valor, TipoDato.NUMERO)
+                return Retorno(valorIzq.valor*valorDer.valor, TipoDato.NUMERO, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         elif(self.operador == Tipo_OperadorAritmetico.DIVISION):
             if(valorDer.valor != 0):
                 if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
-                    return Retorno(valorIzq.valor/valorDer.valor, TipoDato.NUMERO)
+                    return Retorno(valorIzq.valor/valorDer.valor, TipoDato.NUMERO, TipoVariable.NORMAL)
                 else:
                     # ERROR
                     consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                    return Retorno("Error", TipoDato.ERROR)
+                    return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "division por cero imposible de realizar", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         elif(self.operador == Tipo_OperadorAritmetico.POTENCIA):
             if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
-                return Retorno(valorIzq.valor ** valorDer.valor, TipoDato.NUMERO)
+                return Retorno(valorIzq.valor ** valorDer.valor, TipoDato.NUMERO, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         elif(self.operador == Tipo_OperadorAritmetico.MODULO):
             if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
-                return Retorno(valorIzq.valor % valorDer.valor, TipoDato.NUMERO)
+                return Retorno(valorIzq.valor % valorDer.valor, TipoDato.NUMERO, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
                 return Retorno("Error", TipoDato.ERROR)
-        elif(self.operador == Tipo_OperadorAritmetico.NEGATIVO):
+        elif(self.operador == Tipo_OperadorAritmetico.NEGATIVO, TipoVariable.NORMAL):
             if valorUnico.tipo == TipoDato.NUMERO:
-                return Retorno(valorUnico.valor * (-1), TipoDato.NUMERO)
+                return Retorno(valorUnico.valor * (-1), TipoDato.NUMERO, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         else:
             # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
-                return Retorno("Error", TipoDato.ERROR)
+                return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
             

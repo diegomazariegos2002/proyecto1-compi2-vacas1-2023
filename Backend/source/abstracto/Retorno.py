@@ -24,6 +24,15 @@ class TipoDato(Enum):
     BOOLEANO = 3
     CADENA = 4
     ERROR = 5
+    ANY = 6
+
+class TipoVariable(Enum):
+    """
+    Enum de tipos de datos que se pueden manejar en el lenguaje
+    """
+
+    NORMAL = 1
+    VECTOR = 2
 
 class Tipo_OperadorAritmetico(Enum):
     """
@@ -79,7 +88,8 @@ class Retorno:
     Retorno de una expresion
     """
 
-    def __init__(self, valor:None, tipo:TipoDato) -> None:
+    def __init__(self, valor:None, tipo:TipoDato, tipoVariable:TipoVariable) -> None:
         self.valor = valor
         self.tipo = tipo
+        self.tipoVariable = tipoVariable
 
