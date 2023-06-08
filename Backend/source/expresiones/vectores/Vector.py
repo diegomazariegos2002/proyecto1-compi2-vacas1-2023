@@ -47,4 +47,4 @@ class Vector(Expresion):
         if error == True:
             return Retorno(None, TipoDato.ERROR, TipoVariable.NORMAL)
 
-        return Retorno(vectorRetornar, tipoVector, Tipo.VECTOR)
+        return Retorno(vectorRetornar, tipoVector, TipoVariable.VECTOR)

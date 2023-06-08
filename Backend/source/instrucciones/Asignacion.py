@@ -24,7 +24,11 @@ class Asignacion(Instruccion):
         if variable is None:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error en la asignacion, variable sin declarar", self.line, self.column, datetime.now()))
             return
-        if variable.tipoDato != expresionRetorno.tipo: # validar que los tipos sean iguales
+        if variable.tipoVariable != expresionRetorno.tipoVariable:
+            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se puede asignar un tipo primitivo y un vector", self.line, self.column, datetime.now()))
+            return
+        
+        if variable.tipo != consolaGlobal.relacionarTipos(expresionRetorno.tipo): # validar que los tipos sean iguales
             if variable.tipo == Tipo.ANY: # si la variable es de tipo ANY, se le asigna el tipo de la expresion
                 # Actualizando el tipoDato de la variable ANY
                 variable.tipoDato = expresionRetorno.tipo
