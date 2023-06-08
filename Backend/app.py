@@ -55,7 +55,7 @@ def analizar():
         ast: Ast = parsear(textoEntrada)
 
         if(ast != None):
-            ts = TablaSimbolos(None, 'Global')
+            ts = TablaSimbolos(None, 'GLOBAL-')
             ast.ejecutar(ts)
         
         listaExcepciones = consolaGlobal.get_Excepciones()

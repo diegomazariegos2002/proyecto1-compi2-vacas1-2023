@@ -67,6 +67,7 @@ def p_ENTRADAS_PARTE_2(p):
 def p_ENTRADA(p):
     """
     ENTRADA : IMPRIMIR puntoYcoma
+            |   IF
     """
     p[0] = p[1]
 
@@ -81,6 +82,26 @@ def p_error(p):
         listaErrores.append(
             Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
         
+# ------------------ IF ------------------
+def p_IF(p):
+    """
+    IF : if p_Abre EXPRESION p_Cierra llave_Abre ENTRADAS llave_Cierra COMPLEMENTO_IF
+    """
+    p[0] = If(p[3], p[6], p[8], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_COMPLEMENTO_IF(p):
+    """
+    COMPLEMENTO_IF : else IF
+                    | else llave_Abre ENTRADAS llave_Cierra
+                    | 
+    """
+    if len(p) == 3:
+        p[0] = p[2]
+    elif len(p) == 5:
+        p[0] = p[3]
+    else:
+        p[0] = None
+
 # ----------------- DECLARACION ----------------
 
 def p_ENTRADA_Declaracion(p):
@@ -115,6 +136,12 @@ def p_ASIGNACION(p):
     ASIGNACION : id igual EXPRESION
     """
     p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
+
+def p_ASIGNACION_VEC(p):
+    """
+    ASIGNACION : id LISTAINDICES igual EXPRESION
+    """
+    p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
     
 # ------------------ IMPRIMIR ------------------
 def p_IMPRIMIR_1(p):
@@ -136,6 +163,19 @@ def p_LISTAEXPRESIONES_2(p):
     LISTAEXPRESIONES : EXPRESION
     """
     p[0] = [p[1]]
+
+def p_LISTAEXPRESIONES_Indices(p):
+    """
+    LISTAINDICES :  LISTAINDICES c_Abre EXPRESION c_Cierra
+    """
+    p[1].append(p[3])
+    p[0] = p[1]
+
+def p_LISTAEXPRESIONES_Indices_2(p):
+    """
+    LISTAINDICES : c_Abre EXPRESION c_Cierra
+    """
+    p[0] = [p[2]]
 
 # ------------------ LISTA DE EXPRESIONES ARITMETICAS ------------------
 

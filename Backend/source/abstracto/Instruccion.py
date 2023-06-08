@@ -10,4 +10,7 @@ class Instruccion:
         self.column = column
 
     def ejecutar(self, ts: TablaSimbolos):
+        """
+        ejecutar puede retornar none o un valor (Instruccion, Expresion, Errores, etc)
+        """
         raise NotImplementedError("Subclasses must implement this method")

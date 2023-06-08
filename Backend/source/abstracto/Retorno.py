@@ -83,6 +83,12 @@ def getTipo(s: str):
         return Tipo.INTERFACE
     return Tipo.ERROR
 
+class VectorAux: 
+
+    def __init__(self, vectortmp, indice) -> None:
+        self.vectortmp = vectortmp
+        self.indice = indice
+
 class Retorno: 
     """
     Retorno de una expresion

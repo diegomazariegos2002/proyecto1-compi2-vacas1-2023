@@ -33,11 +33,15 @@ reservadas = {
     'toUpperCase': 'toUpperCase',
     'split': 'split',
     'concat': 'concat',
+    'if': 'if',
+    'else': 'else',
 }
 
 
 tokens = [
-        'cadena', 
+        'cadena',
+        'c_Abre',
+        'c_Cierra',
         'p_Abre',
         'p_Cierra',
         'igual',
@@ -62,6 +66,8 @@ tokens = [
         'menorigual',
         'dosPuntos',
         'id',
+        'llave_Abre',
+        'llave_Cierra',
         ] + list(reservadas.values())
 
 
@@ -69,6 +75,8 @@ tokens = [
 #Segunda forma para definir tokens mediante asignacion:
 t_p_Abre = r'\('
 t_p_Cierra = r'\)'
+t_c_Abre = r'\['
+t_c_Cierra = r'\]'
 t_igual = r'\='
 t_puntoYcoma = r';'
 t_punto = r'\.'
@@ -89,6 +97,8 @@ t_mayorigual = r'>='
 t_igualacion = r'==='
 t_diferente = r'\!=='
 t_dosPuntos = r':'
+t_llave_Abre = r'\{'
+t_llave_Cierra = r'\}'
 t_ignore = ' \t'
 t_ignore_COMENTARIOS = r'(\/\/.*[^\n])'
 t_ignore_MULTCOMENTARIOS = r'(\/\*([^*/]|[^*]\/|\*[^/])*\*\/)'
