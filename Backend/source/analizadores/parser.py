@@ -17,6 +17,7 @@ from source.expresiones.Aritmeticas import Arimeticas
 from source.expresiones.Logicas import Logicas
 from source.expresiones.Acceso import Acceso
 from source.expresiones.Relacionales import Relacionales
+from source.expresiones.vectores.Vector import Vector
 from source.instrucciones.ConsoleLog import ConsoleLog
 from source.instrucciones.Declaracion import Declaracion
 from source.instrucciones.Asignacion import Asignacion
@@ -101,6 +102,18 @@ def p_DECLARACION_Tipada(p):
     DECLARACION : let id dosPuntos TIPO igual EXPRESION
     """
     p[0] = Declaracion(p[2], p[4], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
+
+def p_DECLARACION_SinExpresion_SinTipado(p):
+    """
+    DECLARACION : let id 
+    """
+    p[0] = Declaracion(p[2], None, None, p.lineno(1), calcularColumna(input, p.slice[1]))
+
+def p_DECLARACION_SinExpresion_Tipado(p):
+    """
+    DECLARACION : let id dosPuntos TIPO
+    """
+    p[0] = Declaracion(p[2], p[4], None, p.lineno(1), calcularColumna(input, p.slice[1]))
     
 # ------------------ ASIGNACION ------------------
     
@@ -113,6 +126,12 @@ def p_ENTRADA_Asignacion(p):
 def p_ASIGNACION(p):
     """
     ASIGNACION : id igual EXPRESION
+    """
+    p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
+    
+def p_ASIGNACION_VEC(p):
+    """
+    ASIGNACION : id LISTAINDICES igual EXPRESION
     """
     p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
     
@@ -136,6 +155,19 @@ def p_LISTAEXPRESIONES_2(p):
     LISTAEXPRESIONES : EXPRESION
     """
     p[0] = [p[1]]
+    
+def p_LISTAEXPRESIONES_Indices(p):
+    """
+    LISTAINDICES :  LISTAINDICES c_Abre EXPRESION c_Cierra
+    """
+    p[1].append(p[3])
+    p[0] = p[1]
+
+def p_LISTAEXPRESIONES_2(p):
+    """
+    LISTAINDICES : c_Abre EXPRESION c_Cierra
+    """
+    p[0] = [p[2]]
 
 # ------------------ LISTA DE EXPRESIONES ARITMETICAS ------------------
 
@@ -346,6 +378,13 @@ def p_EXPRESION_Acceso(p):
     EXPRESION : id
     """
     p[0] = Acceso(p[1], p.lineno(1),
+                  calcularColumna(input, p.slice[1]))
+    
+def p_EXPRESION_Vector(p):
+    """
+    EXPRESION : c_Abre LISTAEXPRESIONES c_Cierra
+    """
+    p[0] = Vector(p[2], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
 
 

@@ -10,3 +10,7 @@ Resultado:
 {
   "textoSalida": ""
 }
+
+{
+    "textoEntrada": "let x:any = \"HOLA\"; \n x = 0; \n console.log(x);"
+}

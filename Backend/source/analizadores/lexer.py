@@ -39,7 +39,9 @@ reservadas = {
 tokens = [
         'cadena', 
         'p_Abre',
-        'p_Cierra',
+        'p_Cierra', 
+        'c_Abre',
+        'c_Cierra',
         'igual',
         'puntoYcoma',
         'punto',
@@ -69,6 +71,8 @@ tokens = [
 #Segunda forma para definir tokens mediante asignacion:
 t_p_Abre = r'\('
 t_p_Cierra = r'\)'
+t_c_Abre = r'\['
+t_c_Cierra = r'\]'
 t_igual = r'\='
 t_puntoYcoma = r';'
 t_punto = r'\.'
