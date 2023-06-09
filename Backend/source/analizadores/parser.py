@@ -77,7 +77,8 @@ def p_ENTRADA(p):
             |   IF puntoYcoma
             |   WHILE puntoYcoma
             |   BREAK
-            |  CONTINUE
+            |   CONTINUE
+            |   FOR puntoYcoma
     """
     p[0] = p[1]
 
@@ -92,6 +93,13 @@ def p_error(p):
         listaErrores.append(
             Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
         
+# ------------------ FOR ------------------
+def p_FOR(p):
+    """
+    FOR : for p_Abre DECLARACION puntoYcoma EXPRESION puntoYcoma ASIGNACION p_Cierra llave_Abre ENTRADAS llave_Cierra
+    """
+    #p[0] = For(p[3], p[5], p[7], p[10], p.lineno(1), calcularColumna(input, p.slice[1]))
+
 # ------------------ SENTENCIAS DE TRANSFERENCIA ------------------
 def p_BREAK(p):
     """

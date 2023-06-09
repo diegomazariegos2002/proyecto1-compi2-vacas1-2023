@@ -3,6 +3,7 @@ from source.abstracto.Retorno import Retorno, Tipo, TipoDato
 from source.consola_singleton.Consola import Consola
 from source.abstracto.Expresion import Expresion
 from source.abstracto.Instruccion import Instruccion
+from source.errores.Excepcion import Excepcion
 from source.simbolo.TablaSimbolos import TablaSimbolos
 
 
@@ -35,5 +36,7 @@ class ConsoleLog(Instruccion):
                         continue
                     continue
                 continue
-            # consola.set_Consola("Error en la ejecucion de la instruccion ConsoleLog")
-            return
+            else:
+                consola.set_Consola("Error en la ejecucion de la instruccion ConsoleLog, tipo no valido")
+                return Excepcion()
+        return

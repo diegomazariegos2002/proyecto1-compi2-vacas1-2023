@@ -38,6 +38,7 @@ reservadas = {
     'while': 'while',
     'break': 'break',
     'continue': 'continue',
+    'for': 'for',
 }
 
 

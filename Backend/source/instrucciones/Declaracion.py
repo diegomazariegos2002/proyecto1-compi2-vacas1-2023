@@ -25,11 +25,14 @@ class Declaracion(Instruccion):
                 existeVariable = ts.insertar(self.id, simbol)
                 if existeVariable == False:
                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                    return Excepcion()
+                    
             else:
                 simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, TipoDato.NULL, self.id, None, TipoVariable.NORMAL)
                 existeVariable = ts.insertar(self.id, simbol)
                 if existeVariable == False:
                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                    return Excepcion()
             return
         
         expreValor:Retorno = self.expresion.ejecutar(ts)
@@ -42,18 +45,22 @@ class Declaracion(Instruccion):
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                         elif consola.relacionarTipos(expreValor.tipo) == Tipo.NULL:
                             simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None, TipoVariable.NORMAL)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                         elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
                             simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                         else:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de la variable y el tipo del dato asignado no coinciden.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                     elif expreValor.tipoVariable == TipoVariable.VECTOR:
                         
                         if consola.relacionarTipos(expreValor.tipo) == self.tipo:
@@ -61,18 +68,22 @@ class Declaracion(Instruccion):
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                         elif consola.relacionarTipos(expreValor.tipo) == Tipo.NULL:
                             simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None, TipoVariable.NORMAL)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                         elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
                             simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                         else:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de la variable y el tipo del dato asignado no coinciden.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                 else:
                     if expreValor.tipoVariable == TipoVariable.NORMAL:
                         if consola.relacionarTipos(expreValor.tipo) == Tipo.NULL:
@@ -80,17 +91,21 @@ class Declaracion(Instruccion):
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                         else:
                             simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
                     elif expreValor.tipoVariable == TipoVariable.VECTOR:
                         simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR)
                         existeVariable = ts.insertar(self.id, simbol)
                         if existeVariable == False:
                             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                            return Excepcion()
         else:
             consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de dato declarado a una variable no puede ser un error.", self.line, self.column, datetime.now()))
+            return Excepcion()
         # consola.set_Consola("Error en la ejecucion de la instruccion ConsoleLog")
         return

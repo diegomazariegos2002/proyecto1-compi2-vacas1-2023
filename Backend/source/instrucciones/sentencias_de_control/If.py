@@ -32,7 +32,7 @@ class If(Instruccion):
             # ERROR
             consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el if no es de tipo boolean", self.line, self.column, datetime.now()))
             # nota: no retorna nada entonces cuidado con los ciclos infinitos
-            return
+            return Excepcion()
 
         # Si solo viene el if
         if self.insEntraOpcionales == None:
@@ -43,6 +43,8 @@ class If(Instruccion):
                     # En algunos casos hay instrucciones que si retorna algo
                     if resultIns != None:
                         # Verificar si lo que devuelve son returns, continues, breaks.
+                        if isinstance(resultIns, Excepcion):
+                            return Excepcion()
                         if isinstance(resultIns, Return):
                             return resultIns
                         if isinstance(resultIns, Break):
@@ -58,6 +60,8 @@ class If(Instruccion):
                     # En algunos casos hay instrucciones que si retorna algo
                     if resultIns != None:
                         # Verificar si lo que devuelve son returns, continues, breaks.
+                        if isinstance(resultIns, Excepcion):
+                            return Excepcion()
                         if isinstance(resultIns, Return):
                             return resultIns
                         if isinstance(resultIns, Break):
@@ -75,6 +79,8 @@ class If(Instruccion):
                         # En algunos casos hay instrucciones que si retorna algo
                         if resultIns != None:
                             # Verificar si lo que devuelve son returns, continues, breaks.
+                            if isinstance(resultIns, Excepcion):
+                                return Excepcion()
                             if isinstance(resultIns, Return):
                                 return resultIns
                             if isinstance(resultIns, Break):
@@ -88,6 +94,8 @@ class If(Instruccion):
                     # En algunos casos hay instrucciones que si retorna algo
                     if resultIns != None:
                         # Verificar si lo que devuelve son returns, continues, breaks.
+                        if isinstance(resultIns, Excepcion):
+                            return Excepcion()
                         if isinstance(resultIns, Return):
                             return resultIns
                         if isinstance(resultIns, Break):

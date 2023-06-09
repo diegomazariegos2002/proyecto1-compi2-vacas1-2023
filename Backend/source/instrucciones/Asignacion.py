@@ -23,10 +23,10 @@ class Asignacion(Instruccion):
         # validar que todo este bien antes de actualizar la variable
         if variable is None:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error en la asignacion, variable sin declarar", self.line, self.column, datetime.now()))
-            return
+            return Excepcion()
         if variable.tipoVariable != expresionRetorno.tipoVariable:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se puede asignar un tipo primitivo y un vector", self.line, self.column, datetime.now()))
-            return
+            return Excepcion()
         
         if variable.tipo != consolaGlobal.relacionarTipos(expresionRetorno.tipo): # validar que los tipos sean iguales
             if variable.tipo == Tipo.ANY: # si la variable es de tipo ANY, se le asigna el tipo de la expresion
@@ -34,7 +34,7 @@ class Asignacion(Instruccion):
                 variable.tipoDato = expresionRetorno.tipo
             else:   # si no, se lanza un error
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
-                return
+                return Excepcion()
         
         # si todo esta bien, se actualiza la variable    
         ts.actualizarVariable(self.nombreVar, expresionRetorno.valor)

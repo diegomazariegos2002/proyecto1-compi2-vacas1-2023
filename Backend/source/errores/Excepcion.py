@@ -1,7 +1,7 @@
 from datetime import datetime
 
 class Excepcion:
-    def __init__(self, titulo: str, descripcion: str, linea: str, columna: str, fecha_hora: datetime):
+    def __init__(self, titulo: str ="", descripcion: str="", linea: str=0, columna: str=0, fecha_hora: datetime=datetime.now()):
         self.titulo = titulo
         self.descripcion = descripcion
         self.linea = linea

@@ -30,17 +30,20 @@ class While(Instruccion):
             # ERROR
             consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el while no es de tipo boolean", self.line, self.column, datetime.now()))
             # nota: no retorna nada entonces cuidado con los ciclos infinitos
-            return
+            return Excepcion()
+                            
         
         while self.condicion.ejecutar(ts).valor:
             newEnviroment = TablaSimbolos(ts, "WHILE-")
             for instruccion in self.insEntraWhile:
                 resultIns : Union[None, Instruccion]= instruccion.ejecutar(newEnviroment)
                 # Verificar que instancias nos devuelve
+                if isinstance(resultIns, Excepcion):
+                    return Excepcion()
                 if isinstance(resultIns, Return):
                     return resultIns
                 if isinstance(resultIns, Break):
-                    return resultIns
+                    return
                 if isinstance(resultIns, Continue):
                     break
         return
