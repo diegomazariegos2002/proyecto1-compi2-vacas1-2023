@@ -9,6 +9,7 @@ from source.expresiones.nativas.ToFixed import ToFixed
 from source.expresiones.nativas.ToLowerCase import ToLowerCase
 from source.expresiones.nativas.ToString import ToString
 from source.expresiones.nativas.ToUpperCase import ToUpperCase
+from source.instrucciones.sentencias_ciclicas.For import For
 from source.instrucciones.sentencias_ciclicas.While import While
 from source.instrucciones.sentencias_de_control.If import If
 from source.instrucciones.sentencias_de_transferencia.Break import Break
@@ -98,7 +99,7 @@ def p_FOR(p):
     """
     FOR : for p_Abre DECLARACION puntoYcoma EXPRESION puntoYcoma ASIGNACION p_Cierra llave_Abre ENTRADAS llave_Cierra
     """
-    #p[0] = For(p[3], p[5], p[7], p[10], p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = For(p[3], p[5], p[7], p[10], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 # ------------------ SENTENCIAS DE TRANSFERENCIA ------------------
 def p_BREAK(p):

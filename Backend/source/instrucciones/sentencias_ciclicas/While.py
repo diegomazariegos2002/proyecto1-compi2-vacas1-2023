@@ -36,7 +36,7 @@ class While(Instruccion):
         while self.condicion.ejecutar(ts).valor:
             newEnviroment = TablaSimbolos(ts, "WHILE-")
             for instruccion in self.insEntraWhile:
-                resultIns : Union[None, Instruccion]= instruccion.ejecutar(newEnviroment)
+                resultIns : Union[None, Instruccion, Excepcion]= instruccion.ejecutar(newEnviroment)
                 # Verificar que instancias nos devuelve
                 if isinstance(resultIns, Excepcion):
                     return Excepcion()

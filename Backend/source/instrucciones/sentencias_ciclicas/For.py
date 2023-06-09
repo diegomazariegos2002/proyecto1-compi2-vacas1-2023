@@ -37,10 +37,6 @@ class For(Instruccion):
             retornoDeclaracion = self.declaracion.ejecutar(newEnviromentFor)
         if isinstance(retornoDeclaracion, Excepcion):
             return Excepcion()
-        if self.asignacion != None:
-            retornoAsignacion = self.asignacion.ejecutar(newEnviromentFor)
-        if isinstance(retornoAsignacion, Excepcion):
-            return Excepcion()
         if self.condicion == None:
             # ERROR
             consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el for no viene", self.line, self.column, datetime.now()))
@@ -51,16 +47,22 @@ class For(Instruccion):
             consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el for no es de tipo boolean", self.line, self.column, datetime.now()))
             return Excepcion()
         
+        
         # Ejecutar el for
-        while self.condicion.ejecutar(newEnviroment).valor:
-            newEnviroment = TablaSimbolos(ts, "WHILE-")
+        while self.condicion.ejecutar(newEnviromentFor).valor:
             for instruccion in self.insEntraFor:
-                resultIns : Union[None, Instruccion]= instruccion.ejecutar(newEnviroment)
+                resultIns : Union[None, Instruccion, Excepcion]= instruccion.ejecutar(newEnviromentFor)
                 # Verificar que instancias nos devuelve
+                if isinstance(resultIns, Excepcion):
+                    return Excepcion()
                 if isinstance(resultIns, Return):
                     return resultIns
                 if isinstance(resultIns, Break):
                     return resultIns
                 if isinstance(resultIns, Continue):
                     break
+            if self.asignacion != None:
+                retornoAsignacion = self.asignacion.ejecutar(newEnviromentFor)
+            if isinstance(retornoAsignacion, Excepcion):
+                return Excepcion()
         return
