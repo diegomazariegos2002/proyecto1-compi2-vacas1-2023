@@ -35,13 +35,13 @@ reservadas = {
     'concat': 'concat',
     'if': 'if',
     'else': 'else',
+    'while': 'while',
+    'break': 'break',
 }
 
 
 tokens = [
         'cadena',
-        'c_Abre',
-        'c_Cierra',
         'p_Abre',
         'p_Cierra', 
         'c_Abre',

@@ -1,7 +1,7 @@
 JSON probado:
 
 {
-  "textoEntrada":     let x = 0;x=2;let a : any = 2; let b : string = a.toString(); let c : string = \"hola\"+\" mundo\"; let d : string = a.toString() + x.toString(); let e : string = c.toUpperCase(); let f : string =e.toLowerCase(); let g : string = x.toFixed(5); let h: number = 2.2344445; let i : string = h.toExponential(2);
+  "textoEntrada":     "let x = 0;x=2;let a : any = 2; let b : string = a.toString(); let c : string = \"hola\"+\" mundo\"; let d : string = a.toString() + x.toString(); let e : string = c.toUpperCase(); let f : string =e.toLowerCase(); let g : string = x.toFixed(5); let h: number = 2.2344445; let i : string = h.toExponential(2);"
 
 }
 

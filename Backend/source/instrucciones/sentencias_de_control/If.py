@@ -20,7 +20,7 @@ class If(Instruccion):
 
     def ejecutar(self, ts: TablaSimbolos):
         """
-        IF al ejecutar va a devolver un valor
+        IF al ejecutar va a devolver un valor (return, break, continue)
         """
         consola = Consola()
         retornoExpresion:Retorno = self.condicion.ejecutar(ts)
@@ -40,6 +40,7 @@ class If(Instruccion):
                     # En algunos casos hay instrucciones que si retorna algo
                     if resultIns != None:
                         # Verificar si lo que devuelve son returns, continues, breaks.
+                        
                         return
         # si if viene con otra condición (else if, else)
         else:
@@ -57,7 +58,7 @@ class If(Instruccion):
                 # si insEntraOpcionales estamos hablando de un ELSE
                 if isinstance(self.insEntraOpcionales, list):
                     newEnviroment2 = TablaSimbolos(ts, "ELSE-")
-                    for instruccion in self.insEntraIf:
+                    for instruccion in self.insEntraOpcionales:
                         resultIns:Instruccion = instruccion.ejecutar(newEnviroment2)
                         # En algunos casos hay instrucciones que si retorna algo
                         if resultIns != None:

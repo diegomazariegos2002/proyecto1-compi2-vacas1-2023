@@ -9,6 +9,7 @@ from source.expresiones.nativas.ToFixed import ToFixed
 from source.expresiones.nativas.ToLowerCase import ToLowerCase
 from source.expresiones.nativas.ToString import ToString
 from source.expresiones.nativas.ToUpperCase import ToUpperCase
+from source.instrucciones.sentencias_de_control.If import If
 from .lexer import *
 # Librerías propias
 from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato
@@ -21,6 +22,7 @@ from source.expresiones.vectores.Vector import Vector
 from source.instrucciones.ConsoleLog import ConsoleLog
 from source.instrucciones.Declaracion import Declaracion
 from source.instrucciones.Asignacion import Asignacion
+from source.instrucciones.AsignacionVec import AsignacionVec
 from source.AST.Ast import Ast
 
 
@@ -68,7 +70,9 @@ def p_ENTRADAS_PARTE_2(p):
 def p_ENTRADA(p):
     """
     ENTRADA : IMPRIMIR puntoYcoma
-            |   IF
+            |   IF puntoYcoma
+            |   WHILE puntoYcoma
+            |   BREAK
     """
     p[0] = p[1]
 
@@ -82,6 +86,20 @@ def p_error(p):
         # este no se usa realmente
         listaErrores.append(
             Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
+        
+# ------------------ SENTENCIAS DE TRANSFERENCIA ------------------
+def p_BREAK(p):
+    """
+    BREAK : break puntoYcoma
+    """
+    #p[0] = Break(p.lineno(1), calcularColumna(input, p.slice[1]))
+
+# ------------------ WHILE ------------------
+def p_WHILE(p):
+    """
+    WHILE : while p_Abre EXPRESION p_Cierra llave_Abre ENTRADAS llave_Cierra
+    """
+    #p[0] = While(p[3], p[6], p.lineno(1), calcularColumna(input, p.slice[1])
         
 # ------------------ IF ------------------
 def p_IF(p):
@@ -154,13 +172,7 @@ def p_ASIGNACION_VEC(p):
     """
     ASIGNACION : id LISTAINDICES igual EXPRESION
     """
-    p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
-    
-def p_ASIGNACION_VEC(p):
-    """
-    ASIGNACION : id LISTAINDICES igual EXPRESION
-    """
-    p[0] = Asignacion(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))  
+    p[0] = AsignacionVec(p[1], p[2], p[4], p.lineno(1), calcularColumna(input, p.slice[1]))  
     
 # ------------------ IMPRIMIR ------------------
 def p_IMPRIMIR_1(p):
@@ -182,19 +194,6 @@ def p_LISTAEXPRESIONES_2(p):
     LISTAEXPRESIONES : EXPRESION
     """
     p[0] = [p[1]]
-    
-def p_LISTAEXPRESIONES_Indices(p):
-    """
-    LISTAINDICES :  LISTAINDICES c_Abre EXPRESION c_Cierra
-    """
-    p[1].append(p[3])
-    p[0] = p[1]
-
-def p_LISTAEXPRESIONES_2(p):
-    """
-    LISTAINDICES : c_Abre EXPRESION c_Cierra
-    """
-    p[0] = [p[2]]
 
 def p_LISTAEXPRESIONES_Indices(p):
     """
