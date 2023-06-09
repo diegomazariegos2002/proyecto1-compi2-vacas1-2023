@@ -23,10 +23,10 @@ class AsignacionVec(Instruccion):
         i: Expresion = None
         for i in self.indices:
             indi:Retorno = i.ejecutar(ts)
-            if indi.tipo != Tipo.NUMBER:
+            if indi.tipo != TipoDato.NUMERO:
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "El indice para un vector debe ser numérico", self.line, self.column, datetime.now()))
                 return
-            indices.append(indi)
+            indices.append(round(indi.valor))
 
         variable : Simbolo = ts.buscar(self.nombreVar)
         # validar que todo este bien antes de actualizar la variable
@@ -43,20 +43,34 @@ class AsignacionVec(Instruccion):
 
         for x in range(0, len(indices)):
             if x == len(indices)-1:
-                if  varVal.tipo == expresionRetorno.tipo or varVal.tipo == TipoDato.ANY:
-                    if(indices[x] < len(varVal)):
-                        varVal[indices[x]] = expresionRetorno
-                        vectorAux.append(VectorAux(varVal, indices[x]))
+                if isinstance(varVal, Retorno):
+                    if(indices[x] < len(varVal.valor)):
+                        if  varVal.valor[indices[x]].tipo == expresionRetorno.tipo or varVal.valor.tipo == TipoDato.ANY:
+                                varVal.valor[indices[x]] = expresionRetorno
+                                vectorAux.append(VectorAux(varVal, indices[x]))
+                            
+                        else:
+                            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Los tipo de datos de las variables no coinciden.", self.line, self.column, datetime.now()))
+                            return
                     else:
-                        consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
-                        return
+                            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
+                            return
                 else:
-                    consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Los tipo de datos de las variables no coinciden.", self.line, self.column, datetime.now()))
-                    return
+                    if(indices[x] < len(varVal)):
+                        if  varVal[indices[x]].tipo == expresionRetorno.tipo or varVal.tipo == TipoDato.ANY:
+                                varVal[indices[x]] = expresionRetorno
+                                vectorAux.append(VectorAux(varVal, indices[x]))
+                            
+                        else:
+                            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Los tipo de datos de las variables no coinciden.", self.line, self.column, datetime.now()))
+                            return
+                    else:
+                            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
+                            return 
             else:
-                if  varVal.tipoVariable == TipoVariable.VECTOR:
+                if  varVal[indices[x]].tipoVariable == TipoVariable.VECTOR:
                     vectorAux.append(VectorAux(varVal, indices[x]))
-                    varVal = varVal[indices[x]]
+                    varVal = varVal[indices[x]].valor
                 else:
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
                     return

@@ -17,6 +17,7 @@ from source.expresiones.Primitivos import Primitivos
 from source.expresiones.Aritmeticas import Arimeticas
 from source.expresiones.Logicas import Logicas
 from source.expresiones.Acceso import Acceso
+from source.expresiones.vectores.AccesoVector import AccesoVector
 from source.expresiones.Relacionales import Relacionales
 from source.expresiones.vectores.Vector import Vector
 from source.instrucciones.ConsoleLog import ConsoleLog
@@ -417,6 +418,13 @@ def p_EXPRESION_Acceso(p):
     EXPRESION : id
     """
     p[0] = Acceso(p[1], p.lineno(1),
+                  calcularColumna(input, p.slice[1]))
+
+def p_EXPRESION_Acceso_Vector(p):
+    """
+    EXPRESION : id LISTAINDICES
+    """
+    p[0] = AccesoVector(p[1], p[2], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
     
 def p_EXPRESION_Vector(p):
