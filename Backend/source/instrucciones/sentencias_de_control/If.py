@@ -5,6 +5,9 @@ from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.abstracto.Expresion import Expresion
 from source.abstracto.Instruccion import Instruccion
+from source.instrucciones.sentencias_de_transferencia.Break import Break
+from source.instrucciones.sentencias_de_transferencia.Continue import Continue
+from source.instrucciones.sentencias_de_transferencia.Return import Return
 from source.simbolo.TablaSimbolos import TablaSimbolos
 from source.simbolo.Simbolo import Simbolo, TiposSimbolos
 
@@ -40,8 +43,12 @@ class If(Instruccion):
                     # En algunos casos hay instrucciones que si retorna algo
                     if resultIns != None:
                         # Verificar si lo que devuelve son returns, continues, breaks.
-                        
-                        return
+                        if isinstance(resultIns, Return):
+                            return resultIns
+                        if isinstance(resultIns, Break):
+                            return resultIns
+                        if isinstance(resultIns, Continue):
+                            return resultIns
         # si if viene con otra condición (else if, else)
         else:
             newEnviroment = TablaSimbolos(ts, "IF-")
@@ -51,7 +58,12 @@ class If(Instruccion):
                     # En algunos casos hay instrucciones que si retorna algo
                     if resultIns != None:
                         # Verificar si lo que devuelve son returns, continues, breaks.
-                        return
+                        if isinstance(resultIns, Return):
+                            return resultIns
+                        if isinstance(resultIns, Break):
+                            return resultIns
+                        if isinstance(resultIns, Continue):
+                            return resultIns
             else:
                 # como no se cumplio el if, se ejecuta el else si hay
                 # y si es un else if se ejecuta el else if
@@ -63,7 +75,12 @@ class If(Instruccion):
                         # En algunos casos hay instrucciones que si retorna algo
                         if resultIns != None:
                             # Verificar si lo que devuelve son returns, continues, breaks.
-                            return
+                            if isinstance(resultIns, Return):
+                                return resultIns
+                            if isinstance(resultIns, Break):
+                                return resultIns
+                            if isinstance(resultIns, Continue):
+                                return resultIns
                 # ELSE IF
                 else:
                     newEnviroment2 = TablaSimbolos(ts, "ELSE IF-")
@@ -71,6 +88,11 @@ class If(Instruccion):
                     # En algunos casos hay instrucciones que si retorna algo
                     if resultIns != None:
                         # Verificar si lo que devuelve son returns, continues, breaks.
-                        return
+                        if isinstance(resultIns, Return):
+                            return resultIns
+                        if isinstance(resultIns, Break):
+                            return resultIns
+                        if isinstance(resultIns, Continue):
+                            return resultIns
         return
         

@@ -37,6 +37,7 @@ reservadas = {
     'else': 'else',
     'while': 'while',
     'break': 'break',
+    'continue': 'continue',
 }
 
 

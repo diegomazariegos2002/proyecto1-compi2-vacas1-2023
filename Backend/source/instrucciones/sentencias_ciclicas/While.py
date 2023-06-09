@@ -32,20 +32,15 @@ class While(Instruccion):
             # nota: no retorna nada entonces cuidado con los ciclos infinitos
             return
         
-        while retornoCondicion.valor:
+        while self.condicion.ejecutar(ts).valor:
             newEnviroment = TablaSimbolos(ts, "WHILE-")
             for instruccion in self.insEntraWhile:
-                retorno : Union[None, Instruccion]= instruccion.ejecutar(newEnviroment)
+                resultIns : Union[None, Instruccion]= instruccion.ejecutar(newEnviroment)
                 # Verificar que instancias nos devuelve
-                if isinstance(retorno, Return):
-                    return retorno
-
-                if isinstance(retorno, Break):
-                    return
-                
-                if isinstance(retorno, Continue):
+                if isinstance(resultIns, Return):
+                    return resultIns
+                if isinstance(resultIns, Break):
+                    return resultIns
+                if isinstance(resultIns, Continue):
                     break
-                
-                
-        
         return

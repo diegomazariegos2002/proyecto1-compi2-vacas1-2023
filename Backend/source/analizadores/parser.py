@@ -9,7 +9,10 @@ from source.expresiones.nativas.ToFixed import ToFixed
 from source.expresiones.nativas.ToLowerCase import ToLowerCase
 from source.expresiones.nativas.ToString import ToString
 from source.expresiones.nativas.ToUpperCase import ToUpperCase
+from source.instrucciones.sentencias_ciclicas.While import While
 from source.instrucciones.sentencias_de_control.If import If
+from source.instrucciones.sentencias_de_transferencia.Break import Break
+from source.instrucciones.sentencias_de_transferencia.Continue import Continue
 from .lexer import *
 # Librerías propias
 from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato
@@ -74,6 +77,7 @@ def p_ENTRADA(p):
             |   IF puntoYcoma
             |   WHILE puntoYcoma
             |   BREAK
+            |  CONTINUE
     """
     p[0] = p[1]
 
@@ -93,14 +97,20 @@ def p_BREAK(p):
     """
     BREAK : break puntoYcoma
     """
-    #p[0] = Break(p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Break(p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_CONTINUE(p):
+    """
+    CONTINUE : continue puntoYcoma
+    """
+    p[0] = Continue(p.lineno(1), calcularColumna(input, p.slice[1]))
 
 # ------------------ WHILE ------------------
 def p_WHILE(p):
     """
     WHILE : while p_Abre EXPRESION p_Cierra llave_Abre ENTRADAS llave_Cierra
     """
-    #p[0] = While(p[3], p[6], p.lineno(1), calcularColumna(input, p.slice[1])
+    p[0] = While(p[3], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
         
 # ------------------ IF ------------------
 def p_IF(p):

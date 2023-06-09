@@ -34,7 +34,7 @@ class Relacionales(Expresion):
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
                 return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL) 
-        elif(self.operador == TipoRelacionales.MAYORIGUAL, TipoVariable.NORMAL):
+        elif(self.operador == TipoRelacionales.MAYORIGUAL):
             if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 if(valorIzq.valor >= valorDer.valor):
                     return Retorno(True, TipoDato.BOOLEANO, TipoVariable.NORMAL)

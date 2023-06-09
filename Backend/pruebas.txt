@@ -1,7 +1,7 @@
 JSON probado:
 
 {
-  "textoEntrada":     "let x = 0;x=2;let a : any = 2; let b : string = a.toString(); let c : string = \"hola\"+\" mundo\"; let d : string = a.toString() + x.toString(); let e : string = c.toUpperCase(); let f : string =e.toLowerCase(); let g : string = x.toFixed(5); let h: number = 2.2344445; let i : string = h.toExponential(2);"
+  "textoEntrada":     "let counter: number = 0;while (counter < 5) {console.log(counter);counter = counter+1;};"
 
 }
 
@@ -14,3 +14,6 @@ Resultado:
 {
     "textoEntrada": "let x:any = \"HOLA\"; \n x = 0; \n console.log(x);"
 }
+
+
+while (counter < 10) {if(counter === 2){counter = counter +1;continue;};console.log(counter);counter = counter + 1 ;if (counter === 5) {break;};};
