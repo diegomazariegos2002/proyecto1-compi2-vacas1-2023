@@ -51,6 +51,8 @@ tokens = [
         'igual',
         'puntoYcoma',
         'punto',
+        'incremento',
+        'decremento',
         'suma',
         'resta',
         'multiplicacion',
@@ -84,6 +86,8 @@ t_c_Cierra = r'\]'
 t_igual = r'\='
 t_puntoYcoma = r';'
 t_punto = r'\.'
+t_incremento = r'\+\+'
+t_decremento = r'--'
 t_suma = r'\+'
 t_resta = r'-'
 t_multiplicacion = r'\*'

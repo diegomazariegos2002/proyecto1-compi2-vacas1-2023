@@ -194,6 +194,20 @@ def p_ASIGNACION_VEC(p):
     """
     p[0] = AsignacionVec(p[1], p[2], p[4], p.lineno(1), calcularColumna(input, p.slice[1]))  
     
+def p_ASIGNACION_INC(p):
+    """
+    ASIGNACION : id incremento
+                | id incremento puntoYcoma
+    """
+    #p[0] = Incremento_Ins(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_ASIGNACION_DEC(p):
+    """
+    ASIGNACION : id decremento
+                | id decremento puntoYcoma
+    """
+    #p[0] = Decremento_Ins(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
 # ------------------ IMPRIMIR ------------------
 def p_IMPRIMIR_1(p):
     """
