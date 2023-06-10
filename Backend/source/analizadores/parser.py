@@ -9,6 +9,8 @@ from source.expresiones.nativas.ToFixed import ToFixed
 from source.expresiones.nativas.ToLowerCase import ToLowerCase
 from source.expresiones.nativas.ToString import ToString
 from source.expresiones.nativas.ToUpperCase import ToUpperCase
+from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
+from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
 from source.instrucciones.sentencias_ciclicas.For import For
 from source.instrucciones.sentencias_ciclicas.While import While
 from source.instrucciones.sentencias_de_control.If import If
@@ -80,6 +82,8 @@ def p_ENTRADA(p):
             |   BREAK
             |   CONTINUE
             |   FOR puntoYcoma
+            |   INCREMENTO puntoYcoma
+            |   DECREMENTO puntoYcoma
     """
     p[0] = p[1]
 
@@ -97,9 +101,17 @@ def p_error(p):
 # ------------------ FOR ------------------
 def p_FOR(p):
     """
-    FOR : for p_Abre DECLARACION puntoYcoma EXPRESION puntoYcoma ASIGNACION p_Cierra llave_Abre ENTRADAS llave_Cierra
+    FOR : for p_Abre DECLARACION puntoYcoma EXPRESION puntoYcoma FORITERADOR p_Cierra llave_Abre ENTRADAS llave_Cierra
     """
     p[0] = For(p[3], p[5], p[7], p[10], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_FORITERADOR(p):
+    """
+    FORITERADOR : ASIGNACION
+                | INCREMENTO
+                | DECREMENTO
+    """
+    p[0] = p[1]
 
 # ------------------ SENTENCIAS DE TRANSFERENCIA ------------------
 def p_BREAK(p):
@@ -194,19 +206,19 @@ def p_ASIGNACION_VEC(p):
     """
     p[0] = AsignacionVec(p[1], p[2], p[4], p.lineno(1), calcularColumna(input, p.slice[1]))  
     
-def p_ASIGNACION_INC(p):
+# ------------------ INCREMENTO Y DECREMENTO ------------------
+
+def p_INCREMENTO(p):
     """
-    ASIGNACION : id incremento
-                | id incremento puntoYcoma
+    INCREMENTO : id incremento 
     """
-    #p[0] = Incremento_Ins(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Incremento_Ins(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
     
-def p_ASIGNACION_DEC(p):
+def p_DECREMENTO(p):
     """
-    ASIGNACION : id decremento
-                | id decremento puntoYcoma
+    DECREMENTO : id decremento
     """
-    #p[0] = Decremento_Ins(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Decremento_Ins(p[1], p.lineno(1), calcularColumna(input, p.slice[1]))
     
 # ------------------ IMPRIMIR ------------------
 def p_IMPRIMIR_1(p):
