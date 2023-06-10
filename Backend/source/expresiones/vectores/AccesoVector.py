@@ -22,17 +22,17 @@ class AccesoVector(Expresion):
             indi:Retorno = i.ejecutar(ts)
             if indi.tipo != TipoDato.NUMERO:
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "El indice para un vector debe ser numérico", self.line, self.column, datetime.now()))
-                return
+                return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
             indices.append(round(indi.valor))
 
 
         if(variable == None):
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" no existe.", self.line, self.column, datetime.now()))
-            return Retorno(0, Tipo.ERROR)
+            return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
         
         if variable.tipoVariable != TipoVariable.VECTOR:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "La variable a la que se quiere acceder no es un vector.", self.line, self.column, datetime.now()))
-            return
+            return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
         
         varVal = variable.valor
         
@@ -43,13 +43,13 @@ class AccesoVector(Expresion):
                         varVal = varVal.valor[indices[x]]
                     else:
                             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
-                            return
+                            return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
                 else:
                     if(indices[x] < len(varVal)):
                         varVal = varVal[indices[x]]
                     else:
                             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
-                            return 
+                            return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
             else:
                 print("------------------------")
                 print(varVal)
@@ -57,6 +57,6 @@ class AccesoVector(Expresion):
                     varVal = varVal[indices[x]].valor
                 else:
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
-                    return
+                    return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
         
         return Retorno(varVal.valor, varVal.tipo, varVal.tipoVariable)

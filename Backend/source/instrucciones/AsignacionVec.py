@@ -51,10 +51,10 @@ class AsignacionVec(Instruccion):
                             
                         else:
                             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Los tipo de datos de las variables no coinciden.", self.line, self.column, datetime.now()))
-                            return
+                            return Excepcion()
                     else:
                             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
-                            return
+                            return Excepcion()
                 else:
                     if(indices[x] < len(varVal)):
                         if  varVal[indices[x]].tipo == expresionRetorno.tipo or varVal.tipo == TipoDato.ANY:
@@ -63,17 +63,17 @@ class AsignacionVec(Instruccion):
                             
                         else:
                             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Los tipo de datos de las variables no coinciden.", self.line, self.column, datetime.now()))
-                            return
+                            return Excepcion()
                     else:
                             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
-                            return 
+                            return Excepcion()
             else:
                 if  varVal[indices[x]].tipoVariable == TipoVariable.VECTOR:
                     vectorAux.append(VectorAux(varVal, indices[x]))
                     varVal = varVal[indices[x]].valor
                 else:
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe el indice al que se desea acceder en el vector.", self.line, self.column, datetime.now()))
-                    return
+                    return Excepcion()
 
         # si todo esta bien, se actualiza la variable    
         ts.actualizarVariable(self.nombreVar, vectorAux[0].vectortmp)
