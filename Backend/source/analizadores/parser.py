@@ -4,18 +4,22 @@ from ply import yacc
 from source.consola_singleton.Consola import Consola
 
 from source.errores.Excepcion import Excepcion
+from source.expresiones.funcion.LlamadaFunction import LlamadaFunction
 from source.expresiones.nativas.ToExponential import ToExponential
 from source.expresiones.nativas.ToFixed import ToFixed
 from source.expresiones.nativas.ToLowerCase import ToLowerCase
 from source.expresiones.nativas.ToString import ToString
 from source.expresiones.nativas.ToUpperCase import ToUpperCase
+from source.expresiones.nativas.Split import Split
 from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
 from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
+from source.instrucciones.funcion.Function import Function
 from source.instrucciones.sentencias_ciclicas.For import For
 from source.instrucciones.sentencias_ciclicas.While import While
 from source.instrucciones.sentencias_de_control.If import If
 from source.instrucciones.sentencias_de_transferencia.Break import Break
 from source.instrucciones.sentencias_de_transferencia.Continue import Continue
+from source.instrucciones.sentencias_de_transferencia.Return import Return
 from .lexer import *
 # Librerías propias
 from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato, TipoVariable
@@ -85,6 +89,8 @@ def p_ENTRADA(p):
             |   INCREMENTO puntoYcoma
             |   DECREMENTO puntoYcoma
             |   FUNC puntoYcoma
+            |   LLAMADA_FUNCION puntoYcoma
+            |   RETURN puntoYcoma
     """
     p[0] = p[1]
 
@@ -100,68 +106,64 @@ def p_error(p):
             Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
         
 # ------------------ DECLARACION FUNCTION ------------------
-#def p_FUNC_1(p):
-#    """
-#    FUNC : fn id p_Abre PARAMETROS_DECLA_FUNC p_Cierra llave_Abre ENTRADAS llave_Cierra
-#    """
-#    #p[0] = Function(p[2], p[4], p[7], p.lineno(1), calcularColumna(input, p.slice[1]))
+def p_FUNC_1(p):
+   """
+   FUNC : fn id p_Abre PARAMETROS_DECLA_FUNC p_Cierra llave_Abre ENTRADAS llave_Cierra
+   """
+   p[0] = Function(p[2], p[4], p[7], p.lineno(1), calcularColumna(input, p.slice[1]))
     
 
 def p_FUNC_2(p):
     """
     FUNC : fn id p_Abre p_Cierra llave_Abre ENTRADAS llave_Cierra
     """
-    #p[0] = Function(p[2], [], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Function(p[2], [], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
     
     
-# def p_PARAMETROS_DECLA_FUNC(p):
-#     """
-#     PARAMETROS_DECLA_FUNC : PARAMETROS_DECLA_FUNC coma PARAMETRO_DECLA_FUNC
-#                             | PARAMETRO_DECLA_FUNC
-#     """
-#     if len(p) == 2:
-#         p[0] = [p[1]]
-#     else:
-#         p[1].append(p[3])
+def p_PARAMETROS_DECLA_FUNC(p):
+    """
+    PARAMETROS_DECLA_FUNC : PARAMETROS_DECLA_FUNC coma PARAMETRO_DECLA_FUNC
+                            | PARAMETRO_DECLA_FUNC
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[1].append(p[3])
     
-# def p_PARAMETRO_DECLA_FUNC_1(p):
-#     """
-#     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO
-#     """
-#     p[0] = Declaracion(p[2], p[4], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
+def p_PARAMETRO_DECLA_FUNC_1(p):
+    """
+    PARAMETRO_DECLA_FUNC : id dosPuntos TIPO
+    """
+    p[0] = Declaracion(p[2], p[4], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
 
-# def p_PARAMETRO_DECLA_FUNC_2(p):
-#     """
-#     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO c_Abre c_Cierra
-#     """
-#     p[0] = Declaracion(p[2], p[4], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
+def p_PARAMETRO_DECLA_FUNC_2(p):
+    """
+    PARAMETRO_DECLA_FUNC : id dosPuntos TIPO c_Abre c_Cierra
+    """
+    p[0] = Declaracion(p[2], p[4], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
                
 # ------------------ LLAMADA FUNCTION ------------------
-# def p_LLAMADA_FUNCION(p):
-#     """
-#     LLAMADA_FUNCION : ID p_Abre PARAMETROS_LLAMA_FUNC_OPT p_Cierra
-#     """ 
-#     #p[0] = LlamadaFunction(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))   
+def p_LLAMADA_FUNCION_1(p):
+    """
+    LLAMADA_FUNCION : id p_Abre PARAMETROS_LLAMA_FUNC p_Cierra
+    """ 
+    p[0] = LlamadaFunction(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))   
     
-# def p_PARAMETROS_LLAMA_FUNC_OPT(p):
-#     """
-#     PARAMETROS_LLAMA_FUNC_OPT : empty
-#                                 | PARAMETROS_LLAMA_FUNC
-#     """
-#     if len(p) == 2:
-#         p[0] = p[1]
-#     else:
-#         p[0] = []
+def p_LLAMADA_FUNCION_2(p):
+    """
+    LLAMADA_FUNCION : id p_Abre p_Cierra
+    """ 
+    p[0] = LlamadaFunction(p[1], [], p.lineno(1), calcularColumna(input, p.slice[1]))   
 
-# def p_PARAMETROS_LLAMA_FUNC(p):
-#     """
-#     PARAMETROS_LLAMA_FUNC : EXPRESION
-#                           | PARAMETROS_LLAMA_FUNC coma EXPRESION
-#     """
-#     if len(p) == 2:
-#         p[0] = [p[1]]
-#     else:
-#         p[1].append(p[3])
+def p_PARAMETROS_LLAMA_FUNC(p):
+    """
+    PARAMETROS_LLAMA_FUNC : EXPRESION
+                          | PARAMETROS_LLAMA_FUNC coma EXPRESION
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[1].append(p[3])
     
 # ------------------ FOR ------------------
 def p_FOR(p):
@@ -190,6 +192,20 @@ def p_CONTINUE(p):
     CONTINUE : continue puntoYcoma
     """
     p[0] = Continue(p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_RETURN_1(p):
+    """
+    RETURN : return EXPRESION puntoYcoma
+    """
+    p[0] = Return(p[2], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_RETURN_2(p):
+    """
+    RETURN : return puntoYcoma
+    """
+    p[0] = Return(Primitivos(None, TipoDato.NULL, p.lineno(1),
+                  calcularColumna(input, p.slice[1])),
+                  p.lineno(1), calcularColumna(input, p.slice[1]))
 
 # ------------------ WHILE ------------------
 def p_WHILE(p):
@@ -499,9 +515,10 @@ def p_FUNCION_TOUPPERCASE(p):
 
 def p_FUNCION_SPLIT(p):
     """
-    FUNCION_SPLIT : id punto split p_Abre cadena p_Cierra
+    FUNCION_SPLIT : id punto split p_Abre EXPRESION p_Cierra
     """
     # semantico
+    p[0] = Split(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 #   Queda pendiente CONCAT pues utiliza arrays.
 

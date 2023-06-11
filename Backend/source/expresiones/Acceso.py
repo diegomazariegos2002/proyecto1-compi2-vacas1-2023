@@ -17,6 +17,6 @@ class Acceso(Expresion):
 
         if(variable == None):
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre '"+ self.id +"' no existe.", self.line, self.column, datetime.now()))
-            return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
+            return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         
         return Retorno(variable.valor, variable.tipoDato, variable.tipoVariable)

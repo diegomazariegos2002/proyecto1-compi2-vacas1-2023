@@ -117,15 +117,11 @@ class Declaracion(Instruccion):
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo vector.", self.line, self.column, datetime.now()))
                                 return Excepcion()
                     elif expreValor.tipoVariable == TipoVariable.VECTOR:
-                        if self.tipoVariable == expreValor.tipoVariable:
-                            simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR)
-                            existeVariable = ts.insertar(self.id, simbol)
-                            if existeVariable == False:
-                                consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
-                                return Excepcion()
-                        else:
-                                consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo primitivo.", self.line, self.column, datetime.now()))
-                                return Excepcion()
+                        simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR)
+                        existeVariable = ts.insertar(self.id, simbol)
+                        if existeVariable == False:
+                            consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                            return Excepcion()
         else:
             consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de dato declarado a una variable no puede ser un error.", self.line, self.column, datetime.now()))
             return Excepcion()

@@ -32,4 +32,3 @@ class Decremento_Ins(Instruccion):
         
         # si todo esta bien, se actualiza la variable    
         ts.actualizarVariable(self.nombreVar, variable.valor - 1)
-        ts.recorrerTablaSimbolos()

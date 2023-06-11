@@ -14,17 +14,12 @@ class Return(Instruccion):
     def __init__(self, expresionReturn:Expresion, line: int, column: int):
         super().__init__(line, column)
         self.expresionReturn : Expresion = expresionReturn
-        self.valorReturn : Retorno = None
-
 
     def ejecutar(self, ts: TablaSimbolos):
         """
         RETURN al ejecutar va a devolver una instancia (RETURN) con su expresion 
         """
         consola = Consola()
-        self.valorReturn:Retorno = self.expresionReturn.ejecutar(ts)
         
         # validar lo que se tenga que validar
-        
-        
         return self

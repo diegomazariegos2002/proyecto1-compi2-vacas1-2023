@@ -77,4 +77,3 @@ class AsignacionVec(Instruccion):
 
         # si todo esta bien, se actualiza la variable    
         ts.actualizarVariable(self.nombreVar, vectorAux[0].vectortmp)
-        ts.recorrerTablaSimbolos()

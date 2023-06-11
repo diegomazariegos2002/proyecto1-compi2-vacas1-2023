@@ -39,4 +39,3 @@ class Asignacion(Instruccion):
         
         # si todo esta bien, se actualiza la variable    
         ts.actualizarVariable(self.nombreVar, expresionRetorno.valor)
-        ts.recorrerTablaSimbolos()
