@@ -33,6 +33,7 @@ class TipoVariable(Enum):
 
     NORMAL = 1
     VECTOR = 2
+    FUNCTION = 3
 
 class Tipo_OperadorAritmetico(Enum):
     """

@@ -39,6 +39,8 @@ reservadas = {
     'break': 'break',
     'continue': 'continue',
     'for': 'for',
+    'function'  : 'fn',
+    'return'    : 'return',
 }
 
 

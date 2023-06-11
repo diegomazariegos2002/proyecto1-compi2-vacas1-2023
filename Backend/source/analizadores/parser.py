@@ -18,7 +18,7 @@ from source.instrucciones.sentencias_de_transferencia.Break import Break
 from source.instrucciones.sentencias_de_transferencia.Continue import Continue
 from .lexer import *
 # Librerías propias
-from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato
+from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato, TipoVariable
 from source.expresiones.Primitivos import Primitivos
 from source.expresiones.Aritmeticas import Arimeticas
 from source.expresiones.Logicas import Logicas
@@ -84,6 +84,7 @@ def p_ENTRADA(p):
             |   FOR puntoYcoma
             |   INCREMENTO puntoYcoma
             |   DECREMENTO puntoYcoma
+            |   FUNC puntoYcoma
     """
     p[0] = p[1]
 
@@ -98,6 +99,70 @@ def p_error(p):
         listaErrores.append(
             Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
         
+# ------------------ DECLARACION FUNCTION ------------------
+def p_FUNC_1(p):
+    """
+    FUNC : fn id p_Abre PARAMETROS_DECLA_FUNC p_Cierra llave_Abre ENTRADAS llave_Cierra
+    """
+    #p[0] = Function(p[2], p[4], p[7], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+
+def p_FUNC_2(p):
+    """
+    FUNC : fn id p_Abre p_Cierra llave_Abre ENTRADAS llave_Cierra
+    """
+    #p[0] = Function(p[2], [], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+    
+# def p_PARAMETROS_DECLA_FUNC(p):
+#     """
+#     PARAMETROS_DECLA_FUNC : PARAMETROS_DECLA_FUNC coma PARAMETRO_DECLA_FUNC
+#                             | PARAMETRO_DECLA_FUNC
+#     """
+#     if len(p) == 2:
+#         p[0] = [p[1]]
+#     else:
+#         p[1].append(p[3])
+    
+# def p_PARAMETRO_DECLA_FUNC_1(p):
+#     """
+#     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO
+#     """
+#     p[0] = Declaracion(p[2], p[4], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
+
+# def p_PARAMETRO_DECLA_FUNC_2(p):
+#     """
+#     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO c_Abre c_Cierra
+#     """
+#     p[0] = Declaracion(p[2], p[4], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
+               
+# ------------------ LLAMADA FUNCTION ------------------
+# def p_LLAMADA_FUNCION(p):
+#     """
+#     LLAMADA_FUNCION : ID p_Abre PARAMETROS_LLAMA_FUNC_OPT p_Cierra
+#     """ 
+#     #p[0] = LlamadaFunction(p[1], p[3], p.lineno(1), calcularColumna(input, p.slice[1]))   
+    
+# def p_PARAMETROS_LLAMA_FUNC_OPT(p):
+#     """
+#     PARAMETROS_LLAMA_FUNC_OPT : empty
+#                                 | PARAMETROS_LLAMA_FUNC
+#     """
+#     if len(p) == 2:
+#         p[0] = p[1]
+#     else:
+#         p[0] = []
+
+# def p_PARAMETROS_LLAMA_FUNC(p):
+#     """
+#     PARAMETROS_LLAMA_FUNC : EXPRESION
+#                           | PARAMETROS_LLAMA_FUNC coma EXPRESION
+#     """
+#     if len(p) == 2:
+#         p[0] = [p[1]]
+#     else:
+#         p[1].append(p[3])
+    
 # ------------------ FOR ------------------
 def p_FOR(p):
     """
@@ -165,26 +230,39 @@ def p_DECLARACION_NoTipada(p):
     """
     DECLARACION : let id igual EXPRESION
     """
-    p[0] = Declaracion(p[2], None, p[4], p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[2], None, p[4], TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
 
 
 def p_DECLARACION_Tipada(p):
     """
     DECLARACION : let id dosPuntos TIPO igual EXPRESION
     """
-    p[0] = Declaracion(p[2], p[4], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[2], p[4], p[6], TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_DECLARACION_SinExpresion_SinTipado(p):
     """
     DECLARACION : let id 
     """
-    p[0] = Declaracion(p[2], None, None, p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[2], None, None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_DECLARACION_SinExpresion_Tipado(p):
     """
     DECLARACION : let id dosPuntos TIPO
     """
-    p[0] = Declaracion(p[2], p[4], None, p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[2], p[4], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_DECLARACION_Tipada_VECTOR(p):
+    """
+    DECLARACION : let id dosPuntos TIPO c_Abre p_Cierra igual EXPRESION
+    """
+    p[0] = Declaracion(p[2], p[4], p[8], TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
+
+def p_DECLARACION_SinExpresion_Tipado_VECTOR(p):
+    """
+    DECLARACION : let id dosPuntos TIPO c_Abre p_Cierra
+    """
+    p[0] = Declaracion(p[2], p[4], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
+
     
 # ------------------ ASIGNACION ------------------
     
@@ -233,7 +311,6 @@ def p_LISTAEXPRESIONES_1(p):
     """
     p[1].append(p[3])
     p[0] = p[1]
-
 
 def p_LISTAEXPRESIONES_2(p):
     """

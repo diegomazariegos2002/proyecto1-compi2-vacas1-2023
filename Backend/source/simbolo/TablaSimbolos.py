@@ -31,7 +31,7 @@ class TablaSimbolos:
             return True
         else:
             return False
-
+        
     def buscar(self, id: str) -> Simbolo:
         ts = self
 

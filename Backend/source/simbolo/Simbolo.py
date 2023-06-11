@@ -6,6 +6,7 @@ class TiposSimbolos(Enum):
     Enum de tipos de datos que se pueden manejar en el lenguaje (variables, constantes, funciones, etc)
     """
     VARIABLE = 1
+    FUNCTION = 2
 
 def getTipoSimbolo(s):
     if(s == 1):
