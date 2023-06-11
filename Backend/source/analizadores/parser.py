@@ -100,11 +100,11 @@ def p_error(p):
             Excepcion("ERROR SINTACTICO", "NO SE ESPERABA "+p.value, p.lineno, p.lexpos))
         
 # ------------------ DECLARACION FUNCTION ------------------
-def p_FUNC_1(p):
-    """
-    FUNC : fn id p_Abre PARAMETROS_DECLA_FUNC p_Cierra llave_Abre ENTRADAS llave_Cierra
-    """
-    #p[0] = Function(p[2], p[4], p[7], p.lineno(1), calcularColumna(input, p.slice[1]))
+#def p_FUNC_1(p):
+#    """
+#    FUNC : fn id p_Abre PARAMETROS_DECLA_FUNC p_Cierra llave_Abre ENTRADAS llave_Cierra
+#    """
+#    #p[0] = Function(p[2], p[4], p[7], p.lineno(1), calcularColumna(input, p.slice[1]))
     
 
 def p_FUNC_2(p):
@@ -253,13 +253,13 @@ def p_DECLARACION_SinExpresion_Tipado(p):
     
 def p_DECLARACION_Tipada_VECTOR(p):
     """
-    DECLARACION : let id dosPuntos TIPO c_Abre p_Cierra igual EXPRESION
+    DECLARACION : let id dosPuntos TIPO c_Abre c_Cierra igual EXPRESION
     """
     p[0] = Declaracion(p[2], p[4], p[8], TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_DECLARACION_SinExpresion_Tipado_VECTOR(p):
     """
-    DECLARACION : let id dosPuntos TIPO c_Abre p_Cierra
+    DECLARACION : let id dosPuntos TIPO c_Abre c_Cierra
     """
     p[0] = Declaracion(p[2], p[4], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
 

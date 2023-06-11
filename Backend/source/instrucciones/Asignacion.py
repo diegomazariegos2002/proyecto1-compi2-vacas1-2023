@@ -32,6 +32,7 @@ class Asignacion(Instruccion):
             if variable.tipo == Tipo.ANY: # si la variable es de tipo ANY, se le asigna el tipo de la expresion
                 # Actualizando el tipoDato de la variable ANY
                 variable.tipoDato = expresionRetorno.tipo
+                variable.tipoVariable = expresionRetorno.tipoVariable
             else:   # si no, se lanza un error
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
                 return Excepcion()
