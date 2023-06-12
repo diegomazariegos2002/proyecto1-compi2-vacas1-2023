@@ -1,4 +1,5 @@
 from source.abstracto.Instruccion import Instruccion
+from source.instrucciones.funcion.Function import Function
 
 
 class Ast:
@@ -14,6 +15,14 @@ class Ast:
         self.instrucciones = instrucciones
 
     def ejecutar(self, ts):
+        # Primera pasada (Funciones)
         for instruccion in self.instrucciones:
             if isinstance(instruccion, Instruccion):
-                instruccion.ejecutar(ts)
+                if isinstance(instruccion, Function):
+                    instruccion.ejecutar(ts)
+                    
+        # Segunda pasada (Instrucciones)
+        for instruccion in self.instrucciones:
+            if isinstance(instruccion, Instruccion):
+                if not isinstance(instruccion, Function):
+                    instruccion.ejecutar(ts)

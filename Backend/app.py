@@ -52,8 +52,11 @@ def analizar():
         consolaGlobal: Consola = Consola()
         consolaGlobal.clean_Consola()
         textoEntrada = request.json['textoEntrada']
+        # Realizar análisis léxico y sintáctico
         ast: Ast = parsear(textoEntrada)
 
+        # Realizar análisis semántico
+        # Incluyendo pasadas para funciones, Interfaces y luego instrucciones.
         if(ast != None):
             ts = TablaSimbolos(None, 'GLOBAL-')
             ast.ejecutar(ts)

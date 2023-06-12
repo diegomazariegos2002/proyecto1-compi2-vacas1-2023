@@ -90,7 +90,7 @@ def p_ENTRADA(p):
             |   DECREMENTO puntoYcoma
             |   FUNC puntoYcoma
             |   LLAMADA_FUNCION puntoYcoma
-            |   RETURN puntoYcoma
+            |   RETURN
     """
     p[0] = p[1]
 
@@ -134,15 +134,22 @@ def p_PARAMETRO_DECLA_FUNC_1(p):
     """
     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO
     """
-    p[0] = Declaracion(p[2], p[4], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[2], p[3], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_PARAMETRO_DECLA_FUNC_2(p):
     """
     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO c_Abre c_Cierra
     """
-    p[0] = Declaracion(p[2], p[4], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[2], p[3], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
                
 # ------------------ LLAMADA FUNCTION ------------------
+def p_EXPRESION_LLAMA_FUNC(p):
+    """
+    EXPRESION : LLAMADA_FUNCION
+    """
+    p[0] = p[1]
+
+
 def p_LLAMADA_FUNCION_1(p):
     """
     LLAMADA_FUNCION : id p_Abre PARAMETROS_LLAMA_FUNC p_Cierra
@@ -164,7 +171,7 @@ def p_PARAMETROS_LLAMA_FUNC(p):
         p[0] = [p[1]]
     else:
         p[1].append(p[3])
-    
+
 # ------------------ FOR ------------------
 def p_FOR(p):
     """
