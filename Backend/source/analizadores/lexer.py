@@ -109,7 +109,7 @@ t_diferente = r'\!=='
 t_dosPuntos = r':'
 t_llave_Abre = r'\{'
 t_llave_Cierra = r'\}'
-t_ignore = ' \t'
+t_ignore = ' \t\r'
 t_ignore_COMENTARIOS = r'(\/\/.*[^\n])'
 t_ignore_MULTCOMENTARIOS = r'(\/\*([^*/]|[^*]\/|\*[^/])*\*\/)'
 

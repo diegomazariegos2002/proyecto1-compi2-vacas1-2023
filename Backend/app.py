@@ -26,7 +26,7 @@ def prueba():
         salida={"Mensaje":"Error"}
         return (jsonify(error))
     
-@app.route('/analizar', methods=['POST'])
+@app.route('/proyectoolc2/analizar', methods=['POST'])
 def analizar():
     """
     Método handler para el endpoint '/analizar'.
