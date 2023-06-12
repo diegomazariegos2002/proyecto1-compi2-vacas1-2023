@@ -18,9 +18,11 @@ class Function(Instruccion):
         
     def ejecutar(self, ts: TablaSimbolos):
         consola = Consola()
+        # DECLARACION DE LA VARIABLE FUNCION
         simboloFunc = Simbolo(TiposSimbolos.FUNCTION, Tipo.ANY, TipoDato.ANY, self.id, self, TipoVariable.FUNCTION)
         existeVariable = ts.insertar(self.id, simboloFunc)
         if existeVariable == False:
             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe, imposible declarar funcion asi.", self.line, self.column, datetime.now()))
-            return Excepcion()        
+            return Excepcion()
+        
         return

@@ -9,6 +9,7 @@ from source.expresiones.Primitivos import Primitivos
 from source.instrucciones.Asignacion import Asignacion
 from source.instrucciones.AsignacionVec import AsignacionVec
 from source.instrucciones.Declaracion import Declaracion
+from source.instrucciones.funcion.AsignacionParametros import AsignacionParametros
 from source.instrucciones.funcion.Function import Function
 from source.instrucciones.sentencias_de_transferencia.Return import Return
 from source.simbolo.Simbolo import Simbolo, TiposSimbolos
@@ -35,6 +36,7 @@ class LlamadaFunction(Expresion):
             return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         
         funcionLLamada : Function = simboloFuncion.valor
+        # NUEVO AMBITO PARA LA FUNCION LLAMADA
         newEnviromentFunction = TablaSimbolos(ts, "FUNCION_"+self.idFuncion+"-")
         
         # validar que la cantidad de parametros sea la misma
@@ -60,8 +62,8 @@ class LlamadaFunction(Expresion):
                     return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
                 
                 # Asignando el parametro en la tabla de simbolos de la funcion
-                asignacionParametroFuncion : Asignacion = Asignacion(parametroFuncion.id, parametroLlamada, 0, 0)  
-                retornoAsignacion = asignacionParametroFuncion.ejecutar(newEnviromentFunction)
+                asignacionParametroFuncion : AsignacionParametros = AsignacionParametros(parametroFuncion.id, parametroLlamada)  
+                retornoAsignacion = asignacionParametroFuncion.ejecutar(newEnviromentFunction, ts)
                 if isinstance(retornoAsignacion, Excepcion):
                     # ERROR
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error en la llamada de funcion, un parametro no se puede asignar", self.line, self.column, datetime.now()))
