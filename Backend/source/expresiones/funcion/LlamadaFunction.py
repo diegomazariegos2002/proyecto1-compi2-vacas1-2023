@@ -60,7 +60,7 @@ class LlamadaFunction(Expresion):
                     return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
                 
                 # Asignando el parametro en la tabla de simbolos de la funcion
-                asignacionParametroFuncion : Asignacion = Asignacion(funcionLLamada.id, parametroLlamada, 0, 0)  
+                asignacionParametroFuncion : Asignacion = Asignacion(parametroFuncion.id, parametroLlamada, 0, 0)  
                 retornoAsignacion = asignacionParametroFuncion.ejecutar(newEnviromentFunction)
                 if isinstance(retornoAsignacion, Excepcion):
                     # ERROR
@@ -68,7 +68,7 @@ class LlamadaFunction(Expresion):
                     return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         #          FIN ASIGNACION DE PARAMETROS
         
-        # ejecutar las instrucciones de la funcion
+        #           EJECTUAR INSTRUCCIONES DE LA FUNCION
         if len(funcionLLamada.insEntraFunc) > 0:
             for i in range(len(funcionLLamada.insEntraFunc)):
                 instruccionFuncion : Instruccion = funcionLLamada.insEntraFunc[i]
@@ -82,7 +82,7 @@ class LlamadaFunction(Expresion):
                 if isinstance(retornoInstruccion, Return):
                     expresionRetornada : Expresion = retornoInstruccion.expresionReturn
                     if expresionRetornada == None:
-                        return Primitivos(None, TipoDato.NULL, 0, 0)
+                        return Retorno(None, TipoDato.NULL, TipoVariable.NORMAL)
                     
                     if not isinstance(expresionRetornada, Expresion):
                         # ERROR
@@ -90,6 +90,12 @@ class LlamadaFunction(Expresion):
                         return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
                     
                     # si todo sale bien, yeiii se retorna la expresion para lo que se quiera.
-                    return expresionRetornada
+                    retExpRetonarda : Retorno = expresionRetornada.ejecutar(newEnviromentFunction)
+                    if retExpRetonarda.tipo == TipoDato.ERROR:
+                        # ERROR
+                        consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error en la llamada de funcion, el retorno de la funcion tiene errores", self.line, self.column, datetime.now()))
+                        return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
+                    
+                    return retExpRetonarda
                 
-        return Primitivos(None, TipoDato.NULL, 0, 0)
+        return Retorno(None, TipoDato.NULL, TipoVariable.NORMAL)

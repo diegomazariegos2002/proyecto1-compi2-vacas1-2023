@@ -1,7 +1,7 @@
 from datetime import datetime
 from source.abstracto.Expresion import Expresion
 from source.abstracto.Instruccion import Instruccion
-from source.abstracto.Retorno import Retorno, Tipo
+from source.abstracto.Retorno import Retorno, Tipo, TipoDato
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.simbolo.Simbolo import Simbolo
@@ -37,5 +37,8 @@ class Asignacion(Instruccion):
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
                 return Excepcion()
         
-        # si todo esta bien, se actualiza la variable    
+        # a un tipo de dato NULL que se le pueda asignar cualquier tipo de dato, cambia al tipo de dato de la expresion
+        if variable.tipoDato == TipoDato.NULL:   
+            variable.tipoDato = expresionRetorno.tipo
+        # si todo esta bien, se actualiza la variable 
         ts.actualizarVariable(self.nombreVar, expresionRetorno.valor)

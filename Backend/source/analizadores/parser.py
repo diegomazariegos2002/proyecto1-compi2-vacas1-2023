@@ -129,18 +129,19 @@ def p_PARAMETROS_DECLA_FUNC(p):
         p[0] = [p[1]]
     else:
         p[1].append(p[3])
+        p[0] = p[1]
     
 def p_PARAMETRO_DECLA_FUNC_1(p):
     """
     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO
     """
-    p[0] = Declaracion(p[2], p[3], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[1], p[3], None, TipoVariable.NORMAL, p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_PARAMETRO_DECLA_FUNC_2(p):
     """
     PARAMETRO_DECLA_FUNC : id dosPuntos TIPO c_Abre c_Cierra
     """
-    p[0] = Declaracion(p[2], p[3], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Declaracion(p[1], p[3], None, TipoVariable.VECTOR, p.lineno(1), calcularColumna(input, p.slice[1]))
                
 # ------------------ LLAMADA FUNCTION ------------------
 def p_EXPRESION_LLAMA_FUNC(p):
@@ -171,6 +172,7 @@ def p_PARAMETROS_LLAMA_FUNC(p):
         p[0] = [p[1]]
     else:
         p[1].append(p[3])
+        p[0] = p[1]
 
 # ------------------ FOR ------------------
 def p_FOR(p):
