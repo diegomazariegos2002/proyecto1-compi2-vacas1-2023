@@ -6,16 +6,38 @@ from source.errores.Excepcion import Excepcion
 from source.simbolo.TablaSimbolos import TablaSimbolos
 
 class Concat(Expresion):
-    def __init__(self, expresionEntrada, line, column):
+    def __init__(self, id, vectorExtra, line, column):
         super().__init__(line, column)
-        self.expresionEntrada : Expresion = expresionEntrada
+        self.id = id
+        self.vectorExtra = vectorExtra
         
 
     def ejecutar(self, ts: TablaSimbolos) -> Retorno:
         consolaGlobal = Consola()
         
+        variable = ts.buscar(self.id)
+
+        if(variable == None):
+            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre '"+ self.id +"' no existe.", self.line, self.column, datetime.now()))
+            return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         
+        if variable.tipoVariable != TipoVariable.VECTOR:
+            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Para usar la función nativa concat se necesita que se realice con vectores.", self.line, self.column, datetime.now()))
+            return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         
-        # ERROR
-        consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error algo salio mal en la funcion nativa Concat(), revisar parametros de la funcion", self.line, self.column, datetime.now()))
-        return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
+        vectorRetorno = variable.valor
+        vectorTipoDato = variable.tipoDato
+        
+        for vec in self.vectorExtra:
+            vecAux : Retorno = vec.ejecutar(ts)
+            if vecAux.tipoVariable != TipoVariable.VECTOR:
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Para usar la función nativa concat se necesita que se realice con vectores.", self.line, self.column, datetime.now()))
+                return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
+            
+            vectorRetorno =  vectorRetorno + vecAux.valor
+            if (vecAux.tipo != vectorTipoDato):
+                vectorTipoDato = TipoDato.ANY
+                
+        print(vectorRetorno)
+        
+        return Retorno(vectorRetorno, vectorTipoDato, TipoVariable.VECTOR)

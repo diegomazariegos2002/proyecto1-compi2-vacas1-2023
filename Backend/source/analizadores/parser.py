@@ -11,6 +11,7 @@ from source.expresiones.nativas.ToLowerCase import ToLowerCase
 from source.expresiones.nativas.ToString import ToString
 from source.expresiones.nativas.ToUpperCase import ToUpperCase
 from source.expresiones.nativas.Split import Split
+from source.expresiones.nativas.Concat import Concat
 from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
 from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
 from source.instrucciones.funcion.Function import Function
@@ -484,6 +485,7 @@ def p_EXPRESION_funcionesnativas(p):
             | FUNCION_TOLOWERCASE
             | FUNCION_TOUPPERCASE
             | FUNCION_SPLIT
+            | FUNCION_CONCAT
     """
     p[0] = p[1]
 
@@ -528,6 +530,13 @@ def p_FUNCION_SPLIT(p):
     """
     # semantico
     p[0] = Split(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
+
+def p_FUNCION_CONCAT(p):
+    """
+    FUNCION_CONCAT : id punto concat p_Abre LISTAEXPRESIONES p_Cierra
+    """
+    # semantico
+    p[0] = Concat(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 #   Queda pendiente CONCAT pues utiliza arrays.
 

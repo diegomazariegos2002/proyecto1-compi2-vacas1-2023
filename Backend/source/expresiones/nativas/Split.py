@@ -31,8 +31,6 @@ class Split(Expresion):
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "El separador para la funcion nativa split debe ser dentro de una cadena.", self.line, self.column, datetime.now()))
             return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         
-        separadorSeco = separadorSplit.valor[1:-1]
-        
         splitHecho = variable.valor.split(separadorSplit.valor)
         
         vectorRetorno = []
