@@ -29,42 +29,36 @@ class Casteo(Expresion):
             return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
            
         if self.tipo == Tipo.STRING:
-            if expresionEjecutada.tipo != TipoDato.CADENA:
-                if expresionEjecutada.tipo == TipoDato.BOOLEANO:
-                    if expresionEjecutada.valor == True:
-                        return Retorno("true", TipoDato.CADENA, TipoVariable.NORMAL)
-                    elif expresionEjecutada.valor == False:
-                        return Retorno("false", TipoDato.CADENA, TipoVariable.NORMAL)
-                elif expresionEjecutada.tipo == TipoDato.NUMERO:
-                    return Retorno(str(expresionEjecutada.valor), TipoDato.CADENA, TipoVariable.NORMAL)
-                elif expresionEjecutada.tipo == TipoDato.NULL:
-                    return Retorno("null", TipoDato.CADENA, TipoVariable.NORMAL)
-                else:
-                    consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se pudo realizar el casteo a String.", self.line, self.column, datetime.now()))
-                    return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
+            if expresionEjecutada.tipo == TipoDato.BOOLEANO:
+                if expresionEjecutada.valor == True:
+                    return Retorno("true", TipoDato.CADENA, TipoVariable.NORMAL)
+                elif expresionEjecutada.valor == False:
+                    return Retorno("false", TipoDato.CADENA, TipoVariable.NORMAL)
+            elif expresionEjecutada.tipo == TipoDato.NUMERO:
+                return Retorno(str(expresionEjecutada.valor), TipoDato.CADENA, TipoVariable.NORMAL)
+            elif expresionEjecutada.tipo == TipoDato.NULL:
+                return Retorno("null", TipoDato.CADENA, TipoVariable.NORMAL)
+            elif expresionEjecutada.tipo == TipoDato.CADENA:
+                return Retorno(expresionEjecutada.valor, TipoDato.CADENA, TipoVariable.NORMAL)
             else:
-                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se puede castear una variable a un String si ya es de tipo String.", self.line, self.column, datetime.now()))
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se pudo realizar el casteo a String.", self.line, self.column, datetime.now()))
                 return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         elif self.tipo == Tipo.NUMBER:
-            if expresionEjecutada.tipo != TipoDato.NUMERO:
-                if expresionEjecutada.tipo == TipoDato.CADENA:
-                    if self.isNumeric(expresionEjecutada.valor)  == True:
-                        return Retorno("true", TipoDato.CADENA, TipoVariable.NORMAL)
-                    elif expresionEjecutada.valor == False:
-                        return Retorno("false", TipoDato.CADENA, TipoVariable.NORMAL)
-                else:
-                    consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se pudo realizar el casteo a Number.", self.line, self.column, datetime.now()))
-                    return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
+            if expresionEjecutada.tipo == TipoDato.CADENA:
+                if self.isNumeric(expresionEjecutada.valor)  == True:
+                    return Retorno(float(expresionEjecutada.valor), TipoDato.NUMERO, TipoVariable.NORMAL)
+            elif expresionEjecutada.tipo == TipoDato.NUMERO:
+                return Retorno(expresionEjecutada.valor, TipoDato.NUMERO, TipoVariable.NORMAL)
             else:
-                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se puede castear la expresion a un Number.", self.line, self.column, datetime.now()))
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se pudo realizar el casteo a Number.", self.line, self.column, datetime.now()))
                 return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         elif self.tipo == Tipo.BOOLEAN:
             if expresionEjecutada.tipo != TipoDato.BOOLEANO:
                 if expresionEjecutada.tipo == TipoDato.CADENA:
-                    if self.isNumeric(expresionEjecutada.valor)  == True:
-                        return Retorno("true", TipoDato.CADENA, TipoVariable.NORMAL)
-                    elif expresionEjecutada.valor == False:
-                        return Retorno("false", TipoDato.CADENA, TipoVariable.NORMAL)
+                    if expresionEjecutada.valor  == "true":
+                        return Retorno(True, TipoDato.CADENA, TipoVariable.NORMAL)
+                    elif expresionEjecutada.valor == "false":
+                        return Retorno(False, TipoDato.CADENA, TipoVariable.NORMAL)
                 else:
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se pudo realizar el casteo a Number.", self.line, self.column, datetime.now()))
                     return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
@@ -72,15 +66,8 @@ class Casteo(Expresion):
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se puede castear la expresion a un Boolean.", self.line, self.column, datetime.now()))
                 return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         
-        variable = ts.buscar(self.id)
-
-        if(variable == None):
-            consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre '"+ self.id +"' no existe.", self.line, self.column, datetime.now()))
-            return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
-        
-        return Retorno(variable.valor, variable.tipoDato, variable.tipoVariable)
     
-    def isNumeric(s):
+    def isNumeric(self, s):
         try:
             float(s)
             return True
