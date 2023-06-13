@@ -21,7 +21,6 @@ class For(Instruccion):
         self.asignacion : Instruccion = asignacion
         self.insEntraFor : list[Instruccion] = insEntraFor
 
-
     def ejecutar(self, ts: TablaSimbolos):
         """
         For al ejecutar va a devolver un valor (return)
@@ -58,7 +57,7 @@ class For(Instruccion):
                 if isinstance(resultIns, Return):
                     return resultIns
                 if isinstance(resultIns, Break):
-                    return resultIns
+                    return
                 if isinstance(resultIns, Continue):
                     break
             if self.asignacion != None:

@@ -78,13 +78,14 @@ def analizar():
 
         salidaConsola = consolaGlobal.get_Consola()
         objeto = {
-        'textoSalida': salidaConsola,
-        'textoGrafico': salidaGrafico
+        'textoSalida': salidaConsola
         }
         return (jsonify(objeto)) # Se devuelve un json para mejor facilidad en javascript
     except Exception as error:
         salidaConsola={"Mensaje": error}
         return (jsonify(salidaConsola))
+
+
 
 def pagina_no_encontrada(error):
     return "<h1>La página que intentas buscar no existe...</h1>"
