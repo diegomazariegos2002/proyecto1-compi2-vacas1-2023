@@ -74,7 +74,7 @@ class LlamadaFunction(Expresion):
         if len(funcionLLamada.insEntraFunc) > 0:
             for i in range(len(funcionLLamada.insEntraFunc)):
                 instruccionFuncion : Instruccion = funcionLLamada.insEntraFunc[i]
-                retornoInstruccion : Union[Excepcion, Return, None] = instruccionFuncion.ejecutar(newEnviromentFunction)
+                retornoInstruccion : Union[Excepcion, Return, None] = instruccionFuncion.ejecutar(funcionLLamada.entornoGlobal)
                 
                 if isinstance(retornoInstruccion, Excepcion):
                     # ERROR

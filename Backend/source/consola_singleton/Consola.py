@@ -31,11 +31,13 @@ class Consola(metaclass=SingletonMeta):
     consola = ""
     listaExcepciones : list[Excepcion] = []
     listaSimbolos : list[Simbolo] = []
+    astGrafico: str = ""
 
     def clean_Consola(self):
         self.consola = ""
         self.listaExcepciones = []
         self.listaSimbolos = []
+        self.astGrafico = ""
 
     def set_Consola (self, consola):
         self.consola += consola
@@ -70,3 +72,10 @@ class Consola(metaclass=SingletonMeta):
             return Tipo.ERROR
         elif tipo == TipoDato.ANY:
             return Tipo.ANY
+    
+    def get_AstGrafico(self):
+        return self.astGrafico
+    
+    def set_AstGrafico(self, ast):
+        self.astGrafico += ast
+        return
