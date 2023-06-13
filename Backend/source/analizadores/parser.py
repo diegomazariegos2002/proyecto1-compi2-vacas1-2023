@@ -28,6 +28,7 @@ from source.expresiones.Primitivos import Primitivos
 from source.expresiones.Aritmeticas import Arimeticas
 from source.expresiones.Logicas import Logicas
 from source.expresiones.Acceso import Acceso
+from source.expresiones.Casteo import Casteo
 from source.expresiones.vectores.AccesoVector import AccesoVector
 from source.expresiones.Relacionales import Relacionales
 from source.expresiones.vectores.Vector import Vector
@@ -589,6 +590,13 @@ def p_EXPRESION_Vector(p):
     EXPRESION : c_Abre LISTAEXPRESIONES c_Cierra
     """
     p[0] = Vector(p[2], p.lineno(1),
+                  calcularColumna(input, p.slice[1]))
+    
+def p_EXPRESION_Vector(p):
+    """
+    EXPRESION : TIPO p_Abre EXPRESION p_Cierra
+    """
+    p[0] = Casteo(p[1], p[3], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
 
 
