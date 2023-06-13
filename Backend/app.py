@@ -67,8 +67,8 @@ def analizar():
         listaExcepciones = consolaGlobal.get_Excepciones()
         
         # Generar gráfico AST
-        ast.generarGrafico()
-        salidaGrafico = consolaGlobal.get_AstGrafico()
+        #ast.generarGrafico()
+        #salidaGrafico = consolaGlobal.get_AstGrafico()
         
         if listaExcepciones != []:
             consolaGlobal.set_Consola("\nSe encontraron errores léxicos, sintácticos o semánticos...\n")   

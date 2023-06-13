@@ -596,12 +596,12 @@ def p_EXPRESION_Vector(p):
     p[0] = Vector(p[2], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
     
-def p_EXPRESION_Vector(p):
+def p_EXPRESION_Casteo(p):
     """
     EXPRESION : TIPO p_Abre EXPRESION p_Cierra
     """
     p[0] = Casteo(p[1], p[3], p.lineno(1),
-                  calcularColumna(input, p.slice[1]))
+                  calcularColumna(input, p.slice[2]))
 
 
 def p_TIPO_NUMBER(p):
