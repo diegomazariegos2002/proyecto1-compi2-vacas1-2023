@@ -51,9 +51,12 @@ def analizar():
     try:
         consolaGlobal: Consola = Consola()
         consolaGlobal.clean_Consola()
-        textoEntrada = request.json['textoEntrada']
+        entradaConsola = request.json['textoEntrada']
+        listaExcepciones = []
+        salidaConsola = ""
+        salidaGrafico = ""
         # Realizar análisis léxico y sintáctico
-        ast: Ast = parsear(textoEntrada)
+        ast: Ast = parsear(entradaConsola)
 
         # Realizar análisis semántico
         # Incluyendo pasadas para funciones, Interfaces y luego instrucciones.
@@ -62,20 +65,26 @@ def analizar():
             ast.ejecutar(ts)
         
         listaExcepciones = consolaGlobal.get_Excepciones()
+        
+        # Generar gráfico AST
+        ast.generarGrafico()
+        salidaGrafico = consolaGlobal.get_AstGrafico()
+        
         if listaExcepciones != []:
             consolaGlobal.set_Consola("\nSe encontraron errores léxicos, sintácticos o semánticos...\n")   
             
         for x in listaExcepciones:
-            print(x.descripcion) 
+            print(x.descripcion)
 
-        salida = consolaGlobal.get_Consola()
+        salidaConsola = consolaGlobal.get_Consola()
         objeto = {
-        'textoSalida': salida
+        'textoSalida': salidaConsola,
+        'textoGrafico': salidaGrafico
         }
         return (jsonify(objeto)) # Se devuelve un json para mejor facilidad en javascript
     except Exception as error:
-        salida={"Mensaje": error}
-        return (jsonify(salida))
+        salidaConsola={"Mensaje": error}
+        return (jsonify(salidaConsola))
 
 def pagina_no_encontrada(error):
     return "<h1>La página que intentas buscar no existe...</h1>"

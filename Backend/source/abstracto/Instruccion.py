@@ -14,3 +14,9 @@ class Instruccion:
         ejecutar puede retornar none o un valor (Instruccion, Expresion, Errores, etc)
         """
         raise NotImplementedError("Subclasses must implement this method")
+    
+    def graficarAst(self) -> None:
+        """
+        Metodo para graficar con graphviz
+        """
+        raise NotImplementedError("Subclasses must implement this method")

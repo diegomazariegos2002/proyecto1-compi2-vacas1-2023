@@ -11,4 +11,13 @@ class Expresion:
         self.column = column
 
     def ejecutar(self, ts: TablaSimbolos) -> Retorno:
+        """
+        Metodo para ejecutar la expresion y obtener su retorno
+        """
+        raise NotImplementedError("Subclasses must implement this method")
+    
+    def graficarAst(self) -> str:
+        """
+        Metodo para graficar con graphviz
+        """
         raise NotImplementedError("Subclasses must implement this method")

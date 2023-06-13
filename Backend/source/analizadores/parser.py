@@ -63,8 +63,12 @@ precedence = (
 def p_INICIO(p):
     """
     INICIO : ENTRADAS
+            | 
     """
-    p[0] = Ast(p[1])
+    if len(p) == 2:
+        p[0] = Ast(p[1])
+    else:
+        p[0] = Ast(None)
 
 def p_ENTRADAS_PARTE_1(p):
     """

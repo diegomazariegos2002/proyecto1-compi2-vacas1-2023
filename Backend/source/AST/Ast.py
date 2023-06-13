@@ -1,4 +1,5 @@
 from source.abstracto.Instruccion import Instruccion
+from source.consola_singleton.Consola import Consola
 from source.instrucciones.funcion.Function import Function
 
 
@@ -9,6 +10,7 @@ class Ast:
     """
 
     def __init__(self, instrucciones=None):
+        self.instrucciones : list[Instruccion]= None
         if instrucciones is None:
             instrucciones = []
 
@@ -26,3 +28,29 @@ class Ast:
             if isinstance(instruccion, Instruccion):
                 if not isinstance(instruccion, Function):
                     instruccion.ejecutar(ts)
+                    
+    def generarGrafico(self):
+        consola = Consola()
+        # For para armar el ast de las instrucciones
+        consola.set_AstGrafico("digraph G { \nnode[shape=box];\nnodeInicio[label=\"<\\ INICIO \\>\"];\n\n");
+        cont = 0
+        inst_line_anterior = 0
+        inst_col_anterior = 0
+
+        for instruccion in self.instrucciones:
+            try:
+                if cont == 0:
+                    consola.set_AstGrafico(f"nodeInicio->instruccion_{instruccion.line}_{instruccion.column}_;\n")
+                    inst_line_anterior = instruccion.line
+                    inst_col_anterior = instruccion.column
+                else:
+                    consola.set_AstGrafico(f"instruccion_{inst_line_anterior}_{inst_col_anterior}_->instruccion_{instruccion.line}_{instruccion.column}_;\n")
+                    inst_line_anterior = instruccion.line
+                    inst_col_anterior = instruccion.column
+
+                #instruccion.graficarAst()
+
+            except Exception as error:
+                print("soy un error" + error)
+            cont += 1
+        consola.set_AstGrafico("}"); #para cerrar el dot porque es más práctico hacerlo aquí que en la gramática
