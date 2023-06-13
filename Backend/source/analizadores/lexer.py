@@ -26,6 +26,7 @@ reservadas = {
     'number': 'number',
     'boolean': 'boolean',
     'string': 'string',
+    'String': 'stringMayus',
     'toFixed': 'toFixed',
     'toExponential': 'toExponential',
     'toString': 'toString',
@@ -33,6 +34,7 @@ reservadas = {
     'toUpperCase': 'toUpperCase',
     'split': 'split',
     'concat': 'concat',
+    'typeof': 'typeof',
     'if': 'if',
     'else': 'else',
     'while': 'while',
@@ -41,6 +43,7 @@ reservadas = {
     'for': 'for',
     'function'  : 'fn',
     'return'    : 'return',
+    'typeof'    : 'typeof',
 }
 
 

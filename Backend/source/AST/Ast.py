@@ -1,3 +1,4 @@
+import os
 from source.abstracto.Instruccion import Instruccion
 from source.consola_singleton.Consola import Consola
 from source.instrucciones.funcion.Function import Function
@@ -48,9 +49,23 @@ class Ast:
                     inst_line_anterior = instruccion.line
                     inst_col_anterior = instruccion.column
 
-                #instruccion.graficarAst()
+                instruccion.graficarAst()
 
             except Exception as error:
                 print("soy un error" + error)
             cont += 1
         consola.set_AstGrafico("}"); #para cerrar el dot porque es más práctico hacerlo aquí que en la gramática
+        self.generar_dot("ast", consola.get_AstGrafico())
+        
+    def generar_dot(self, nombre_archivo, contenido_dot):
+        # Obtener la ruta de la carpeta donde se está ejecutando el script
+        ruta_actual = os.getcwd()
+        
+        # Construir la ruta completa del archivo .dot
+        ruta_archivo_dot = os.path.join(ruta_actual, nombre_archivo + ".dot")
+        
+        # Escribir el contenido del archivo .dot
+        with open(ruta_archivo_dot, "w") as archivo:
+            archivo.write(contenido_dot)
+        
+        print(f"Archivo {nombre_archivo}.dot generado exitosamente en: {ruta_actual}")

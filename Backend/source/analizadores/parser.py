@@ -12,6 +12,7 @@ from source.expresiones.nativas.ToString import ToString
 from source.expresiones.nativas.ToUpperCase import ToUpperCase
 from source.expresiones.nativas.Split import Split
 from source.expresiones.nativas.Concat import Concat
+from source.expresiones.nativas.TypeOf import TypeOf
 from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
 from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
 from source.instrucciones.funcion.Function import Function
@@ -491,6 +492,7 @@ def p_EXPRESION_funcionesnativas(p):
             | FUNCION_TOUPPERCASE
             | FUNCION_SPLIT
             | FUNCION_CONCAT
+            | FUNCION_TYPEOF
     """
     p[0] = p[1]
 
@@ -543,7 +545,12 @@ def p_FUNCION_CONCAT(p):
     # semantico
     p[0] = Concat(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
 
-#   Queda pendiente CONCAT pues utiliza arrays.
+def p_FUNCION_TYPEOF(p):
+    """
+    FUNCION_TYPEOF : typeof p_Abre EXPRESION p_Cierra
+    """
+    # semantico
+    p[0] = TypeOf(p[3], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 # ------------------ LISTA DE EXPRESIONES PRIMITIVAS ------------------
 def p_EXPRESION_cadena(p):
@@ -596,7 +603,7 @@ def p_EXPRESION_Vector(p):
     p[0] = Vector(p[2], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
     
-def p_EXPRESION_Vector(p):
+def p_EXPRESION_Casteo(p):
     """
     EXPRESION : TIPO p_Abre EXPRESION p_Cierra
     """
@@ -613,6 +620,12 @@ def p_TIPO_NUMBER(p):
 def p_TIPO_STRING(p):
     """
     TIPO : string
+    """
+    p[0] = Tipo.STRING
+
+def p_TIPO_STRINGMayus(p):
+    """
+    TIPO : stringMayus
     """
     p[0] = Tipo.STRING
 

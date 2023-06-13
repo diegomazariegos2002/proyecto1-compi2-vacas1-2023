@@ -1,0 +1,10 @@
+digraph G { 
+node[shape=box];
+nodeInicio[label="<\ INICIO \>"];
+
+nodeInicio->instruccion_1_1_;
+instruccion_1_1_[label="\<Instruccion\>\nconsole.log"];
+instruccion_1_1_-> instruccion_1_13_;
+instruccion_1_13_-> instruccion_1_21_;
+instruccion_1_21_-> instruccion_1_26_;
+}

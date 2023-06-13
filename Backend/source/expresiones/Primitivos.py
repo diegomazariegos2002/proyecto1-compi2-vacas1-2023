@@ -31,3 +31,11 @@ class Primitivos(Expresion):
 
         consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Tipo de dato no reconocido", self.line, self.column))
         return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
+    
+    def graficarAst(self) -> str:
+        nombre = f'node_{self.line}_{self.column}_'
+        output = ""
+        output+= f"{nombre};"
+        output+= f"{nombre}[label=\"<Valor>\n\\\"{self.valor}\\\"\"];"
+        
+        return output
