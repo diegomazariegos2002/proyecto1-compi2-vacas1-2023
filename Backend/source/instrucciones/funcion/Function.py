@@ -15,6 +15,7 @@ class Function(Instruccion):
         self.id = id
         self.insParamFunc = insParamFunc
         self.insEntraFunc = insEntraFunc
+        self.entornoGlobal = None
         
     def ejecutar(self, ts: TablaSimbolos):
         consola = Consola()
@@ -24,5 +25,6 @@ class Function(Instruccion):
         if existeVariable == False:
             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe, imposible declarar funcion asi.", self.line, self.column, datetime.now()))
             return Excepcion()
-        
+        self.entornoGlobal = ts
+        # Podriamos validar que ts si sea el entorno global, pero si veo error lo hago.
         return
