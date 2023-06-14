@@ -60,7 +60,7 @@ precedence = (
     ('left', 'potencia'),
     ('right', 'not'),
     ('left', 'uresta'),
-    ('left', 'upar'),
+    ('left', 'p_Abre'),
 )
 
 #Definición de la gramática
@@ -423,6 +423,12 @@ def p_EXPRESION_negativo(p):
     """
     p[0] = Arimeticas(Tipo_OperadorAritmetico.NEGATIVO, p[2], None,  p.lineno(1),
             calcularColumna(input, p.slice[1]))
+    
+def p_EXPRESION_Parentesis(p):
+    """
+    EXPRESION : p_Abre EXPRESION p_Cierra
+    """
+    p[0] = p[2]
 
 # ------------------ LISTA DE EXPRESIONES LOGICAS ------------------
 
@@ -633,12 +639,6 @@ def p_EXPRESION_Casteo(p):
     """
     p[0] = Casteo(p[1], p[3], p.lineno(1),
                   calcularColumna(input, p.slice[2]))
-
-def p_EXPRESION_Parentesis(p):
-    """
-    EXPRESION : p_Abre EXPRESION p_Cierra %prec upar
-    """
-    p[0] = p[2]
 
 
 def p_TIPO_NUMBER(p):

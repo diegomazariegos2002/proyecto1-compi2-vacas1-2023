@@ -91,6 +91,11 @@ class Relacionales(Expresion):
                     return Retorno(True, TipoDato.BOOLEANO, TipoVariable.NORMAL)
                 else: 
                     return Retorno(False, TipoDato.BOOLEANO, TipoVariable.NORMAL)
+            elif valorIzq.tipo == TipoDato.BOOLEANO and valorDer.tipo == TipoDato.BOOLEANO:
+                if(valorIzq.valor == valorDer.valor):
+                    return Retorno(True, TipoDato.BOOLEANO, TipoVariable.NORMAL)
+                else: 
+                    return Retorno(False, TipoDato.BOOLEANO, TipoVariable.NORMAL)
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion relacional", self.line, self.column, datetime.now()))
@@ -102,6 +107,11 @@ class Relacionales(Expresion):
                 else: 
                     return Retorno(False, TipoDato.BOOLEANO, TipoVariable.NORMAL)
             elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
+                if(valorIzq.valor != valorDer.valor):
+                    return Retorno(True, TipoDato.BOOLEANO, TipoVariable.NORMAL)
+                else: 
+                    return Retorno(False, TipoDato.BOOLEANO, TipoVariable.NORMAL)
+            elif valorIzq.tipo == TipoDato.BOOLEANO and valorDer.tipo == TipoDato.BOOLEANO:
                 if(valorIzq.valor != valorDer.valor):
                     return Retorno(True, TipoDato.BOOLEANO, TipoVariable.NORMAL)
                 else: 

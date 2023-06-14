@@ -2,10 +2,147 @@ digraph G {
 node[shape=box];
 nodeInicio[label="<\ INICIO \>"];
 
-instruccion_1_1_1989423171568_[label="\<Instruccion\>\nconsole.log"];
-instruccion_1_13_1989423799600_[label="<Primitivo string>
+instruccion_1_1_2323082401872_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_1_1_2323082401872_id[label="\<Identificador\>\nval1"];
+instruccion_1_1_2323082401872_ -> instruccion_1_1_2323082401872_id;
+instruccion_1_19_2323082401584_[label="<Primitivo number>
+1"];instruccion_1_1_2323082401872_ -> instruccion_1_19_2323082401584_;
+nodeInicio->instruccion_1_1_2323082401872_;
+instruccion_2_23_2323082402256_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_2_23_2323082402256_id[label="\<Identificador\>\nval2"];
+instruccion_2_23_2323082402256_ -> instruccion_2_23_2323082402256_id;
+instruccion_2_41_2323082401344_[label="<Primitivo number>
+10"];instruccion_2_23_2323082402256_ -> instruccion_2_41_2323082401344_;
+nodeInicio->instruccion_2_23_2323082402256_;
+instruccion_3_46_2323082338896_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_3_46_2323082338896_id[label="\<Identificador\>\nval3"];
+instruccion_3_46_2323082338896_ -> instruccion_3_46_2323082338896_id;
+instruccion_3_64_2323082401968_[label="<Primitivo number>
+2021.202"];instruccion_3_46_2323082338896_ -> instruccion_3_64_2323082401968_;
+instruccion_2_23_2323082402256_->instruccion_3_46_2323082338896_;
+instruccion_5_78_2323082401920_[label="\<Instruccion\>\nconsole.log"];
+instruccion_5_90_2323082402304_[label="<Primitivo string>
 \"Probando declaracion de variables 
-\""];instruccion_1_1_1989423171568_ -> instruccion_1_13_1989423799600_;
-nodeInicio->instruccion_1_1_1989423171568_;
+\""];instruccion_5_78_2323082401920_ -> instruccion_5_90_2323082402304_;
+instruccion_3_46_2323082338896_->instruccion_5_78_2323082401920_;
+instruccion_6_132_2323082401776_[label="\<Instruccion\>\nconsole.log"];
+instruccion_6_144_2323082338800_[label="\<Identificador\>\nval1"];
+instruccion_6_132_2323082401776_ -> instruccion_6_144_2323082338800_;
+instruccion_6_150_2323082401824_[label="<Primitivo string>
+\" \""];instruccion_6_144_2323082338800_-> instruccion_6_150_2323082401824_;
+instruccion_6_155_2323082402112_[label="\<Identificador\>\nval2"];
+instruccion_6_150_2323082401824_-> instruccion_6_155_2323082402112_;
+instruccion_6_161_2323082403024_[label="<Primitivo string>
+\" \""];instruccion_6_155_2323082402112_-> instruccion_6_161_2323082403024_;
+instruccion_6_166_2323082401728_[label="\<Identificador\>\nval3"];
+instruccion_6_161_2323082403024_-> instruccion_6_166_2323082401728_;
+instruccion_5_78_2323082401920_->instruccion_6_132_2323082401776_;
+instruccion_7_174_2323082402448_[label="\<Instruccion\>\nconsole.log"];
+instruccion_7_186_2323082402640_[label="<Primitivo string>
+\"---------------------------------\""];instruccion_7_174_2323082402448_ -> instruccion_7_186_2323082402640_;
+instruccion_6_132_2323082401776_->instruccion_7_174_2323082402448_;
+instruccion_9_253_2323082437008_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_9_253_2323082437008_id[label="\<Identificador\>\nval1"];
+instruccion_9_253_2323082437008_ -> instruccion_9_253_2323082437008_id;
+instruccion_9_260_2323082402880_[label="\<Identificador\>\nval1"];
+instruccion_9_267_2323082403504_[label="<Primitivo number>
+41"];instruccion_0_265_2323082403648_[label="<Expresion>
+Suma (+)"];instruccion_0_265_2323082403648_->instruccion_9_260_2323082402880_;instruccion_0_265_2323082403648_->instruccion_9_267_2323082403504_;instruccion_9_272_2323082402064_[label="<Primitivo number>
+123"];instruccion_9_278_2323082403696_[label="<Primitivo number>
+4"];instruccion_0_276_2323082403120_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_276_2323082403120_->instruccion_9_272_2323082402064_;instruccion_0_276_2323082403120_->instruccion_9_278_2323082403696_;instruccion_9_283_2323082401536_[label="<Primitivo number>
+2"];instruccion_9_287_2323082437056_[label="<Primitivo number>
+2"];instruccion_9_291_2323082436720_[label="<Primitivo number>
+2"];instruccion_0_289_2323082437440_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_289_2323082437440_->instruccion_9_287_2323082437056_;instruccion_0_289_2323082437440_->instruccion_9_291_2323082436720_;instruccion_0_285_2323082403312_[label="<Expresion>
+Suma (+)"];instruccion_0_285_2323082403312_->instruccion_9_283_2323082401536_;instruccion_0_285_2323082403312_->instruccion_0_289_2323082437440_;instruccion_0_280_2323082436960_[label="<Expresion>
+Divison (/)"];instruccion_0_280_2323082436960_->instruccion_0_276_2323082403120_;instruccion_0_280_2323082436960_->instruccion_0_285_2323082403312_;instruccion_0_270_2323082402352_[label="<Expresion>
+Resta (-)"];instruccion_0_270_2323082402352_->instruccion_0_265_2323082403648_;instruccion_0_270_2323082402352_->instruccion_0_280_2323082436960_;instruccion_9_297_2323082401488_[label="<Primitivo number>
+10"];instruccion_9_303_2323082437344_[label="<Primitivo number>
+125"];instruccion_9_309_2323082437248_[label="<Primitivo number>
+5"];instruccion_0_307_2323082437824_[label="<Expresion>
+Modulo (%)"];instruccion_0_307_2323082437824_->instruccion_9_303_2323082437344_;instruccion_0_307_2323082437824_->instruccion_9_309_2323082437248_;instruccion_0_300_2323082402976_[label="<Expresion>
+Suma (+)"];instruccion_0_300_2323082402976_->instruccion_9_297_2323082401488_;instruccion_0_300_2323082402976_->instruccion_0_307_2323082437824_;instruccion_9_315_2323082402736_[label="<Primitivo number>
+2"];instruccion_9_319_2323082437584_[label="<Primitivo number>
+2"];instruccion_0_317_2323082437728_[label="<Expresion>
+Potencia (^)"];instruccion_0_317_2323082437728_->instruccion_9_315_2323082402736_;instruccion_0_317_2323082437728_->instruccion_9_319_2323082437584_;instruccion_0_313_2323082436864_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_313_2323082436864_->instruccion_0_300_2323082402976_;instruccion_0_313_2323082436864_->instruccion_0_317_2323082437728_;instruccion_0_294_2323082403264_[label="<Expresion>
+Resta (-)"];instruccion_0_294_2323082403264_->instruccion_0_270_2323082402352_;instruccion_0_294_2323082403264_->instruccion_0_313_2323082436864_;instruccion_9_253_2323082437008_ -> instruccion_0_294_2323082403264_;
+instruccion_7_174_2323082402448_->instruccion_9_253_2323082437008_;
+instruccion_10_323_2323082436816_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_10_323_2323082436816_id[label="\<Identificador\>\nval2"];
+instruccion_10_323_2323082436816_ -> instruccion_10_323_2323082436816_id;
+instruccion_10_330_2323082403360_[label="<Primitivo number>
+11"];instruccion_10_336_2323082438064_[label="<Primitivo number>
+11"];instruccion_10_342_2323082437680_[label="<Primitivo number>
+12"];instruccion_10_348_2323082438448_[label="<Primitivo number>
+10"];instruccion_10_347_2323082438832_[label="<Expresion>
+Negacion (-)"];instruccion_10_347_2323082438832_->instruccion_10_348_2323082438448_;instruccion_0_345_2323082438736_[label="<Expresion>
+Suma (+)"];instruccion_0_345_2323082438736_->instruccion_10_342_2323082437680_;instruccion_0_345_2323082438736_->instruccion_10_347_2323082438832_;instruccion_0_339_2323082438352_[label="<Expresion>
+Modulo (%)"];instruccion_0_339_2323082438352_->instruccion_10_336_2323082438064_;instruccion_0_339_2323082438352_->instruccion_0_345_2323082438736_;instruccion_0_333_2323082438160_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_333_2323082438160_->instruccion_10_330_2323082403360_;instruccion_0_333_2323082438160_->instruccion_0_339_2323082438352_;instruccion_10_355_2323082402496_[label="<Primitivo number>
+22"];instruccion_10_360_2323082438304_[label="<Primitivo number>
+2"];instruccion_0_358_2323082438256_[label="<Expresion>
+Divison (/)"];instruccion_0_358_2323082438256_->instruccion_10_355_2323082402496_;instruccion_0_358_2323082438256_->instruccion_10_360_2323082438304_;instruccion_0_353_2323082438112_[label="<Expresion>
+Suma (+)"];instruccion_0_353_2323082438112_->instruccion_0_333_2323082438160_;instruccion_0_353_2323082438112_->instruccion_0_358_2323082438256_;instruccion_10_323_2323082436816_ -> instruccion_0_353_2323082438112_;
+instruccion_9_253_2323082437008_->instruccion_10_323_2323082436816_;
+instruccion_11_364_2323082438880_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_11_364_2323082438880_id[label="\<Identificador\>\nval3"];
+instruccion_11_364_2323082438880_ -> instruccion_11_364_2323082438880_id;
+instruccion_11_371_2323082403552_[label="<Primitivo number>
+2"];instruccion_11_376_2323082436768_[label="<Primitivo number>
+5"];instruccion_11_380_2323082437968_[label="<Primitivo number>
+12"];instruccion_11_385_2323082439312_[label="<Primitivo number>
+2"];instruccion_0_383_2323082439600_[label="<Expresion>
+Potencia (^)"];instruccion_0_383_2323082439600_->instruccion_11_380_2323082437968_;instruccion_0_383_2323082439600_->instruccion_11_385_2323082439312_;instruccion_0_378_2323082439264_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_378_2323082439264_->instruccion_11_376_2323082436768_;instruccion_0_378_2323082439264_->instruccion_0_383_2323082439600_;instruccion_0_373_2323082439216_[label="<Expresion>
+Potencia (^)"];instruccion_0_373_2323082439216_->instruccion_11_371_2323082403552_;instruccion_0_373_2323082439216_->instruccion_0_378_2323082439264_;instruccion_11_390_2323082437872_[label="<Primitivo number>
+25"];instruccion_11_395_2323082439648_[label="<Primitivo number>
+5"];instruccion_0_393_2323082438400_[label="<Expresion>
+Divison (/)"];instruccion_0_393_2323082438400_->instruccion_11_390_2323082437872_;instruccion_0_393_2323082438400_->instruccion_11_395_2323082439648_;instruccion_0_388_2323082439024_[label="<Expresion>
+Suma (+)"];instruccion_0_388_2323082439024_->instruccion_0_373_2323082439216_;instruccion_0_388_2323082439024_->instruccion_0_393_2323082438400_;instruccion_11_364_2323082438880_ -> instruccion_0_388_2323082439024_;
+instruccion_10_323_2323082436816_->instruccion_11_364_2323082438880_;
+instruccion_12_399_2323082438592_[label="\<Instruccion\>\nconsole.log"];
+instruccion_12_411_2323082403408_[label="<Primitivo string>
+\"Probando asignación de variables y aritmeticas\""];instruccion_12_399_2323082438592_ -> instruccion_12_411_2323082403408_;
+instruccion_11_364_2323082438880_->instruccion_12_399_2323082438592_;
+instruccion_13_463_2323082439840_[label="\<Instruccion\>\nconsole.log"];
+instruccion_13_475_2323082438976_[label="\<Identificador\>\nval1"];
+instruccion_13_463_2323082439840_ -> instruccion_13_475_2323082438976_;
+instruccion_13_481_2323082439984_[label="<Primitivo string>
+\" \""];instruccion_13_475_2323082438976_-> instruccion_13_481_2323082439984_;
+instruccion_13_486_2323082440080_[label="\<Identificador\>\nval2"];
+instruccion_13_481_2323082439984_-> instruccion_13_486_2323082440080_;
+instruccion_13_492_2323082440464_[label="<Primitivo string>
+\" \""];instruccion_13_486_2323082440080_-> instruccion_13_492_2323082440464_;
+instruccion_13_497_2323082439504_[label="\<Identificador\>\nval3"];
+instruccion_13_492_2323082440464_-> instruccion_13_497_2323082439504_;
+instruccion_12_399_2323082438592_->instruccion_13_463_2323082439840_;
+instruccion_14_505_2323082438688_[label="\<Instruccion\>\nconsole.log"];
+instruccion_14_517_2323082439792_[label="<Primitivo string>
+\"---------------------------------\""];instruccion_14_505_2323082438688_ -> instruccion_14_517_2323082439792_;
+instruccion_13_463_2323082439840_->instruccion_14_505_2323082438688_;
+instruccion_16_558_2323082439696_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_16_558_2323082439696_id[label="\<Identificador\>\nrel1"];
+instruccion_16_558_2323082439696_ -> instruccion_16_558_2323082439696_id;
+instruccion_16_570_2323082440320_[label="\<Identificador\>\nval1"];
+instruccion_16_578_2323082439072_[label="<Primitivo number>
+0"];instruccion_0_575_2323082453344_[label="<Expresion>
+MayorIgual (>=)"];instruccion_0_575_2323082453344_->instruccion_16_570_2323082440320_;instruccion_0_575_2323082453344_->instruccion_16_578_2323082439072_;instruccion_16_585_2323082440176_[label="<Primitivo boolean>
+false"];instruccion_0_581_2323082453152_[label="<Expresion>
+Igualacion (===)"];instruccion_0_581_2323082453152_->instruccion_0_575_2323082453344_;instruccion_0_581_2323082453152_->instruccion_16_585_2323082440176_;instruccion_16_558_2323082439696_ -> instruccion_0_581_2323082453152_;
+instruccion_14_505_2323082438688_->instruccion_16_558_2323082439696_;
+instruccion_17_593_2323082439744_[label="\<Instruccion\>\nconsole.log"];
+instruccion_17_605_2323082438928_[label="<Primitivo string>
+\"Probando relacionales y logicas\""];instruccion_17_593_2323082439744_ -> instruccion_17_605_2323082438928_;
+instruccion_16_558_2323082439696_->instruccion_17_593_2323082439744_;
+instruccion_18_642_2323082453392_[label="\<Instruccion\>\nconsole.log"];
+instruccion_18_654_2323082439552_[label="\<Identificador\>\nrel1"];
+instruccion_18_642_2323082453392_ -> instruccion_18_654_2323082439552_;
+instruccion_17_593_2323082439744_->instruccion_18_642_2323082453392_;
+instruccion_19_662_2323082453296_[label="\<Instruccion\>\nconsole.log"];
+instruccion_19_674_2323082440128_[label="<Primitivo string>
+\"---------------------------------\""];instruccion_19_662_2323082453296_ -> instruccion_19_674_2323082440128_;
+instruccion_18_642_2323082453392_->instruccion_19_662_2323082453296_;
 
 }

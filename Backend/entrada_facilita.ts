@@ -13,7 +13,7 @@ console.log("Probando asignación de variables y aritmeticas");
 console.log(val1, " ", val2, " ", val3);
 console.log("---------------------------------");
 
-let rel1 = (((val1 - val2) === 24) && (true && (false || 5 >= 5))) || ((7*7) != (15+555) || -61 > 51);
+let rel1 = (((val1 - val2) === 24) && (true && (false || 5 >= 5))) || ((7*7) !== (15+555) || -61 > 51);
 let rel2 = (7*7) <= (15+555) && 1 < 2;
 let rel3 = ((0 === 0) !== ((532 > 532)) === ("Hola" === "Hola")) && (false || (!false));
 console.log("Probando relacionales y logicas");
