@@ -127,3 +127,26 @@ class Declaracion(Instruccion):
             return Excepcion()
         # consola.set_Consola("Error en la ejecucion de la instruccion ConsoleLog")
         return
+    
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nDeclaracion\"];\n")
+        nombreNodoId = f"instruccion_{self.line}_{self.column}_{str(id(self))}_id"
+        consola.set_AstGrafico(f"{nombreNodoId}[label=\"\\<Identificador\\>\\n{self.id}\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo} -> {nombreNodoId};\n")
+        nombreNodoExpresion = ""
+        if self.expresion == None:
+            nombreNodoExpresion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_expresion"
+            if self.tipo == None:        
+                #simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, None, self.tipoVariable)
+                consola.set_AstGrafico(f"{nombreNodoExpresion}[label=\"\\<Expresion\\>\\nnull\"];\n")
+                
+            else:
+                consola.set_AstGrafico(f"{nombreNodoExpresion}[label=\"\\<Expresion\\>\\nnull\"];\n")
+        else:
+            nombreNodoExpresion = self.expresion.graficarAst()
+            
+        consola.set_AstGrafico(f"{nombreNodo} -> {nombreNodoExpresion};\n")
+        return nombreNodo

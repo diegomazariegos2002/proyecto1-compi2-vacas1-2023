@@ -81,7 +81,7 @@ class Arimeticas(Expresion):
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
                 return Retorno("Error", TipoDato.ERROR)
-        elif(self.operador == Tipo_OperadorAritmetico.NEGATIVO, TipoVariable.NORMAL):
+        elif(self.operador == Tipo_OperadorAritmetico.NEGATIVO):
             if valorUnico.tipo == TipoDato.NUMERO:
                 return Retorno(valorUnico.valor * (-1), TipoDato.NUMERO, TipoVariable.NORMAL)
             else:
@@ -92,4 +92,45 @@ class Arimeticas(Expresion):
             # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
                 return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
+        
+    def graficarAst(self) -> str:
+        consola = Consola()
+        nombreOperacion = f'instruccion_{self.line}_{self.column}_{str(id(self))}_'
+        output = ""
+        
+        if(self.operador == Tipo_OperadorAritmetico.SUMA):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nSuma (+)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
             
+        elif(self.operador == Tipo_OperadorAritmetico.RESTA):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nResta (-)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == Tipo_OperadorAritmetico.MULTIPLICACION):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nMultiplicacion (*)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == Tipo_OperadorAritmetico.DIVISION):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nDivison (/)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == Tipo_OperadorAritmetico.POTENCIA):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nPotencia (^)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == Tipo_OperadorAritmetico.MODULO):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nModulo (%)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == Tipo_OperadorAritmetico.NEGATIVO):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nNegacion (-)\"];"
+            output += f"{nombreOperacion}->{self.unico.graficarAst()};"
+            
+        consola.set_AstGrafico(output)
+        return nombreOperacion

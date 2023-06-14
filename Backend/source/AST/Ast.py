@@ -35,26 +35,23 @@ class Ast:
         # For para armar el ast de las instrucciones
         consola.set_AstGrafico("digraph G { \nnode[shape=box];\nnodeInicio[label=\"<\\ INICIO \\>\"];\n\n");
         cont = 0
-        inst_line_anterior = 0
-        inst_col_anterior = 0
+        nombreNodoAnterior = ""
 
         for instruccion in self.instrucciones:
             try:
                 if cont == 0:
-                    consola.set_AstGrafico(f"nodeInicio->instruccion_{instruccion.line}_{instruccion.column}_;\n")
-                    inst_line_anterior = instruccion.line
-                    inst_col_anterior = instruccion.column
+                    nombreNodoAnterior = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"nodeInicio->{nombreNodoAnterior};\n")
+                    nombreNodoAnterior = "nodeInicio"
                 else:
-                    consola.set_AstGrafico(f"instruccion_{inst_line_anterior}_{inst_col_anterior}_->instruccion_{instruccion.line}_{instruccion.column}_;\n")
-                    inst_line_anterior = instruccion.line
-                    inst_col_anterior = instruccion.column
-
-                instruccion.graficarAst()
-
+                    nombreNodoNuevo = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                    nombreNodoAnterior = nombreNodoNuevo
+                    
             except Exception as error:
                 print("soy un error" + error)
             cont += 1
-        consola.set_AstGrafico("}"); #para cerrar el dot porque es más práctico hacerlo aquí que en la gramática
+        consola.set_AstGrafico("\n}"); #para cerrar el dot porque es más práctico hacerlo aquí que en la gramática
         self.generar_dot("ast", consola.get_AstGrafico())
         
     def generar_dot(self, nombre_archivo, contenido_dot):

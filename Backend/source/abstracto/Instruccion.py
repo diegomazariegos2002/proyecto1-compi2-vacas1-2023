@@ -15,7 +15,7 @@ class Instruccion:
         """
         raise NotImplementedError("Subclasses must implement this method")
     
-    def graficarAst(self) -> None:
+    def graficarAst(self) -> str:
         """
         Metodo para graficar con graphviz
         """

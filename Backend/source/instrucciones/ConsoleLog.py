@@ -81,27 +81,21 @@ class ConsoleLog(Instruccion):
     
     def graficarAst(self):
         consola = Consola()
-        nombreNodo = f"instruccion_{self.line}_{self.column}_"
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
         consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nconsole.log\"];\n")
         if self.valor != None or self.valor != []:        
             cont = 0
-            inst_line_anterior = 0
-            inst_col_anterior = 0
+            nombreNodoAnterior = ""
             for expresion in self.valor:
                 if cont == 0:
-                    consola.set_AstGrafico(f"{nombreNodo}-> instruccion_{expresion.line}_{expresion.column}_;\n")
+                    nombreNodoAnterior = expresion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodo} -> {nombreNodoAnterior};\n")
                 else: 
-                    #nombreNodoComa = f"coma_{expresion.line}_{expresion}_"
-                    nombreNodoAnterior = f"instruccion_{inst_line_anterior}_{inst_col_anterior}_"
-                    nombreNodoNuevo = f"instruccion_{expresion.line}_{expresion.column}_"
-                    
-                    #consola.set_AstGrafico(f"{nombreNodoComa}[label=\"\\<coma\\>\\n,\"];\n")
+                    nombreNodoNuevo = expresion.graficarAst()
                     consola.set_AstGrafico(f"{nombreNodoAnterior}-> {nombreNodoNuevo};\n")
-                    
-                inst_line_anterior = expresion.line
-                inst_col_anterior = expresion.column
-                expresion.graficarAst()
+                    nombreNodoAnterior = nombreNodoNuevo
                 cont+=1 
+        return nombreNodo
                 
                 
     def agregarVectorConsola(self, vectorNuevo: Retorno):

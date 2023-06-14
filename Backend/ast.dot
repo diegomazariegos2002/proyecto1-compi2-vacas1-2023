@@ -2,9 +2,51 @@ digraph G {
 node[shape=box];
 nodeInicio[label="<\ INICIO \>"];
 
-nodeInicio->instruccion_1_1_;
-instruccion_1_1_[label="\<Instruccion\>\nconsole.log"];
-instruccion_1_1_-> instruccion_1_13_;
-instruccion_1_13_-> instruccion_1_21_;
-instruccion_1_21_-> instruccion_1_26_;
+instruccion_1_1_2383319717488_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_1_1_2383319717488_id[label="\<Identificador\>\nval1"];
+instruccion_1_1_2383319717488_ -> instruccion_1_1_2383319717488_id;
+instruccion_1_19_2383319717200_[label="<Primitivo number>
+1"];instruccion_1_1_2383319717488_ -> instruccion_1_19_2383319717200_;
+nodeInicio->instruccion_1_1_2383319717488_;
+instruccion_2_23_2383319717728_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_2_23_2383319717728_id[label="\<Identificador\>\nval2"];
+instruccion_2_23_2383319717728_ -> instruccion_2_23_2383319717728_id;
+instruccion_2_41_2383319716960_[label="<Primitivo number>
+10"];instruccion_2_23_2383319717728_ -> instruccion_2_41_2383319716960_;
+nodeInicio->instruccion_2_23_2383319717728_;
+instruccion_3_46_2383319717104_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_3_46_2383319717104_id[label="\<Identificador\>\nval3"];
+instruccion_3_46_2383319717104_ -> instruccion_3_46_2383319717104_id;
+instruccion_3_64_2383319717296_[label="<Primitivo number>
+2021.202"];instruccion_3_46_2383319717104_ -> instruccion_3_64_2383319717296_;
+instruccion_2_23_2383319717728_->instruccion_3_46_2383319717104_;
+instruccion_5_78_2383319717392_[label="\<Instruccion\>\nconsole.log"];
+instruccion_5_90_2383319717776_[label="<Primitivo string>
+\"Probando declaracion de variables 
+\""];instruccion_5_78_2383319717392_ -> instruccion_5_90_2383319717776_;
+instruccion_3_46_2383319717104_->instruccion_5_78_2383319717392_;
+instruccion_7_176_2383319717536_[label="\<Instruccion\>\nconsole.log"];
+instruccion_7_188_2383319885664_[label="<Primitivo string>
+\"---------------------------------\""];instruccion_7_176_2383319717536_ -> instruccion_7_188_2383319885664_;
+instruccion_5_78_2383319717392_->instruccion_7_176_2383319717536_;
+instruccion_8_227_2383319719360_[label="\<Instruccion\>\nconsole.log"];
+instruccion_8_240_2383319718112_[label="<Primitivo number>
+1"];instruccion_8_239_2383319716912_[label="<Expresion>
+Negacion (-)"];instruccion_8_239_2383319716912_->instruccion_8_240_2383319718112_;instruccion_8_242_2383319717152_[label="<Primitivo number>
+20"];instruccion_0_241_2383319718592_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_241_2383319718592_->instruccion_8_239_2383319716912_;instruccion_0_241_2383319718592_->instruccion_8_242_2383319717152_;instruccion_8_245_2383319717824_[label="<Primitivo number>
+3"];instruccion_8_247_2383319718832_[label="<Primitivo number>
+5"];instruccion_0_246_2383319717440_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_246_2383319717440_->instruccion_8_245_2383319717824_;instruccion_0_246_2383319717440_->instruccion_8_247_2383319718832_;instruccion_0_244_2383319718640_[label="<Expresion>
+Suma (+)"];instruccion_0_244_2383319718640_->instruccion_0_241_2383319718592_;instruccion_0_244_2383319718640_->instruccion_0_246_2383319717440_;instruccion_8_249_2383319717920_[label="<Primitivo number>
+5"];instruccion_8_251_2383319718928_[label="<Primitivo number>
+8"];instruccion_8_253_2383319718736_[label="<Primitivo number>
+2"];instruccion_0_252_2383319719504_[label="<Expresion>
+Potencia (^)"];instruccion_0_252_2383319719504_->instruccion_8_251_2383319718928_;instruccion_0_252_2383319719504_->instruccion_8_253_2383319718736_;instruccion_0_250_2383319718688_[label="<Expresion>
+Divison (/)"];instruccion_0_250_2383319718688_->instruccion_8_249_2383319717920_;instruccion_0_250_2383319718688_->instruccion_0_252_2383319719504_;instruccion_8_255_2383319719024_[label="<Primitivo number>
+1"];instruccion_0_254_2383319719216_[label="<Expresion>
+Multiplicacion (*)"];instruccion_0_254_2383319719216_->instruccion_0_250_2383319718688_;instruccion_0_254_2383319719216_->instruccion_8_255_2383319719024_;instruccion_0_248_2383319719552_[label="<Expresion>
+Resta (-)"];instruccion_0_248_2383319719552_->instruccion_0_244_2383319718640_;instruccion_0_248_2383319719552_->instruccion_0_254_2383319719216_;instruccion_8_227_2383319719360_ -> instruccion_0_248_2383319719552_;
+instruccion_7_176_2383319717536_->instruccion_8_227_2383319719360_;
+
 }

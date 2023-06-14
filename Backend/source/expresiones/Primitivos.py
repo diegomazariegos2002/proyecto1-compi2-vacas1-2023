@@ -33,9 +33,19 @@ class Primitivos(Expresion):
         return Retorno(0, Tipo.ERROR, TipoVariable.NORMAL)
     
     def graficarAst(self) -> str:
-        nombre = f'node_{self.line}_{self.column}_'
+        consola = Consola()
+        nombre = f'instruccion_{self.line}_{self.column}_{str(id(self))}_'
         output = ""
-        output+= f"{nombre};"
-        output+= f"{nombre}[label=\"<Valor>\n\\\"{self.valor}\\\"\"];"
+        if(self.tipo == TipoDato.CADENA):
+            output+= f"{nombre}[label=\"<Primitivo string>\n\\\"{self.valor}\\\"\"];"
+        if(self.tipo == TipoDato.NUMERO):
+            output+= f"{nombre}[label=\"<Primitivo number>\n{self.valor}\"];"
+        if(self.tipo == TipoDato.BOOLEANO):
+            output+= f"{nombre}[label=\"<Primitivo boolean>\n{self.valor}\"];"
+        if(self.tipo == TipoDato.NULL):
+            output+= f"{nombre}[label=\"<Primitivo null>\n{self.valor}\"];"
+        if(self.tipo == TipoDato.ANY):
+            output+= f"{nombre}[label=\"<Primitivo any>\n\\\"{self.valor}\\\"\"];"
         
-        return output
+        consola.set_AstGrafico(output)
+        return nombre
