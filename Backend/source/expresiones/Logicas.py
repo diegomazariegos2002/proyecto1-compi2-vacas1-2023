@@ -64,3 +64,26 @@ class Logicas(Expresion):
         # ERROR
         consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe ese tipo de logica", self.line, self.column, datetime.now()))
         return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreOperacion = f'instruccion_{self.line}_{self.column}_{str(id(self))}_'
+        output = ""
+        
+        if(self.operador == TipoLogicas.AND):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nAND (&&)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == TipoLogicas.OR):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nOR (||)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == TipoLogicas.NOT):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nNOT (!)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        consola.set_AstGrafico(output)
+        return nombreOperacion

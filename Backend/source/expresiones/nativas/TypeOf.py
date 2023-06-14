@@ -9,7 +9,7 @@ from source.simbolo.TablaSimbolos import TablaSimbolos
 class TypeOf(Expresion):
     def __init__(self, expresion, line, column):
         super().__init__(line, column)
-        self.expresion = expresion
+        self.expresion : Expresion = expresion
         
     def ejecutar(self, ts: TablaSimbolos) -> Retorno:
         consolaGlobal = Consola()
@@ -34,3 +34,10 @@ class TypeOf(Expresion):
         # ERROR
         consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error algo salio mal en la funcion nativa TypeOf(), revisar parametros de la funcion", self.line, self.column, datetime.now()))
         return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Expresion\\>\\ntoFixed\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo}->{self.expresion.graficarAst()};\n")
+        return nombreNodo

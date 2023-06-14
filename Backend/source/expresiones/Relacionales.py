@@ -114,3 +114,43 @@ class Relacionales(Expresion):
         # ERROR
         consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error ese tipo en operacion relacional no existe", self.line, self.column, datetime.now()))
         return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreOperacion = f'instruccion_{self.line}_{self.column}_{str(id(self))}_'
+        output = ""
+        
+        if(self.operador == TipoRelacionales.MAYORQUE):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nMayorQue (>)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == TipoRelacionales.MAYORIGUAL):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nMayorIgual (>=)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == TipoRelacionales.MENORQUE):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nMenorQue (<)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == TipoRelacionales.MENORIGUAL):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nMenorIgual (<=)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == TipoRelacionales.IGUALACION):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nIgualacion (===)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            
+        elif(self.operador == TipoRelacionales.DIFERENTE):
+            output += f"{nombreOperacion}[label=\"<Expresion>\nDiferente (!==)\"];"
+            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
+            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            output += f"{nombreOperacion}[label=\"<Expresion>\nNegacion (-)\"];"
+            output += f"{nombreOperacion}->{self.unico.graficarAst()};"
+            
+        consola.set_AstGrafico(output)
+        return nombreOperacion

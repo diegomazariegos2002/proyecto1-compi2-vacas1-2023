@@ -45,6 +45,7 @@ reservadas = {
     'return'    : 'return',
     'typeof'    : 'typeof',
     'of'    : 'of',
+    'interface': 'interface',
 }
 
 
@@ -70,6 +71,8 @@ tokens = [
         'and',
         'or',
         'not',
+        'igualacionNormal',
+        'diferenteNormal',
         'igualacion',
         'diferente',
         'mayor',
@@ -108,6 +111,8 @@ t_menor = r'<'
 t_mayor = r'>'
 t_menorigual = r'<='
 t_mayorigual = r'>='
+t_igualacionNormal = r'=='
+t_diferenteNormal = r'\!='
 t_igualacion = r'==='
 t_diferente = r'\!=='
 t_dosPuntos = r':'

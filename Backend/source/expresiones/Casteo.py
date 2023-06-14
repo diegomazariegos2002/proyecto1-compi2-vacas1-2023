@@ -73,3 +73,11 @@ class Casteo(Expresion):
             return True
         except ValueError:
             return False
+    
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Casteo\\>\\n[{self.tipo}]\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo}->{self.expresion.graficarAst()};\n")
+        return nombreNodo

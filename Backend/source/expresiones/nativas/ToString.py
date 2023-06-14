@@ -43,3 +43,12 @@ class ToString(Expresion):
         # ERROR
         consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error algo salio mal en la funcion nativa ToString(), revisar parametros de la funcion", self.line, self.column, datetime.now()))
         return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Expresion\\>\\ntoString\"];\n")
+        nombreNodoId = f"instruccion_{self.line}_{self.column}_{str(id(self))}_id_"
+        consola.set_AstGrafico(f"{nombreNodoId}[label=\"\\<Identificador\\>\\n{self.nombreVar}\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoId};\n")
+        return nombreNodo

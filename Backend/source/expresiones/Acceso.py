@@ -20,3 +20,9 @@ class Acceso(Expresion):
             return Retorno(0, TipoDato.ERROR, TipoVariable.NORMAL)
         
         return Retorno(variable.valor, variable.tipoDato, variable.tipoVariable)
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Identificador\\>\\n{self.id}\"];\n")
+        return nombreNodo

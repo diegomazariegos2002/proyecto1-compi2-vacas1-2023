@@ -1,6 +1,7 @@
 import os
 from source.abstracto.Instruccion import Instruccion
 from source.consola_singleton.Consola import Consola
+from source.expresiones.nativas.TypeOf import TypeOf
 from source.instrucciones.funcion.Function import Function
 
 
