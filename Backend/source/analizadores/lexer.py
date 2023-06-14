@@ -44,6 +44,7 @@ reservadas = {
     'function'  : 'fn',
     'return'    : 'return',
     'typeof'    : 'typeof',
+    'of'    : 'of',
 }
 
 
