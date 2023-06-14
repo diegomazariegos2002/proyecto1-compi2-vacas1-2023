@@ -61,4 +61,4 @@ class TablaSimbolos:
     def recorrerTablaSimbolos(self):
         for simbolo in self.tablaActual:
             valor:Simbolo = self.tablaActual[simbolo]
-            print(str(simbolo) +": "+str(valor.id) +" / " + str(valor.valor) +" / " + str(valor.tipo)+" / " + str(valor.tipoDato)+" / " + str(valor.tipoSimbolo))
+            print(str(simbolo) +": "+str(valor.id) +" / " + str(valor.valor) +" / " + str(valor.tipo)+" / " + str(valor.tipoDato)+" / " + str(valor.tipoVariable))

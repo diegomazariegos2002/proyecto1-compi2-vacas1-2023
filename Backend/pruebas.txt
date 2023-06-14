@@ -29,3 +29,6 @@ console.log(-1*20+3*5-5/8^2*1);
 
 =========
 
+{
+    "textoEntrada": "for (let letra of [1, [1, [2,3,4], 3], 3, 4, 5]){\n console.log(letra);};"
+}

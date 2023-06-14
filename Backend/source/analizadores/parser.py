@@ -17,6 +17,7 @@ from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
 from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
 from source.instrucciones.funcion.Function import Function
 from source.instrucciones.sentencias_ciclicas.For import For
+from source.instrucciones.sentencias_ciclicas.ForVec import ForVec
 from source.instrucciones.sentencias_ciclicas.While import While
 from source.instrucciones.sentencias_de_control.If import If
 from source.instrucciones.sentencias_de_transferencia.Break import Break
@@ -187,6 +188,12 @@ def p_FOR(p):
     FOR : for p_Abre DECLARACION puntoYcoma EXPRESION puntoYcoma FORITERADOR p_Cierra llave_Abre ENTRADAS llave_Cierra
     """
     p[0] = For(p[3], p[5], p[7], p[10], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_FOR_Vector_Cadena(p):
+    """
+    FOR : for p_Abre DECLARACION of EXPRESION p_Cierra llave_Abre ENTRADAS llave_Cierra
+    """
+    p[0] = ForVec(p[3], p[5], p[8], p.lineno(1), calcularColumna(input, p.slice[1]))
     
 def p_FORITERADOR(p):
     """
