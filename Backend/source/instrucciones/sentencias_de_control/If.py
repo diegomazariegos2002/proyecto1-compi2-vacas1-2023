@@ -103,4 +103,59 @@ class If(Instruccion):
                         if isinstance(resultIns, Continue):
                             return resultIns
         return
+
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nIf\"];\n")
+        nombreNodoCondicion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_condicion"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nCondicion\"];\n")
+        consola.set_AstGrafico(f"{nombreNodoCondicion}->{self.condicion.graficarAst()};\n")
+        cont = 0
+        nombreNodoAnterior = ""
+
+        for instruccion in self.insEntraIf:
+            try:
+                if cont == 0:
+                    nombreNodoAnterior = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoAnterior};\n")
+                else:
+                    nombreNodoNuevo = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                    nombreNodoAnterior = nombreNodoNuevo
+                    
+            except Exception as error:
+                print("soy un error en el if ast." + error)
+            cont += 1
+        
+        if self.insEntraOpcionales != None:
+            #ELSE
+            if isinstance(self.insEntraOpcionales, list):
+                nombreNodoElse = f"instruccion_{self.line}_{self.column}_{str(id(self))}_else"
+                consola.set_AstGrafico(f"{nombreNodoElse}[label=\"\\<Instruccion\\>\\nElse\"];\n")
+                consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoElse};\n")
+                cont = 0
+                nombreNodoAnterior = ""
+
+                for instruccion in self.insEntraOpcionales:
+                    try:
+                        if cont == 0:
+                            nombreNodoAnterior = instruccion.graficarAst()
+                            consola.set_AstGrafico(f"{nombreNodoElse}->{nombreNodoAnterior};\n")
+                        else:
+                            nombreNodoNuevo = instruccion.graficarAst()
+                            consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                            nombreNodoAnterior = nombreNodoNuevo
+                            
+                    except Exception as error:
+                        print("soy un error en el else ast." + error)
+                    cont += 1
+            
+            #ELSE IF
+            else:
+                consola.set_AstGrafico(f"{nombreNodo}->{self.insEntraOpcionales.graficarAst()};\n")
+        
+            
+        return nombreNodo
+        
         

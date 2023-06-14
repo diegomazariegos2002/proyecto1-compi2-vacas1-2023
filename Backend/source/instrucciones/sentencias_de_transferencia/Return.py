@@ -23,3 +23,10 @@ class Return(Instruccion):
         
         # validar lo que se tenga que validar
         return self
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nBreak\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo} -> {self.expresionReturn.graficarAst()};\n")
+        return nombreNodo

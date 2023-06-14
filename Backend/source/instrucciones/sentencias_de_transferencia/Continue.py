@@ -20,3 +20,9 @@ class Continue(Instruccion):
         """
         
         return self
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nContinue\"];\n")
+        return nombreNodo
