@@ -55,7 +55,7 @@ precedence = (
     ('left', 'or'),
     ('left', 'and'),
     ('left', 'suma', 'resta'),
-    ('nonassoc', 'menor', 'mayor', 'menorigual', 'mayorigual', 'igualacion', 'diferente'),
+    ('left', 'menor', 'mayor', 'menorigual', 'mayorigual', 'igualacion', 'diferente'),
     ('left', 'multiplicacion', 'division', 'modulo'),
     ('left', 'potencia'),
     ('right', 'not'),
