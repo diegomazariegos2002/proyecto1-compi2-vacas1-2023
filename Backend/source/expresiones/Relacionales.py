@@ -69,7 +69,7 @@ class Relacionales(Expresion):
                 if(valorIzq.valor <= valorDer.valor):
                     return Retorno(True, TipoDato.BOOLEANO, TipoVariable.NORMAL)
                 else: 
-                    return Retorno(False, TipoDato.BOOLEANO)
+                    return Retorno(False, TipoDato.BOOLEANO, TipoVariable.NORMAL)
             elif valorIzq.tipo == TipoDato.CADENA and valorDer.tipo == TipoDato.CADENA:
                 if(valorIzq.valor <= valorDer.valor):
                     return Retorno(True, TipoDato.BOOLEANO, TipoVariable.NORMAL)
@@ -159,8 +159,6 @@ class Relacionales(Expresion):
             output += f"{nombreOperacion}[label=\"<Expresion>\nDiferente (!==)\"];"
             output += f"{nombreOperacion}->{self.izq.graficarAst()};"
             output += f"{nombreOperacion}->{self.der.graficarAst()};"
-            output += f"{nombreOperacion}[label=\"<Expresion>\nNegacion (-)\"];"
-            output += f"{nombreOperacion}->{self.unico.graficarAst()};"
             
         consola.set_AstGrafico(output)
         return nombreOperacion

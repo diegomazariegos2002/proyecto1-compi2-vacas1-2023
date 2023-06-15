@@ -34,6 +34,7 @@ class TipoVariable(Enum):
     NORMAL = 1
     VECTOR = 2
     FUNCTION = 3
+    STRUCT = 4
 
 class Tipo_OperadorAritmetico(Enum):
     """
@@ -89,6 +90,12 @@ class VectorAux:
     def __init__(self, vectortmp, indice) -> None:
         self.vectortmp = vectortmp
         self.indice = indice
+        
+class EstructuraInterface: 
+
+    def __init__(self, id, tipo: Tipo) -> None:
+        self.id = id
+        self.tipo = tipo
 
 class Retorno: 
     """

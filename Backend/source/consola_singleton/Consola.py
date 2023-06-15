@@ -32,12 +32,16 @@ class Consola(metaclass=SingletonMeta):
     listaExcepciones : list[Excepcion] = []
     listaSimbolos : list[Simbolo] = []
     astGrafico: str = ""
+    numErrores = 1
+    errores = ""
 
     def clean_Consola(self):
         self.consola = ""
         self.listaExcepciones = []
         self.listaSimbolos = []
         self.astGrafico = ""
+        self.numErrores = 1
+        self.errores = ""
 
     def set_Consola (self, consola):
         self.consola += consola
@@ -47,6 +51,14 @@ class Consola(metaclass=SingletonMeta):
     
     def set_Excepcion(self, excepcion: Excepcion):
         self.listaExcepciones.append(excepcion)
+        fechaHora = str(excepcion.fecha_hora.day) +"/"+str(excepcion.fecha_hora.month) +"/"+str(excepcion.fecha_hora.year) +" " + str(excepcion.fecha_hora.hour) + ":"+ str(excepcion.fecha_hora.minute)
+        self.errores += """<tr> 
+        <td>""" + str(self.numErrores) + """</td>
+        <td>""" + excepcion.descripcion + """</td>
+        <td>""" + excepcion.linea + """</td>
+        <td>""" + excepcion.columna + """</td>
+        <td>""" + fechaHora + """</td>
+        </tr>"""
         return
     
     def get_Excepciones(self):

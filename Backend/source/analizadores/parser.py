@@ -16,6 +16,7 @@ from source.expresiones.nativas.TypeOf import TypeOf
 from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
 from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
 from source.instrucciones.funcion.Function import Function
+from source.instrucciones.structs.InterfaceDefinicion import InterfaceDefinicion
 from source.instrucciones.sentencias_ciclicas.For import For
 from source.instrucciones.sentencias_ciclicas.ForVec import ForVec
 from source.instrucciones.sentencias_ciclicas.While import While
@@ -25,7 +26,7 @@ from source.instrucciones.sentencias_de_transferencia.Continue import Continue
 from source.instrucciones.sentencias_de_transferencia.Return import Return
 from .lexer import *
 # Librerías propias
-from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato, TipoVariable
+from source.abstracto.Retorno import Tipo, Tipo_OperadorAritmetico, TipoLogicas, TipoRelacionales, TipoDato, TipoVariable, EstructuraInterface
 from source.expresiones.Primitivos import Primitivos
 from source.expresiones.Aritmeticas import Arimeticas
 from source.expresiones.Logicas import Logicas
@@ -55,7 +56,7 @@ precedence = (
     ('left', 'or'),
     ('left', 'and'),
     ('left', 'suma', 'resta'),
-    ('left', 'menor', 'mayor', 'menorigual', 'mayorigual', 'igualacion', 'diferente'),
+    ('left', 'menor', 'mayor', 'menorigual', 'mayorigual', 'igualacion', 'igualacionNormal', 'diferente', 'diferenteNormal'),
     ('left', 'multiplicacion', 'division', 'modulo'),
     ('left', 'potencia'),
     ('right', 'not'),
@@ -98,6 +99,7 @@ def p_ENTRADA(p):
             |   INCREMENTO puntoYcoma
             |   DECREMENTO puntoYcoma
             |   FUNC puntoYcoma
+            |   STRUCT puntoYcoma
             |   LLAMADA_FUNCION puntoYcoma
             |   RETURN
     """
@@ -184,6 +186,40 @@ def p_PARAMETROS_LLAMA_FUNC(p):
     else:
         p[1].append(p[3])
         p[0] = p[1]
+        
+# ------------------ INTERFACE ------------------
+
+def p_INTERFACE(p):
+    """
+    STRUCT : interface id llave_Abre LISTAATRIBUTOS llave_Cierra
+    """
+    p[0] = InterfaceDefinicion(p[2], p[4], p.lineno(1), calcularColumna(input, p.slice[1]))
+        
+def p_LISTAATRIBUTOS(p):
+    """
+    LISTAATRIBUTOS :  LISTAATRIBUTOS id dosPuntos TIPO puntoYcoma
+    """
+    p[1].append(EstructuraInterface(p[2], p[4]))
+    p[0] = p[1]
+
+def p_LISTAATRIBUTOS_NoTipado(p):
+    """
+    LISTAATRIBUTOS :  LISTAATRIBUTOS id puntoYcoma
+    """
+    p[1].append(EstructuraInterface(p[2], Tipo.ANY))
+    p[0] = p[1]
+
+def p_LISTAATRIBUTOS_Extra(p):
+    """
+    LISTAATRIBUTOS : id dosPuntos TIPO puntoYcoma
+    """
+    p[0] = [EstructuraInterface(p[1], p[3])]      
+
+def p_LISTAATRIBUTOS_Extra_NoTipado(p):
+    """
+    LISTAATRIBUTOS : id puntoYcoma
+    """
+    p[0] = [EstructuraInterface(p[1], p[3])]       
 
 # ------------------ FOR ------------------
 def p_FOR(p):
@@ -241,11 +277,17 @@ def p_WHILE(p):
     p[0] = While(p[3], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
         
 # ------------------ IF ------------------
-def p_IF(p):
+def p_IF_1(p):
     """
     IF : if p_Abre EXPRESION p_Cierra llave_Abre ENTRADAS llave_Cierra COMPLEMENTO_IF
     """
     p[0] = If(p[3], p[6], p[8], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_IF_2  (p):
+    """
+    IF : if p_Abre EXPRESION p_Cierra llave_Abre llave_Cierra COMPLEMENTO_IF
+    """
+    p[0] = If(p[3], p[6], [], p.lineno(1), calcularColumna(input, p.slice[1]))
     
 def p_COMPLEMENTO_IF(p):
     """

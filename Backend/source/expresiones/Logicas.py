@@ -82,8 +82,7 @@ class Logicas(Expresion):
             
         elif(self.operador == TipoLogicas.NOT):
             output += f"{nombreOperacion}[label=\"<Expresion>\nNOT (!)\"];"
-            output += f"{nombreOperacion}->{self.izq.graficarAst()};"
-            output += f"{nombreOperacion}->{self.der.graficarAst()};"
+            output += f"{nombreOperacion}->{self.unico.graficarAst()};"
             
         consola.set_AstGrafico(output)
         return nombreOperacion

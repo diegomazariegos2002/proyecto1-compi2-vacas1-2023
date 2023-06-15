@@ -101,3 +101,29 @@ class LlamadaFunction(Expresion):
                     return retExpRetonarda
                 
         return Retorno(None, TipoDato.NULL, TipoVariable.NORMAL)
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nLlamada Funcion [{self.idFuncion}]\"];\n")
+        nombreNodoParametros = f"instruccion_{self.line}_{self.column}_{str(id(self))}_parametro_"
+        consola.set_AstGrafico(f"{nombreNodoParametros}[label=\"\\<Expresion\\>\\nParametros\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoParametros};\n")
+        # PARAMETROS
+        cont = 0
+        nombreNodoAnterior = ""
+
+        for instruccion in self.insEntraParam:
+            try:
+                if cont == 0:
+                    nombreNodoAnterior = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoParametros}->{nombreNodoAnterior};\n")
+                else:
+                    nombreNodoNuevo = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                    nombreNodoAnterior = nombreNodoNuevo
+                    
+            except Exception as error:
+                print("soy un error en llamada funcion -> parametros de funcion ast: " + error)
+            cont += 1        
+        return nombreNodo

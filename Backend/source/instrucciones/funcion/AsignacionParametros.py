@@ -41,3 +41,13 @@ class AsignacionParametros():
             variable.tipoDato = expresionRetorno.tipo
         # si todo esta bien, se actualiza la variable 
         tsFuncion.actualizarVariable(self.nombreVar, expresionRetorno.valor)
+
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nAsignacion Parametros\"];\n")
+        nombreNodoId = f"instruccion_{str(id(self))}_id_"
+        consola.set_AstGrafico(f"{nombreNodoId}[label=\"\\<Identificador\\>\\n{self.nombreVar}\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo} -> {nombreNodoId};\n")
+        consola.set_AstGrafico(f"{nombreNodo} -> {self.expresionAsignar.graficarAst()};\n")
+        return nombreNodo

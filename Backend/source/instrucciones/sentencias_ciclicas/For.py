@@ -65,3 +65,54 @@ class For(Instruccion):
             if isinstance(retornoAsignacion, Excepcion):
                 return Excepcion()
         return
+    
+    def graficarAst(self):
+        consola = Consola()
+        #declaraciones de los nodos
+        nombreNodoPrincipal = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodoPrincipal}[label=\"\\<Instruccion\\>\\nFor\"];\n")
+        
+        nombreNodoDeclaracion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_Declaracion_"
+        consola.set_AstGrafico(f"{nombreNodoDeclaracion}[label=\"\\<Instruccion\\>\\nDeclaracion\"];\n")
+        nombreNodoCondicion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_Condicion_"
+        consola.set_AstGrafico(f"{nombreNodoCondicion}[label=\"\\<Instruccion\\>\\nCondicion\"];\n")
+        nombreNodoAsignacion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_Asignacion_"
+        consola.set_AstGrafico(f"{nombreNodoAsignacion}[label=\"\\<Instruccion\\>\\nAsignacion\"];\n")
+        
+        nombreNodoBloqueIns = f"instruccion_{self.line}_{self.column}_{str(id(self))}_BloqueInsFor_"
+        consola.set_AstGrafico(f"{nombreNodoBloqueIns}[label=\"\\<Bloque\\>\\nInstrucciones For\"];\n")
+        
+        # uniones de los nodos
+        consola.set_AstGrafico(f"{nombreNodoPrincipal}->{nombreNodoAsignacion}\n")
+        consola.set_AstGrafico(f"{nombreNodoPrincipal}->{nombreNodoCondicion}\n")
+        consola.set_AstGrafico(f"{nombreNodoPrincipal}->{nombreNodoDeclaracion}\n")
+        consola.set_AstGrafico(f"{nombreNodoPrincipal}->{nombreNodoBloqueIns}\n")
+        
+        # Graficando los hijos.
+        if self.declaracion != None:
+            consola.set_AstGrafico(f"{nombreNodoCondicion}->{self.asignacion.graficarAst()}\n")
+        if self.condicion != None:
+            consola.set_AstGrafico(f"{nombreNodoCondicion}->{self.condicion.graficarAst()}\n")
+        if self.asignacion != None:
+            consola.set_AstGrafico(f"{nombreNodoCondicion}->{self.declaracion.graficarAst()}\n")
+            
+        
+        # INSTRUCCIONES FOR
+        cont = 0
+        nombreNodoAnterior = ""
+
+        for instruccion in self.insEntraFor:
+            try:
+                if cont == 0:
+                    nombreNodoAnterior = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoBloqueIns}->{nombreNodoAnterior};\n")
+                else:
+                    nombreNodoNuevo = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                    nombreNodoAnterior = nombreNodoNuevo
+                    
+            except Exception as error:
+                print("soy un error en for entradas ast: " + error)
+            cont += 1
+        
+        return nombreNodoPrincipal

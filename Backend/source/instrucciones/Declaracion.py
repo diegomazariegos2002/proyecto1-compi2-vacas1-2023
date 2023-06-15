@@ -148,5 +148,5 @@ class Declaracion(Instruccion):
         else:
             nombreNodoExpresion = self.expresion.graficarAst()
             
-        consola.set_AstGrafico(f"{nombreNodo} -> {nombreNodoExpresion};\n")
+        consola.set_AstGrafico(f"\n{nombreNodo} -> {nombreNodoExpresion};\n")
         return nombreNodo

@@ -67,7 +67,7 @@ def analizar():
         listaExcepciones = consolaGlobal.get_Excepciones()
         
         # Generar gráfico AST
-        #if listaExcepciones == []:
+        # if listaExcepciones == []:
         #    ast.generarGrafico()
         #    salidaGrafico = consolaGlobal.get_AstGrafico()
         

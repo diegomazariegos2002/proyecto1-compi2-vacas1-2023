@@ -37,15 +37,15 @@ class Primitivos(Expresion):
         nombre = f'instruccion_{self.line}_{self.column}_{str(id(self))}_'
         output = ""
         if(self.tipo == TipoDato.CADENA):
-            output+= f"{nombre}[label=\"<Primitivo string>\n\\\"{self.valor}\\\"\"];"
+            output+= f"{nombre}[label=\"<Primitivo string>\\n\\\"{self.valor}\\\"\"];"
         if(self.tipo == TipoDato.NUMERO):
-            output+= f"{nombre}[label=\"<Primitivo number>\n{self.valor}\"];"
+            output+= f"{nombre}[label=\"<Primitivo number>\\n{self.valor}\"];"
         if(self.tipo == TipoDato.BOOLEANO):
-            output+= f"{nombre}[label=\"<Primitivo boolean>\n{self.valor}\"];"
+            output+= f"{nombre}[label=\"<Primitivo boolean>\\n{self.valor}\"];"
         if(self.tipo == TipoDato.NULL):
-            output+= f"{nombre}[label=\"<Primitivo null>\n{self.valor}\"];"
+            output+= f"{nombre}[label=\"<Primitivo null>\\n{self.valor}\"];"
         if(self.tipo == TipoDato.ANY):
-            output+= f"{nombre}[label=\"<Primitivo any>\n\\\"{self.valor}\\\"\"];"
+            output+= f"{nombre}[label=\"<Primitivo any>\\n\\\"{self.valor}\\\"\"];"
         
         consola.set_AstGrafico(output)
         return nombre

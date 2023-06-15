@@ -32,3 +32,26 @@ console.log(-1*20+3*5-5/8^2*1);
 {
     "textoEntrada": "for (let letra of [1, [1, [2,3,4], 3], 3, 4, 5]){\n console.log(letra);};"
 }
+
+===============
+
+let c = "Hola";
+let a = 2;
+
+function Suma(a: number, b: number){
+  console.log(c);
+  return a + b;
+};
+
+if (c === "Hola") {
+  let c = "Adios";
+  let a = 1;
+  if (c !== "Hola") {
+    let suma: number = Suma(a, 2);
+    console.log(suma);
+  };
+};
+
+console.log(c); // Imprime "Hola"
+
+================

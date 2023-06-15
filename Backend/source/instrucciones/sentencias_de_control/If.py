@@ -109,7 +109,11 @@ class If(Instruccion):
         nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
         consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nIf\"];\n")
         nombreNodoCondicion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_condicion"
-        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nCondicion\"];\n")
+        consola.set_AstGrafico(f"{nombreNodoCondicion}[label=\"\\<Instruccion\\>\\nCondicion\"];\n")
+        nombreNodoBlkIns = f"instruccion_{self.line}_{self.column}_{str(id(self))}_blkInsIf"
+        consola.set_AstGrafico(f"{nombreNodoBlkIns}[label=\"\\<Bloque\\>\\nInstrucciones If\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoCondicion};\n")
+        consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoBlkIns};\n")
         consola.set_AstGrafico(f"{nombreNodoCondicion}->{self.condicion.graficarAst()};\n")
         cont = 0
         nombreNodoAnterior = ""
@@ -118,7 +122,7 @@ class If(Instruccion):
             try:
                 if cont == 0:
                     nombreNodoAnterior = instruccion.graficarAst()
-                    consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoAnterior};\n")
+                    consola.set_AstGrafico(f"{nombreNodoBlkIns}->{nombreNodoAnterior};\n")
                 else:
                     nombreNodoNuevo = instruccion.graficarAst()
                     consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
@@ -154,8 +158,7 @@ class If(Instruccion):
             #ELSE IF
             else:
                 consola.set_AstGrafico(f"{nombreNodo}->{self.insEntraOpcionales.graficarAst()};\n")
-        
-            
+                    
         return nombreNodo
         
         

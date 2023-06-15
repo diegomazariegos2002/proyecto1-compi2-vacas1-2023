@@ -47,3 +47,35 @@ class While(Instruccion):
                 if isinstance(resultIns, Continue):
                     break
         return
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodoInstruccion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodoInstruccion}[label=\"\\<Instruccion\\>\\nWhile\"];\n")
+        nombreNodoCondicion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_Condicion_"
+        consola.set_AstGrafico(f"{nombreNodoCondicion}[label=\"\\<Instruccion\\>\\nCondicion\"];\n")
+        nombreNodoBloqueIns = f"instruccion_{self.line}_{self.column}_{str(id(self))}_BloqueInsWhile_"
+        consola.set_AstGrafico(f"{nombreNodoBloqueIns}[label=\"\\<Bloque\\>\\nInstrucciones While\"];\n")
+        
+        consola.set_AstGrafico(f"{nombreNodoCondicion}->{self.condicion.graficarAst()}\n")    
+        consola.set_AstGrafico(f"{nombreNodoInstruccion}->{nombreNodoBloqueIns}\n")
+        
+        # INSTRUCCIONES WHILE
+        cont = 0
+        nombreNodoAnterior = ""
+
+        for instruccion in self.insEntraWhile:
+            try:
+                if cont == 0:
+                    nombreNodoAnterior = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoBloqueIns}->{nombreNodoAnterior};\n")
+                else:
+                    nombreNodoNuevo = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                    nombreNodoAnterior = nombreNodoNuevo
+                    
+            except Exception as error:
+                print("soy un error en while entradas ast: " + error)
+            cont += 1
+        
+        return nombreNodoInstruccion

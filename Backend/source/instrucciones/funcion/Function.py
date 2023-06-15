@@ -28,3 +28,51 @@ class Function(Instruccion):
         self.entornoGlobal = ts
         # Podriamos validar que ts si sea el entorno global, pero si veo error lo hago.
         return
+    
+    def graficarAst(self):
+        consola = Consola()
+        nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
+        consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nFuncion {self.id}\"];\n")
+        nombreNodoParametros = f"instruccion_{self.line}_{self.column}_{str(id(self))}_Parametros_"
+        consola.set_AstGrafico(f"{nombreNodoParametros}[label=\"\\<Instruccion\\>\\nParametros\"];\n")
+        nombreNodoBloqueIns = f"instruccion_{self.line}_{self.column}_{str(id(self))}_BloqueInsFun_"
+        consola.set_AstGrafico(f"{nombreNodoBloqueIns}[label=\"\\<Bloque\\>\\nInstrucciones Funcion\"];\n")
+        consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoParametros}\n")    
+        consola.set_AstGrafico(f"{nombreNodo}->{nombreNodoBloqueIns}\n")
+        # PARAMETROS
+        cont = 0
+        nombreNodoAnterior = ""
+
+        for instruccion in self.insParamFunc:
+            try:
+                if cont == 0:
+                    nombreNodoAnterior = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoParametros}->{nombreNodoAnterior};\n")
+                else:
+                    nombreNodoNuevo = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                    nombreNodoAnterior = nombreNodoNuevo
+                    
+            except Exception as error:
+                print("soy un error en los parametros de funcion ast: " + error)
+            cont += 1
+        
+        # INSTRUCCIONES FUNCION
+        cont = 0
+        nombreNodoAnterior = ""
+
+        for instruccion in self.insEntraFunc:
+            try:
+                if cont == 0:
+                    nombreNodoAnterior = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoBloqueIns}->{nombreNodoAnterior};\n")
+                else:
+                    nombreNodoNuevo = instruccion.graficarAst()
+                    consola.set_AstGrafico(f"{nombreNodoAnterior}->{nombreNodoNuevo};\n")
+                    nombreNodoAnterior = nombreNodoNuevo
+                    
+            except Exception as error:
+                print("soy un error en los parametros de funcion ast: " + error)
+            cont += 1
+        
+        return nombreNodo

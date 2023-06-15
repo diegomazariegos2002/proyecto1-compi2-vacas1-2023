@@ -7,6 +7,7 @@ class TiposSimbolos(Enum):
     """
     VARIABLE = 1
     FUNCTION = 2
+    INTERFACE = 3
 
 def getTipoSimbolo(s):
     if(s == 1):
