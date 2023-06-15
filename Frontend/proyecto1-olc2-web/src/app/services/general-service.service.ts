@@ -22,4 +22,22 @@ export class GeneralServiceService {
       })
     );
   }
+
+  recibirErrores(){
+    return this.http.get('/proyectoolc2/errores').pipe(
+      catchError(e => e.toString())
+    );
+  }
+
+  recibirSimbolos(){
+    return this.http.get('/proyectoolc2/simbolos').pipe(
+      catchError(e => e.toString())
+    );
+  }
+
+  recibirAst(){
+    return this.http.get('/proyectoolc2/ast').pipe(
+      catchError(e => e.toString())
+    );
+  }
 }

@@ -25,6 +25,34 @@ def prueba():
     except Exception as error:
         salida={"Mensaje":"Error"}
         return (jsonify(error))
+
+@app.route('/proyectoolc2/errores', methods=['GET'])
+def repErrores():
+    consolaGlobal: Consola = Consola()
+    excepciones = consolaGlobal.get_Excepciones()
+    objeto = {
+        'repoerrores': excepciones
+    }
+    return (jsonify(objeto))
+
+@app.route('/proyectoolc2/simbolos', methods=['GET'])
+def repSimbolos():
+    consolaGlobal: Consola = Consola()
+    simbolos = consolaGlobal.obtenerSimbolos()
+    objeto = {
+        'reposimbolos': simbolos
+    }
+    return (jsonify(objeto))
+
+@app.route('/proyectoolc2/ast', methods=['GET'])
+def repAst():
+    consolaGlobal: Consola = Consola()
+    ast = consolaGlobal.get_AstGrafico()
+    objeto = {
+        'repoast': ast
+    }
+    return (jsonify(objeto))
+    
     
 @app.route('/proyectoolc2/analizar', methods=['POST'])
 def analizar():
@@ -64,12 +92,12 @@ def analizar():
             ts = TablaSimbolos(None, 'GLOBAL-')
             ast.ejecutar(ts)
         
-        listaExcepciones = consolaGlobal.get_Excepciones()
+        listaExcepciones = consolaGlobal.obtenerErrores()
         
         # Generar gráfico AST
-        # if listaExcepciones == []:
-        #    ast.generarGrafico()
-        #    salidaGrafico = consolaGlobal.get_AstGrafico()
+        if listaExcepciones == []:
+           ast.generarGrafico()
+           salidaGrafico = consolaGlobal.get_AstGrafico()
         
         if listaExcepciones != []:
             consolaGlobal.set_Consola("\nSe encontraron errores léxicos, sintácticos o semánticos...\n")   

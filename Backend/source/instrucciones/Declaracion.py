@@ -23,14 +23,14 @@ class Declaracion(Instruccion):
         if self.expresion == None:
             if self.tipo == None:
                 
-                simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, None, self.tipoVariable)
+                simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, None, self.tipoVariable, ts.nombreAmbito, self.line, self.column)
                 existeVariable = ts.insertar(self.id, simbol)
                 if existeVariable == False:
                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                     return Excepcion()
                     
             else:
-                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, TipoDato.NULL, self.id, None, self.tipoVariable)
+                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, TipoDato.NULL, self.id, None, self.tipoVariable, ts.nombreAmbito, self.line, self.column)
                 existeVariable = ts.insertar(self.id, simbol)
                 if existeVariable == False:
                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
@@ -44,7 +44,7 @@ class Declaracion(Instruccion):
                     if expreValor.tipoVariable == TipoVariable.NORMAL:
                         if consola.relacionarTipos(expreValor.tipo) == self.tipo:
                             if self.tipoVariable == expreValor.tipoVariable:
-                                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL)
+                                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL, ts.nombreAmbito, self.line, self.column)
                                 existeVariable = ts.insertar(self.id, simbol)
                                 if existeVariable == False:
                                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
@@ -53,14 +53,14 @@ class Declaracion(Instruccion):
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo vector.", self.line, self.column, datetime.now()))
                                 return Excepcion()
                         elif expreValor.tipo == TipoDato.NULL:
-                            simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None, TipoVariable.NORMAL)
+                            simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None, TipoVariable.NORMAL, ts.nombreAmbito, self.line, self.column)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                                 return Excepcion()
                         elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
                             if self.tipoVariable == expreValor.tipoVariable:
-                                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL)
+                                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL, ts.nombreAmbito, self.line, self.column)
                                 existeVariable = ts.insertar(self.id, simbol)
                                 if existeVariable == False:
                                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
@@ -75,7 +75,7 @@ class Declaracion(Instruccion):
                         
                         if consola.relacionarTipos(expreValor.tipo) == self.tipo:
                             if self.tipoVariable == expreValor.tipoVariable:
-                                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR)
+                                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR, ts.nombreAmbito, self.line, self.column)
                                 existeVariable = ts.insertar(self.id, simbol)
                                 if existeVariable == False:
                                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
@@ -84,13 +84,13 @@ class Declaracion(Instruccion):
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo primitivo.", self.line, self.column, datetime.now()))
                                 return Excepcion()
                         elif expreValor.tipo == TipoDato.NULL:
-                            simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None, TipoVariable.NORMAL)
+                            simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None, TipoVariable.NORMAL, ts.nombreAmbito, self.line, self.column)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                                 return Excepcion()
                         elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
-                            simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR)
+                            simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR, ts.nombreAmbito, self.line, self.column)
                             existeVariable = ts.insertar(self.id, simbol)
                             if existeVariable == False:
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
@@ -102,13 +102,13 @@ class Declaracion(Instruccion):
                     if expreValor.tipoVariable == TipoVariable.NORMAL:
                         if self.tipoVariable == expreValor.tipoVariable:
                             if consola.relacionarTipos(expreValor.tipo) == Tipo.NULL:
-                                simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL)
+                                simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL, ts.nombreAmbito, self.line, self.column)
                                 existeVariable = ts.insertar(self.id, simbol)
                                 if existeVariable == False:
                                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                                     return Excepcion()
                             else:
-                                simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL)
+                                simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.NORMAL, ts.nombreAmbito, self.line, self.column)
                                 existeVariable = ts.insertar(self.id, simbol)
                                 if existeVariable == False:
                                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
@@ -117,7 +117,7 @@ class Declaracion(Instruccion):
                                 consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo vector.", self.line, self.column, datetime.now()))
                                 return Excepcion()
                     elif expreValor.tipoVariable == TipoVariable.VECTOR:
-                        simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR)
+                        simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR, ts.nombreAmbito, self.line, self.column)
                         existeVariable = ts.insertar(self.id, simbol)
                         if existeVariable == False:
                             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
@@ -140,7 +140,7 @@ class Declaracion(Instruccion):
         if self.expresion == None:
             nombreNodoExpresion = f"instruccion_{self.line}_{self.column}_{str(id(self))}_expresion"
             if self.tipo == None:        
-                #simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, None, self.tipoVariable)
+                #simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, None, self.tipoVariable, ts.nombreAmbito, self.line, self.column)
                 consola.set_AstGrafico(f"{nombreNodoExpresion}[label=\"\\<Expresion\\>\\nnull\"];\n")
                 
             else:

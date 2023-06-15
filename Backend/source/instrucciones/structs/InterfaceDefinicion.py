@@ -20,7 +20,7 @@ class InterfaceDefinicion(Instruccion):
         # DECLARACION DE LA VARIABLE FUNCION
         for x in self.insParamFunc:
             print(x.id + "/" + str(x.tipo))
-        simboloFunc = Simbolo(TiposSimbolos.INTERFACE, Tipo.ANY, TipoDato.ANY, self.id, self, TipoVariable.STRUCT)
+        simboloFunc = Simbolo(TiposSimbolos.INTERFACE, Tipo.ANY, TipoDato.ANY, self.id, self, TipoVariable.STRUCT, ts.nombreAmbito, self.line, self.column)
         existeVariable = ts.insertar(self.id, simboloFunc)
         if existeVariable == False:
             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe, imposible declarar funcion asi.", self.line, self.column, datetime.now()))

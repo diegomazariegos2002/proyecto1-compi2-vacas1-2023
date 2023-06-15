@@ -14,10 +14,13 @@ def getTipoSimbolo(s):
         return TiposSimbolos.VARIABLE
 
 class Simbolo:
-    def __init__(self, tipoSimbolo:TiposSimbolos, tipo: Tipo, tipoDato: TipoDato, id: str, valor,tipoVariable: TipoVariable ):
+    def __init__(self, tipoSimbolo:TiposSimbolos, tipo: Tipo, tipoDato: TipoDato, id: str, valor,tipoVariable: TipoVariable, nombreAmbito, linea, columna):
         self.valor = valor
         self.id : str = id
         self.tipo : Tipo = tipo
         self.tipoDato : TipoDato = tipoDato
         self.tipoSimbolo : TiposSimbolos = tipoSimbolo
         self.tipoVariable: TipoVariable = tipoVariable
+        self.nombreAmbito = nombreAmbito
+        self.linea = linea
+        self.columna = columna

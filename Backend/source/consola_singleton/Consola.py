@@ -1,6 +1,6 @@
 from source.errores.Excepcion import Excepcion
 from source.simbolo.Simbolo import Simbolo
-from source.abstracto.Retorno import TipoDato, Tipo
+from source.abstracto.Retorno import TipoDato, Tipo, TipoVariable
 
 
 class SingletonMeta(type):
@@ -34,6 +34,7 @@ class Consola(metaclass=SingletonMeta):
     astGrafico: str = ""
     numErrores = 1
     errores = ""
+    simbolos = ""
 
     def clean_Consola(self):
         self.consola = ""
@@ -42,6 +43,7 @@ class Consola(metaclass=SingletonMeta):
         self.astGrafico = ""
         self.numErrores = 1
         self.errores = ""
+        self.simbolos = ""
 
     def set_Consola (self, consola):
         self.consola += consola
@@ -51,25 +53,56 @@ class Consola(metaclass=SingletonMeta):
     
     def set_Excepcion(self, excepcion: Excepcion):
         self.listaExcepciones.append(excepcion)
-        # fechaHora = str(excepcion.fecha_hora.day) +"/"+str(excepcion.fecha_hora.month) +"/"+str(excepcion.fecha_hora.year) +" " + str(excepcion.fecha_hora.hour) + ":"+ str(excepcion.fecha_hora.minute)
-        # self.errores += """<tr> 
-        # <td>""" + str(self.numErrores) + """</td>
-        # <td>""" + excepcion.descripcion + """</td>
-        # <td>""" + excepcion.linea + """</td>
-        # <td>""" + excepcion.columna + """</td>
-        # <td>""" + fechaHora + """</td>
-        # </tr>"""
+        fechaHora = str(excepcion.fecha_hora.day) +"/"+str(excepcion.fecha_hora.month) +"/"+str(excepcion.fecha_hora.year) +" " + str(excepcion.fecha_hora.hour) + ":"+ str(excepcion.fecha_hora.minute)
+        self.errores += """<tr> 
+        <td>""" + str(self.numErrores) + """</td>
+        <td>""" + excepcion.descripcion + """</td>
+        <td>""" + str(excepcion.linea) + """</td>
+        <td>""" + str(excepcion.columna) + """</td>
+        <td>""" + fechaHora + """</td>
+        </tr>"""
+        self.numErrores += 1
         return
     
     def get_Excepciones(self):
+        return """
+        <table class=\"table table-striped\" border=1 style="width: 75%;margin: 0 auto;" cellpadding ="5">
+        <tr class=\"table-dark\">
+            <th>No.</th>
+            <th>Descripción</th>
+            <th>Línea</th>
+            <th>Columna</th>
+            <th>Fecha y Hora</th>
+        </tr>"""+self.errores+ """</table>"""
+            
+    def obtenerErrores(self):
         return self.listaExcepciones
     
-    def set_Simbolo(self, simbolo):
+    def set_Simbolo(self, simbolo:Simbolo):
+        consolaGlobal: Consola = Consola()
         self.listaSimbolos.append(simbolo)
+        self.simbolos += """<tr> 
+        <td>""" + simbolo.id + """</td>
+        <td>""" + consolaGlobal.tipoDeVariable(simbolo.tipoVariable) + """</td>
+        <td>""" + simbolo.nombreAmbito + """</td>
+        <td>""" + str(simbolo.linea) + """</td>
+        <td>""" + str(simbolo.columna) + """</td>
+        </tr>"""
         return
 
     def get_Simbolos(self):
         return self.listaSimbolos
+    
+    def obtenerSimbolos(self):
+        return """
+        <table class=\"table table-striped\" border=1 style="width: 75%;margin: 0 auto;" cellpadding ="5">
+        <tr class=\"table-dark\">
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Ámbito</th>
+            <th>Fila</th>
+            <th>Columna</th>
+        </tr>"""+self.simbolos+ """</table>"""
     
     def relacionarTipos(self, tipo:TipoDato):
         if tipo == TipoDato.NUMERO:
@@ -91,3 +124,13 @@ class Consola(metaclass=SingletonMeta):
     def set_AstGrafico(self, ast):
         self.astGrafico += ast
         return
+    
+    def tipoDeVariable(self, tipoVar: TipoVariable):
+        if tipoVar == TipoVariable.NORMAL:
+            return "Variable"
+        elif tipoVar == TipoVariable.FUNCTION:
+            return "Funcion"
+        elif tipoVar == TipoVariable.STRUCT:
+            return "Struct"
+        elif tipoVar == TipoVariable.VECTOR:
+            return "Array"
