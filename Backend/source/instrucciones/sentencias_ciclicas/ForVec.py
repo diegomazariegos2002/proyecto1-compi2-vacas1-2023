@@ -61,7 +61,7 @@ class ForVec(Instruccion):
         # Ejecutar el for
         while cont < len(vectorUtilizar):
             if expresionIterar.tipoVariable == TipoVariable.NORMAL:
-                asignacionAux:Asignacion = Asignacion(self.declaracion.id,Retorno(vectorUtilizar[cont], tipoDatoAux, tipoDatoAux) , self.line, self.column)
+                asignacionAux:Asignacion = Asignacion(self.declaracion.id,Retorno(vectorUtilizar[cont], tipoDatoAux, tipoVariableAux) , self.line, self.column)
                 retornoAsignacion = asignacionAux.ejecutar(newEnviromentFor)
             else:
                 asignacionAux:Asignacion = Asignacion(self.declaracion.id,vectorUtilizar[cont] , self.line, self.column)
@@ -69,8 +69,9 @@ class ForVec(Instruccion):
                 
             if isinstance(retornoAsignacion, Excepcion):
                 return Excepcion()
+            newEnviromentForBlk = TablaSimbolos(newEnviromentFor, "FOR-BLOQUE")
             for instruccion in self.insEntraFor:
-                resultIns : Union[None, Instruccion, Excepcion]= instruccion.ejecutar(newEnviromentFor)
+                resultIns : Union[None, Instruccion, Excepcion]= instruccion.ejecutar(newEnviromentForBlk)
                 # Verificar que instancias nos devuelve
                 if isinstance(resultIns, Excepcion):
                     return Excepcion()

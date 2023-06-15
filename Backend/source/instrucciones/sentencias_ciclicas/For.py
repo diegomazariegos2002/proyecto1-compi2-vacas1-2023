@@ -49,8 +49,9 @@ class For(Instruccion):
         
         # Ejecutar el for
         while self.condicion.ejecutar(newEnviromentFor).valor:
+            newEnviromentForBlk = TablaSimbolos(newEnviromentFor, "FOR-BLOQUE")
             for instruccion in self.insEntraFor:
-                resultIns : Union[None, Instruccion, Excepcion]= instruccion.ejecutar(newEnviromentFor)
+                resultIns : Union[None, Instruccion, Excepcion]= instruccion.ejecutar(newEnviromentForBlk)
                 # Verificar que instancias nos devuelve
                 if isinstance(resultIns, Excepcion):
                     return Excepcion()
