@@ -1,0 +1,79 @@
+Lexico
+Simple Comentario //
+Multiple Comentario /**/
+CaseSensitive
+identificador= ([A-Za-z] | _)(letra | digito | _ )+
+fin de instruccion: obligatorio (;) - opcional ( )
+
+Reservadas
+
+null
+number
+boolean
+string
+any
+true
+false
+interface
+console
+Log
+toUpperCase
+toLowerCase
+toFixed
+toExponential
+toString
+split
+concat
+let
+function
+if
+elseif
+else
+while
+for
+of
+break
+continue
+return
+
+
+        Simbolos
+
+;
+{
+}
+:
+[
+]
+.
+=
++
+-
+*
+/
+^
+%
+>
+<
+>=
+<=
+===
+!==
+||
+&&
+!
+$
+
+
+
+
+                Sintactico
+
+INICIO      :   ENTRADAS
+
+ENTRADAS    :   ENTRADAS ENTRADA
+                |   ENTRADAS
+
+ENTRADA     :   DECLARACION_MAIN
+                |   DECLARACION_FUNCION
+                |   DECLARACION_MOD
