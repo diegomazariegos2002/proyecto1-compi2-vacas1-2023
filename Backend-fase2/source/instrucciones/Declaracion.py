@@ -152,13 +152,29 @@ class Declaracion(Instruccion):
         return nombreNodo
     
     def traducir(self, ts: TablaSimbolos):
-        sizeEntorno = ts.size
         consola = Consola()
         expreValor:RetornoTraduccion = self.expresion.traducir(ts)
         if expreValor.tipo == Tipo.ERROR:
             consola.set_Excepcion(Excepcion("Error Semantico", "Ocurrió un error al ejecutar la expresión.", self.line, self.column, datetime.now()))
             return Excepcion()
-        t1 = consola.genNewTemp()
-        cadena = expreValor.codigoTraducido
-        cadena += consola.genAsignacion(t1, "SP + {}".format(sizeEntorno))
-        pass
+        if self.expresion == None:
+            if self.tipo == None:
+                t1 = consola.genNewTemp()
+                cadena = consola.genComment("Declaracion Variable")
+                cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
+                cadena += consola.genAsignacion(
+                "STACK[(int) {}]".format(t1), consola["temp"])
+                simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, None, self.tipoVariable, ts.nombreAmbito, self.line, self.column)
+                existeVariable = ts.insertar(self.id, simbol)
+                if existeVariable == False:
+                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                    return Excepcion()
+                    
+            else:
+                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, TipoDato.NULL, self.id, None, self.tipoVariable, ts.nombreAmbito, self.line, self.column)
+                existeVariable = ts.insertar(self.id, simbol)
+                if existeVariable == False:
+                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                    return Excepcion()
+            return
+        

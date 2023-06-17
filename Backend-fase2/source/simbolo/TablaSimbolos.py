@@ -8,6 +8,9 @@ class TablaSimbolos:
         self.nombreAmbito = nombreAmbito    # nombre del ambito
         self.anterior = anterior    # tabla anterior de simbolos
         self.tablaActual = {}       # diccionario de simbolos
+        self.size = 0
+        if anterior != None:
+            self.size = self.anterior.size
 
     def insertar(self, id: str, simbolo: Simbolo):
         consolaGlobal = Consola()
@@ -22,6 +25,7 @@ class TablaSimbolos:
         if self.buscar_variable(id) == False :
             self.tablaActual[id] = simbolo
             consolaGlobal.set_Simbolo(simbolo)
+            self.size += 1
             self.recorrerTablaSimbolos()
             return True
         return False
