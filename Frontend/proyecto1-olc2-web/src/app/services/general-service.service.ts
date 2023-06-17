@@ -23,6 +23,19 @@ export class GeneralServiceService {
     );
   }
 
+  mandarCodigoTraducir(codigo:any){
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type':'application/json'
+      })
+    }
+    return this.http.post<any>("/proyectoolc2/generarCodigo", codigo, httpOptions).pipe(
+      catchError(e => {console.log(e)
+        return ""
+      })
+    );
+  }
+
   recibirErrores(){
     return this.http.get('/proyectoolc2/errores').pipe(
       catchError(e => e.toString())

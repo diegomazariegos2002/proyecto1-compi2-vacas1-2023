@@ -4,9 +4,12 @@
     <br>
     <div class="row" >
         <div class="mb-3 row">
-            <div class="col-sm-11"></div>
+            <div class="col-sm-10"></div>
             <div class="col-sm-1">
                     <button type="button" class="btn btn-primary pi pi-play boton-ejecutar " (click)="ejecutar()"></button>
+            </div>
+            <div class="col-sm-1">
+                    <button type="button" class="btn btn-primary pi pi-arrow-right-arrow-left boton-ejecutar" (click)="traducir()"></button>
             </div>
         </div>
     </div>
@@ -21,7 +24,7 @@
         </div>
         <div class="col margin-editor">
             <span class="p-float-label completo">
-                <textarea id="float-input" rows="5" pInputTextarea class="completo" [disabled]="true" [(ngModel)]="consola"></textarea>
+                <textarea id="float-input" rows="5" pInputTextarea class="completo" [(ngModel)]="consola"></textarea>
                 <label for="float-input">Consola</label>
             </span>
         </div>

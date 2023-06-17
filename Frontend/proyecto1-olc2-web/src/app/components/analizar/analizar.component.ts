@@ -45,4 +45,21 @@ export class AnalizarComponent {
     }
     console.log(this.codeModel.value);
   }
+
+  traducir(){
+
+    if(this.codeModel.value != "" && this.codeModel.value != null && this.codeModel.value != undefined){
+      let datos = {  
+        textoEntrada: this.codeModel.value
+      };
+      let stringifiedData = JSON.stringify(datos);
+      this.servicio.mandarCodigoTraducir(stringifiedData).subscribe(
+        (response:any) =>{
+          console.log(response)
+          this.consola = response.textoSalida
+        }
+      )
+    }
+    console.log(this.codeModel.value);
+  }
 }
