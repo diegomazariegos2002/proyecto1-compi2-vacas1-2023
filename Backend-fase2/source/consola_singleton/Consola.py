@@ -37,7 +37,7 @@ class Consola(metaclass=SingletonMeta):
     simbolos = ""
     temporales = 0
     labels = 0
-    imports = ['fmt', 'math']
+    imports = ['fmt', 'math', 'strconv']
     
 
     def clean_Consola(self):
@@ -146,11 +146,14 @@ class Consola(metaclass=SingletonMeta):
         """
         codigo_Encabezado = '/* ---- HEADER ----- */\npackage main;\n\n'
         
+        codigo_imports = "import(\n"
         for lib in self.imports:
-            codigo_Encabezado += f'import(\n\t"{lib}"\n)\n'
+            codigo_imports += f'\t\"{lib}\"\n'
+        codigo_imports += "\n)\n\n"
                 
+        codigo_Encabezado += codigo_imports
         codigo_Encabezado += "var HP, SP float64;\nvar STACK[30101999] float64;\nvar HEAP[30101999] float64;\n\n"
-        if len(self.temporales) > 0:
+        if self.temporales > 0:
             codigo_Encabezado += 'var ('
             for i in range(self.temporales):
                 if i % 10 == 0:
@@ -158,7 +161,7 @@ class Consola(metaclass=SingletonMeta):
                 codigo_Encabezado += "t{}".format(i)
                 if i < self.temporales-1:
                     codigo_Encabezado += ","
-            codigo_Encabezado += "float64 \n)\n"
+            codigo_Encabezado += " float64 \n)\n"
         
         return codigo_Encabezado
     
@@ -177,7 +180,12 @@ class Consola(metaclass=SingletonMeta):
         return cadena
 
     def genIf(self, cond, accion):
-        return "if ("+str(cond)+") {"+str(accion)+"}\n"
+        if cond == 1:
+            return "if true {"+str(accion)+"}\n"
+        elif cond == 0:
+            return "if false {"+str(accion)+"}\n"
+        
+        return "if "+str(cond)+" {"+str(accion)+"}\n"
 
     def genGoto(self, etq):
         return "goto "+etq+";\n"
@@ -189,13 +197,13 @@ class Consola(metaclass=SingletonMeta):
         return str(var)+" = "+str(val)+";\n"
 
     def genPrintC(self, value):
-        return "printf(\"%c\",(int) {});\n".format(str(value))
+        return "fmt.Printf(\"%c\", int({}))\n".format(str(value))
 
     def genPrintD(self, value):
-        return "printf(\"%d\", (int){});\n".format(str(value))
+        return "fmt.Printf(\"%d\", {})\n".format(str(value))
 
     def genPrintF(self, value):
-        return "printf(\"%f\", (float){});\n".format(str(value))
+        return "fmt.Printf(\"%f\", {})\n".format(str(value))
 
     def genComment(self, comment):
         return "\n/*{}*/\n".format(str(comment))

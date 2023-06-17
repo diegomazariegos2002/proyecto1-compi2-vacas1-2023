@@ -74,10 +74,10 @@ class Primitivos(Expresion):
             # guardado cadena en el heap
             for i in str("null"):
                 value = float(ord(i)) # ascii
-                codigoCadena += consola.genAsignacion("HEAP[HP]", value)
+                codigoCadena += consola.genAsignacion("HEAP[int(HP)]", value)
                 codigoCadena += consola.genAsignacion("HP", "HP + 1")
             # guardado fin de cadena
-            codigoCadena += consola.genAsignacion("HEAP[HP]", -1)
+            codigoCadena += consola.genAsignacion("HEAP[int(HP)]", -1)
             codigoCadena += consola.genAsignacion("HP", "HP + 1")
             return RetornoTraduccion(valor=nuevoTemporal,
                                      tipo=TipoDato.NULL,
@@ -97,10 +97,10 @@ class Primitivos(Expresion):
             # guardado cadena en el heap
             for i in str(self.valor):
                 value = float(ord(i)) # ascii
-                codigoCadena += consola.genAsignacion("HEAP[HP]", value)
+                codigoCadena += consola.genAsignacion("HEAP[int(HP)]", value)
                 codigoCadena += consola.genAsignacion("HP", "HP + 1")
             # guardado fin de cadena
-            codigoCadena += consola.genAsignacion("HEAP[HP]", -1)
+            codigoCadena += consola.genAsignacion("HEAP[int(HP)]", -1)
             codigoCadena += consola.genAsignacion("HP", "HP + 1")
             return RetornoTraduccion(valor=nuevoTemporal,
                                      tipo=TipoDato.CADENA,

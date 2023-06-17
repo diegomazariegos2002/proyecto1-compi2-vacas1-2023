@@ -94,6 +94,6 @@ class Ast:
                         codigo3dMain += instruccion.traducir(ts)    
         codigo3dMain += "\n}"
                     
-        return consola.get_Encabezado+codigo3dFunciones+codigo3dMain
+        return consola.get_Encabezado()+codigo3dFunciones+codigo3dMain
         
     

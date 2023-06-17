@@ -119,7 +119,7 @@ t_dosPuntos = r':'
 t_llave_Abre = r'\{'
 t_llave_Cierra = r'\}'
 t_ignore = ' \t\r'
-t_ignore_COMENTARIOS = r'(\/\/.*[^\n])'
+t_ignore_COMENTARIOS = r'(\/\/.*[^\n\r])'
 t_ignore_MULTCOMENTARIOS = r'(\/\*([^*/]|[^*]\/|\*[^/])*\*\/)'
 
 #La r al principio de la cadena es para dar a entender que es una expresión regular

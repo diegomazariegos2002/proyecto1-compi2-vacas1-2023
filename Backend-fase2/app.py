@@ -152,6 +152,8 @@ def generarCodigo():
             ts = TablaSimbolos(None, 'GLOBAL-')
             codigo3dCompleto = ast.traducirAst(ts)
         
+        consolaGlobal.set_Consola(codigo3dCompleto)
+        
         listaExcepciones = consolaGlobal.obtenerErrores()
         
         if listaExcepciones != []:
