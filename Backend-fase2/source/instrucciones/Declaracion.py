@@ -1,5 +1,5 @@
 from datetime import datetime
-from source.abstracto.Retorno import Retorno, Tipo, TipoVariable, TipoDato
+from source.abstracto.Retorno import Retorno, Tipo, TipoVariable, TipoDato, RetornoTraduccion
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.abstracto.Expresion import Expresion
@@ -150,3 +150,15 @@ class Declaracion(Instruccion):
             
         consola.set_AstGrafico(f"\n{nombreNodo} -> {nombreNodoExpresion};\n")
         return nombreNodo
+    
+    def traducir(self, ts: TablaSimbolos):
+        sizeEntorno = ts.size
+        consola = Consola()
+        expreValor:RetornoTraduccion = self.expresion.traducir(ts)
+        if expreValor.tipo == Tipo.ERROR:
+            consola.set_Excepcion(Excepcion("Error Semantico", "Ocurrió un error al ejecutar la expresión.", self.line, self.column, datetime.now()))
+            return Excepcion()
+        t1 = consola.genNewTemp()
+        cadena = expreValor.codigoTraducido
+        cadena += consola.genAsignacion(t1, "SP + {}".format(sizeEntorno))
+        pass
