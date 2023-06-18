@@ -1,0 +1,12 @@
+tCharCad1 = dirCad1
+tCharCad2 = dirCad2
+trespuesta = 0
+
+if tCharCad1 > -1 goto true1
+trespuesta = 0
+goto fin
+true1:
+trespuesta = 1
+
+fin:
+// 	......

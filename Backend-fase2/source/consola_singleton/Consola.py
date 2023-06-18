@@ -48,6 +48,8 @@ class Consola(metaclass=SingletonMeta):
         self.numErrores = 1
         self.errores = ""
         self.simbolos = ""
+        self.temporales = 0
+        self.labels = 0
 
     def set_Consola (self, consola):
         self.consola += consola
@@ -207,3 +209,189 @@ class Consola(metaclass=SingletonMeta):
 
     def genComment(self, comment):
         return "\n/*{}*/\n".format(str(comment))
+    
+    def genCompStrings(self, dirCad1, dirCad2):
+        """
+        si son iguales retorna 1 y si son diferentes retorna 0
+        Metodo utilizado para comparar con [===] y [!==] 
+        """
+        traduRet = ""
+        #Labels previas a usar
+        lIguales = self.genNewEtq()
+        lDiferentes = self.genNewEtq()
+        lFin = self.genNewEtq()
+        lcontinuar1 = self.genNewEtq()
+        lcontinuar2 = self.genNewEtq()
+        lcontinuar3 = self.genNewEtq()
+        ltrue1 = self.genNewEtq()
+        ltrue2 = self.genNewEtq()
+        ltrue3 = self.genNewEtq()
+        
+        #Temporales previos a usar
+        tdirCad1 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdirCad1, dirCad1)
+        tdirCad2 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdirCad2, dirCad2)
+        trespuesta = self.genNewTemp()
+        
+        lFor = self.genNewEtq()
+        traduRet += f"{lFor}:\n"
+        tCharCad1 = self.genNewTemp()
+        traduRet += self.genAsignacion(tCharCad1, f"HEAP[int({tdirCad1})]")
+        tCharCad2 = self.genNewTemp()
+        traduRet += self.genAsignacion(tCharCad2, f"HEAP[int({tdirCad2})]")
+        t3 = self.genNewTemp()
+        traduRet += self.genIf(f"{tCharCad1}==-1", self.genGoto(ltrue1))
+        traduRet += self.genAsignacion(t3, f"0")
+        traduRet += self.genGoto(lcontinuar1)
+        traduRet += f"{ltrue1}:\n"
+        traduRet += self.genAsignacion(t3, f"1")    
+        traduRet += f"{lcontinuar1}:\n"
+        t4 = self.genNewTemp()
+        traduRet += self.genIf(f"{tCharCad2}==-1", self.genGoto(ltrue2))
+        traduRet += self.genAsignacion(t4, f"0")
+        traduRet += self.genGoto(lcontinuar2)
+        traduRet += f"{ltrue2}:\n"
+        traduRet += self.genAsignacion(t4, f"1")
+        
+        traduRet += f"{lcontinuar2}:\n"
+        t5 = self.genNewTemp()
+        traduRet += self.genIf(f"{t3}==1 && {t4}==1", self.genGoto(ltrue3))
+        traduRet += self.genAsignacion(t5, f"0")
+        traduRet += self.genGoto(lcontinuar3)
+        traduRet += f"{ltrue3}:\n"
+        traduRet += self.genAsignacion(t5, f"1")
+        
+        traduRet += f"{lcontinuar3}:\n"
+        traduRet += self.genIf(f"{t5} == 1", self.genGoto(lIguales))
+        traduRet += self.genIf(f"{tCharCad1} != {tCharCad2}", self.genGoto(lDiferentes))
+        
+        traduRet += self.genAsignacion(tdirCad1, f"{tdirCad1} + 1")
+        traduRet += self.genAsignacion(tdirCad2, f"{tdirCad2} + 1")
+        traduRet += self.genGoto(lFor)
+        
+        traduRet += f"{lIguales}:\n"
+        traduRet += self.genAsignacion(trespuesta, "1")
+        traduRet += self.genGoto(lFin)
+        
+        traduRet += f"{lDiferentes}:\n"
+        traduRet += self.genAsignacion(trespuesta, "0")
+        
+        traduRet += f"{lFin}:\n"
+        
+        return {'temp': trespuesta, 'codigo': traduRet}
+        
+    def genCompStrings2(self, dirCad1, dirCad2, comparador):
+        """
+        Metodo utilizado para comparar con
+        [>] [>=] [<] [<=]
+        """
+        traduRet = ""
+        #Labels previas a usar
+        lFin = self.genNewEtq()
+        ltrue1 = self.genNewEtq()
+        
+        #Temporales previos a usar
+        tdirCad1 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdirCad1, dirCad1)
+        tdirCad2 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdirCad2, dirCad2)
+        tCharCad1 = self.genNewTemp()
+        tCharCad2 = self.genNewTemp()
+        trespuesta = self.genNewTemp()
+        
+        # Codigo
+        traduRet += self.genAsignacion(tCharCad1, f"HEAP[int({tdirCad1})]")
+        traduRet += self.genAsignacion(tCharCad2, f"HEAP[int({tdirCad2})]")
+        traduRet += self.genIf(f"{tCharCad1}{comparador}{tCharCad2}", self.genGoto(ltrue1))    
+        traduRet += self.genAsignacion(trespuesta, f"0")
+        traduRet += self.genGoto(lFin)
+        traduRet += f"{ltrue1}:\n"
+        traduRet += self.genAsignacion(trespuesta, f"1")
+        traduRet += f"{lFin}:\n"
+        
+        return {'temp': trespuesta, 'codigo': traduRet}
+        
+    ################################################
+    #               METODOS DE LOGICAS             #
+    ################################################
+    def genAnd(self, boolIzq, boolDer):
+        """
+        Metodo utilizado para generar codigo de la operacion [&&]
+        """
+        traduRet = ""
+        #Labels previas a usar
+        lFin = self.genNewEtq()
+        ltrue1 = self.genNewEtq()
+        #Temporales previos a usar
+        tdir1 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdir1, boolIzq)
+        tdir2 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdir2, boolDer)
+        
+        trespuesta = self.genNewTemp()
+        
+        # Codigo
+        traduRet += self.genIf(f"{tdir1}==1 && {tdir2}==1", self.genGoto(ltrue1))
+        traduRet += self.genAsignacion(trespuesta, f"0")
+        traduRet += self.genGoto(lFin)
+        traduRet += f"{ltrue1}:\n"
+        traduRet += self.genAsignacion(trespuesta, f"1")
+        traduRet += f"{lFin}:\n"
+        
+        return {'temp': trespuesta, 'codigo': traduRet}
+    
+    def genOr(self, boolIzq, boolDer):
+        """
+        Metodo utilizado para generar codigo de la operacion [||]
+        """	
+        traduRet = ""
+        #Labels previas a usar
+        lFin = self.genNewEtq()
+        ltrue1 = self.genNewEtq()
+        
+        #Temporales previos a usar
+        tdir1 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdir1, boolIzq)
+        tdir2 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdir2, boolDer)
+        trespuesta = self.genNewTemp()
+        
+        # Codigo
+        traduRet += self.genIf(f"{tdir1}==1 || {tdir2}==1", self.genGoto(ltrue1))
+        traduRet += self.genAsignacion(trespuesta, f"0")
+        traduRet += self.genGoto(lFin)
+        traduRet += f"{ltrue1}:\n"
+        traduRet += self.genAsignacion(trespuesta, f"1")
+        traduRet += f"{lFin}:\n"
+        
+        return {'temp': trespuesta, 'codigo': traduRet}
+        
+    def genNot(self, boolUnico):
+        """
+        Metodo utilizado para generar codigo de la operacion [!]
+        """
+        traduRet = ""
+        #Labels previas a usar
+        lFin = self.genNewEtq()
+        ltrue1 = self.genNewEtq()
+        
+        #Temporales previos a usar
+        tdir1 = self.genNewTemp()
+        traduRet += self.genAsignacion(tdir1, boolUnico)
+        trespuesta = self.genNewTemp()
+        
+        # Codigo
+        traduRet += self.genIf(f"{tdir1}==1", self.genGoto(ltrue1))
+        traduRet += self.genAsignacion(trespuesta, f"1")
+        traduRet += self.genGoto(lFin)
+        traduRet += f"{ltrue1}:\n"
+        traduRet += self.genAsignacion(trespuesta, f"0")
+        traduRet += f"{lFin}:\n"
+        
+        return {'temp': trespuesta, 'codigo': traduRet}
+        
+        
+        
+        
+        

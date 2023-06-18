@@ -54,20 +54,20 @@ class Ast:
                 print("soy un error" + error)
             cont += 1
         consola.set_AstGrafico("\n}"); #para cerrar el dot porque es más práctico hacerlo aquí que en la gramática
-        self.generar_dot("ast", consola.get_AstGrafico())
+        self.generar_Archivo("ast", consola.get_AstGrafico(), "dot", "")
         
-    def generar_dot(self, nombre_archivo, contenido_dot):
+    def generar_Archivo(self, nombre_archivo, contenido_dot, extension, ruta):
         # Obtener la ruta de la carpeta donde se está ejecutando el script
         ruta_actual = os.getcwd()
         
         # Construir la ruta completa del archivo .dot
-        ruta_archivo_dot = os.path.join(ruta_actual, nombre_archivo + ".dot")
+        ruta_archivo_dot = os.path.join(ruta_actual+ruta, nombre_archivo + "."+extension)
         
         # Escribir el contenido del archivo .dot
         with open(ruta_archivo_dot, "w") as archivo:
             archivo.write(contenido_dot)
         
-        print(f"Archivo {nombre_archivo}.dot generado exitosamente en: {ruta_actual}")
+        print(f"Archivo {nombre_archivo}.{extension} generado exitosamente en: {ruta_actual}")
             
     # Fase 2
     def traducirAst(self, ts):
@@ -93,7 +93,9 @@ class Ast:
                     if not isinstance(res, Excepcion):
                         codigo3dMain += instruccion.traducir(ts)    
         codigo3dMain += "\n}"
-                    
-        return consola.get_Encabezado()+codigo3dFunciones+codigo3dMain
+        
+        codigoUnido:str = consola.get_Encabezado()+codigo3dFunciones+codigo3dMain
+        self.generar_Archivo("test", codigoUnido, "go", "\\test\\")
+        return codigoUnido
         
     
