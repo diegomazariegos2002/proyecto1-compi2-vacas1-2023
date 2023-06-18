@@ -12,7 +12,7 @@ class TablaSimbolos:
         if anterior != None:
             self.size = self.anterior.size
 
-    def insertar(self, id: str, simbolo: Simbolo):
+    def insertar(self, id: str, simbolo):
         consolaGlobal = Consola()
         """
         Inserta un símbolo en la tabla actual.
@@ -65,4 +65,4 @@ class TablaSimbolos:
     def recorrerTablaSimbolos(self):
         for simbolo in self.tablaActual:
             valor:Simbolo = self.tablaActual[simbolo]
-            print(str(simbolo) +": "+str(valor.id) +" / " + str(valor.valor) +" / " + str(valor.tipo)+" / " + str(valor.tipoDato)+" / " + str(valor.tipoVariable))
+            print(str(simbolo) +": "+str(valor.id) +" / " + str(valor.tipo)+" / " + str(valor.tipoDato)+" / " + str(valor.tipoVariable))

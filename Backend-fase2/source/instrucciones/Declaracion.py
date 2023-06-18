@@ -5,7 +5,7 @@ from source.errores.Excepcion import Excepcion
 from source.abstracto.Expresion import Expresion
 from source.abstracto.Instruccion import Instruccion
 from source.simbolo.TablaSimbolos import TablaSimbolos
-from source.simbolo.Simbolo import Simbolo, TiposSimbolos
+from source.simbolo.Simbolo import Simbolo, TiposSimbolos, SimboloTraduccion
 
 
 class Declaracion(Instruccion):
@@ -153,28 +153,158 @@ class Declaracion(Instruccion):
     
     def traducir(self, ts: TablaSimbolos):
         consola = Consola()
-        expreValor:RetornoTraduccion = self.expresion.traducir(ts)
-        if expreValor.tipo == Tipo.ERROR:
-            consola.set_Excepcion(Excepcion("Error Semantico", "Ocurrió un error al ejecutar la expresión.", self.line, self.column, datetime.now()))
-            return Excepcion()
         if self.expresion == None:
             if self.tipo == None:
                 t1 = consola.genNewTemp()
                 cadena = consola.genComment("Declaracion Variable")
                 cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                 cadena += consola.genAsignacion(
-                "STACK[(int) {}]".format(t1), consola["temp"])
-                simbol = Simbolo(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, None, self.tipoVariable, ts.nombreAmbito, self.line, self.column)
+                "STACK[int ({})]".format(t1), "0")
+                simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, Tipo.ANY, TipoDato.NULL, self.id, t1, self.tipoVariable, False, ts.nombreAmbito, self.line, self.column)
                 existeVariable = ts.insertar(self.id, simbol)
                 if existeVariable == False:
                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                     return Excepcion()
+                return cadena
                     
             else:
-                simbol = Simbolo(TiposSimbolos.VARIABLE, self.tipo, TipoDato.NULL, self.id, None, self.tipoVariable, ts.nombreAmbito, self.line, self.column)
+                t1 = consola.genNewTemp()
+                cadena = consola.genComment("Declaracion Variable")
+                cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
+                cadena += consola.genAsignacion(
+                "STACK[int ({})]".format(t1), "0")
+                inHeap = self.tipo == Tipo.STRING or self.tipoVariable == TipoVariable.VECTOR
+                simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, TipoDato.NULL, self.id, t1, self.tipoVariable, inHeap, ts.nombreAmbito, self.line, self.column)
                 existeVariable = ts.insertar(self.id, simbol)
                 if existeVariable == False:
                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                     return Excepcion()
-            return
+                return cadena
+            
+        expreValor:RetornoTraduccion = self.expresion.traducir(ts)
+        if(expreValor.tipo != Tipo.ERROR):
+            if(expreValor != None):
+                if self.tipo != None:
+                    if expreValor.tipoVariable == TipoVariable.NORMAL:
+                        if consola.relacionarTipos(expreValor.tipo) == self.tipo:
+                            if self.tipoVariable == expreValor.tipoVariable:
+                                t1 = consola.genNewTemp()
+                                cadena = consola.genComment("Declaracion Variable")
+                                cadena += expreValor.codigoTraducido
+                                cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
+                                cadena += consola.genAsignacion(
+                                    "STACK[int ({})]".format(t1), expreValor.valor)
+                                inHeap = self.tipo == Tipo.STRING
+                                simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, t1, TipoVariable.NORMAL, inHeap, ts.nombreAmbito, self.line, self.column)
+                                existeVariable = ts.insertar(self.id, simbol)
+                                if existeVariable == False:
+                                    print("EXCEPCION")
+                                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                    return Excepcion()
+                                return cadena
+                            else:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo vector.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                        elif expreValor.tipo == TipoDato.NULL:
+                            t1 = consola.genNewTemp()
+                            cadena = consola.genComment("Declaracion Variable")
+                            cadena += expreValor.codigoTraducido
+                            cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
+                            cadena += consola.genAsignacion(
+                                "STACK[int ({})]".format(t1), "0")
+                            inHeap = self.tipo == Tipo.STRING
+                            simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, t1, TipoVariable.NORMAL, inHeap, ts.nombreAmbito, self.line, self.column)
+                            existeVariable = ts.insertar(self.id, simbol)
+                            if existeVariable == False:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                            return cadena
+                        elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
+                            if self.tipoVariable == expreValor.tipoVariable:
+                                t1 = consola.genNewTemp()
+                                cadena = consola.genComment("Declaracion Variable")
+                                cadena += expreValor.codigoTraducido
+                                cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
+                                cadena += consola.genAsignacion(
+                                    "STACK[int ({})]".format(t1), expreValor.valor)
+                                inHeap = self.tipo == Tipo.STRING
+                                simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, t1, TipoVariable.NORMAL, inHeap, ts.nombreAmbito, self.line, self.column)
+                                existeVariable = ts.insertar(self.id, simbol)
+                                if existeVariable == False:
+                                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                    return Excepcion()
+                                return cadena
+                            else:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo vector.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                        else:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de la variable y el tipo del dato asignado no coinciden.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                    elif expreValor.tipoVariable == TipoVariable.VECTOR:
+                        
+                        if consola.relacionarTipos(expreValor.tipo) == self.tipo:
+                            if self.tipoVariable == expreValor.tipoVariable:
+                                simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR, ts.nombreAmbito, self.line, self.column)
+                                existeVariable = ts.insertar(self.id, simbol)
+                                if existeVariable == False:
+                                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                    return Excepcion()
+                            else:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo primitivo.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                        elif expreValor.tipo == TipoDato.NULL:
+                            simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, None, TipoVariable.NORMAL, ts.nombreAmbito, self.line, self.column)
+                            existeVariable = ts.insertar(self.id, simbol)
+                            if existeVariable == False:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                        elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
+                            simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR, ts.nombreAmbito, self.line, self.column)
+                            existeVariable = ts.insertar(self.id, simbol)
+                            if existeVariable == False:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                        else:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "El tipo de la variable y el tipo del dato asignado no coinciden.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                else:
+                    if expreValor.tipoVariable == TipoVariable.NORMAL:
+                        if self.tipoVariable == expreValor.tipoVariable:
+                            if consola.relacionarTipos(expreValor.tipo) == Tipo.NULL:
+                                t1 = consola.genNewTemp()
+                                cadena = consola.genComment("Declaracion Variable")
+                                cadena += expreValor.codigoTraducido
+                                cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
+                                cadena += consola.genAsignacion(
+                                    "STACK[int ({})]".format(t1), "0")
+                                inHeap = self.tipo == Tipo.STRING
+                                simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, Tipo.ANY, expreValor.tipo, self.id, t1, TipoVariable.NORMAL, inHeap, ts.nombreAmbito, self.line, self.column)
+                                existeVariable = ts.insertar(self.id, simbol)
+                                if existeVariable == False:
+                                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                    return Excepcion()
+                                return cadena
+                            else:
+                                t1 = consola.genNewTemp()
+                                cadena = consola.genComment("Declaracion Variable")
+                                cadena += expreValor.codigoTraducido
+                                cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
+                                cadena += consola.genAsignacion(
+                                    "STACK[int ({})]".format(t1), expreValor.valor)
+                                inHeap = self.tipo == Tipo.STRING
+                                simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, t1, TipoVariable.NORMAL, inHeap, ts.nombreAmbito, self.line, self.column)
+                                existeVariable = ts.insertar(self.id, simbol)
+                                if existeVariable == False:
+                                    consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                                    return Excepcion()
+                                return cadena
+                        else:
+                                consola.set_Excepcion(Excepcion("Error Semantico", "La declaracion de la variable debe ser de un tipo vector.", self.line, self.column, datetime.now()))
+                                return Excepcion()
+                    elif expreValor.tipoVariable == TipoVariable.VECTOR:
+                        simbol = Simbolo(TiposSimbolos.VARIABLE, consola.relacionarTipos(expreValor.tipo), expreValor.tipo, self.id, expreValor.valor, TipoVariable.VECTOR, ts.nombreAmbito, self.line, self.column)
+                        existeVariable = ts.insertar(self.id, simbol)
+                        if existeVariable == False:
+                            consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
+                            return Excepcion()
         

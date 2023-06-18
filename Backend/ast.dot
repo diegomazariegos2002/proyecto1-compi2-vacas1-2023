@@ -2,15 +2,11 @@ digraph G {
 node[shape=box];
 nodeInicio[label="<\ INICIO \>"];
 
-instruccion_1_1_1395952523248_[label="\<Instruccion\>\nDeclaracion"];
-instruccion_1_1_1395952523248_id[label="\<Identificador\>\nx"];
-instruccion_1_1_1395952523248_ -> instruccion_1_1_1395952523248_id;
-instruccion_1_9_1395952523104_[label="<Primitivo number>\n3"];
-instruccion_1_1_1395952523248_ -> instruccion_1_9_1395952523104_;
-nodeInicio->instruccion_1_1_1395952523248_;
-instruccion_2_13_1395952522960_[label="\<Instruccion\>\nconsole.log"];
-instruccion_2_25_1395952522864_[label="\<Identificador\>\nx"];
-instruccion_2_13_1395952522960_ -> instruccion_2_25_1395952522864_;
-nodeInicio->instruccion_2_13_1395952522960_;
+instruccion_1_1_2159122841120_[label="\<Instruccion\>\nDeclaracion"];
+instruccion_1_1_2159122841120_id[label="\<Identificador\>\nx"];
+instruccion_1_1_2159122841120_ -> instruccion_1_1_2159122841120_id;
+instruccion_1_16_2159122840832_[label="<Primitivo number>\n23"];
+instruccion_1_1_2159122841120_ -> instruccion_1_16_2159122840832_;
+nodeInicio->instruccion_1_1_2159122841120_;
 
 }
