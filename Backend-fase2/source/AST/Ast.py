@@ -80,7 +80,7 @@ class Ast:
                 if isinstance(instruccion, Function):
                     res = instruccion.traducir(ts)
                     if not isinstance(res, Excepcion):
-                        codigo3dFunciones += instruccion.traducir(ts)    
+                        codigo3dFunciones += res
         
         # Segunda pasada
         # se añade todo lo que va en la main
@@ -91,7 +91,7 @@ class Ast:
                 if not isinstance(instruccion, Function):
                     res = instruccion.traducir(ts)
                     if not isinstance(res, Excepcion):
-                        codigo3dMain += instruccion.traducir(ts)    
+                        codigo3dMain += res
         codigo3dMain += "\n}"
         
         codigoUnido:str = consola.get_Encabezado()+codigo3dFunciones+codigo3dMain

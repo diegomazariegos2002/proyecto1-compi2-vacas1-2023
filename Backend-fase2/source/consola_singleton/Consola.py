@@ -84,7 +84,7 @@ class Consola(metaclass=SingletonMeta):
     def obtenerErrores(self):
         return self.listaExcepciones
     
-    def set_Simbolo(self, simbolo:Simbolo):
+    def set_Simbolo(self, simbolo):
         consolaGlobal: Consola = Consola()
         self.listaSimbolos.append(simbolo)
         self.simbolos += """<tr> 

@@ -55,3 +55,32 @@ if (c === "Hola") {
 console.log(c); // Imprime "Hola"
 
 ================
+
+
+console.log(("Hola" + " Mundo" + " 1231231231"));
+console.log(41 - 123 * 4 / (2 + 2 * 2) - (10 + (125 % 5)) * 2 ^ 2);
+console.log(2+3);
+console.log(true === false);
+console.log((0 === 0));
+console.log((7*7) <= (15+555));
+console.log((532 > 532));
+console.log(("Hola" === "Hola"));
+console.log(("Hola" === "Holis"));
+console.log(("Hola" !== "Hola"));
+console.log(("Hola" !== "Holis"));
+console.log("==================");
+console.log(("Hola" < "Holis"));
+console.log(("Hola" > "Holis"));
+console.log("MUNDO" < "Aundo");
+console.log(("Hola" <= "Holis"));
+console.log(("Hola" >= "Holis"));
+console.log("AUNDO" < "Mundo");
+console.log(true);
+console.log("==================");
+console.log((0 === 0)&&(1===1));
+console.log((0 === 0)||(0===1));
+console.log(!((0 === 0)&&(1===1)));
+console.log(((0 === 0) !== ((532 > 532)) === ("Hola" === "Hola")) && (false || (!false)));
+console.log(((0 === 0) !== ((1000 > 532)) === ("Hola" === "Hola")) && (false || (!false)));
+
+==================
