@@ -1,0 +1,46 @@
+t1 = dirCad1
+t2 = dirCad2
+trespuesta = 0
+
+For:
+	t6 = heap[t1]
+	t7 = heap[t2]
+	if t6 == -1 goto true1
+	t3 = 0
+	goto continuar1
+	true1:
+		t3 = 1
+	
+	continuar1:
+	if t7 == -1 goto true2
+	t4 = 0
+	goto continuar2:
+	true2:
+		t4 = 1
+	
+	continuar2:
+	if t3==1 && t4==1 goto true3
+	t5 = 0
+	goto continuar3
+	true3:
+	t5 = 1
+	continuar3:
+	if t5 == 1 goto iguales
+
+	
+	if t6 != t7 goto diferentes
+
+	//continuar:
+	t1 = t1 + 1
+	t2 = t2 + 1
+goto For
+
+iguales:
+	trespuesta = 1
+	goto fin
+
+diferentes:
+	trespuesta = 0
+
+fin:
+// 	......

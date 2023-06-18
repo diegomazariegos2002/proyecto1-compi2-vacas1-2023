@@ -1,6 +1,6 @@
 from datetime import datetime
 from source.abstracto.Expresion import Expresion
-from source.abstracto.Retorno import Retorno, Tipo, TipoLogicas, TipoDato, TipoVariable
+from source.abstracto.Retorno import Retorno, RetornoTraduccion, Tipo, TipoLogicas, TipoDato, TipoVariable
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.simbolo.TablaSimbolos import TablaSimbolos
@@ -86,3 +86,105 @@ class Logicas(Expresion):
             
         consola.set_AstGrafico(output)
         return nombreOperacion
+    
+    def traducir(self, ts: TablaSimbolos):
+        consolaGlobal: Consola = Consola()
+        cadenaRetornoExpresion = ""
+        operador = ""
+        valorIzq : RetornoTraduccion = None
+        valorDer : RetornoTraduccion = None
+        valorUnico : RetornoTraduccion = None
+        if self.unico != None:
+            valorUnico = self.unico.traducir(ts)
+            if valorUnico.tipo == TipoDato.ERROR:
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error de tipos en operacion aritmetica", self.line, self.column, datetime.now()))
+                return RetornoTraduccion(valor="Error",
+                                         tipo=TipoDato.ERROR,
+                                         tipoVariable=TipoVariable.NORMAL)
+        if self.unico == None:
+            valorIzq = self.izq.traducir(ts)
+        elif self.unico != None:
+            valorIzq = valorUnico 
+        if(self.der != None):
+            valorDer = self.der.traducir(ts)
+        
+        if(self.operador == TipoLogicas.AND):
+            if valorIzq.tipo == TipoDato.BOOLEANO and valorDer.tipo == TipoDato.BOOLEANO:
+                operador = "&&"
+                OpLogic = consolaGlobal.genAnd(valorIzq.valor, valorDer.valor)
+                
+                cadenaRetornoExpresion += (consolaGlobal.genComment(f"EXPRESIONES LOGICA {operador}")+
+                                        consolaGlobal.genComment(f"EXPRESION IZQUIERDA {valorIzq.valor} [{operador}]")+
+                                        str(valorIzq.codigoTraducido)+
+                                        consolaGlobal.genComment(f"EXPRESION DERECHA {valorDer.valor} [{operador}]")+
+                                        str(valorDer.codigoTraducido)+
+                                        consolaGlobal.genComment(f"LOGICA AND {valorIzq.valor} {valorDer.valor}")+
+                                        OpLogic["codigo"])
+                resOpLogic = OpLogic["temp"]
+                        
+                return RetornoTraduccion(valor=resOpLogic,
+                                            tipo=TipoDato.BOOLEANO,
+                                            tipoVariable=TipoVariable.NORMAL,
+                                            codigoTraducido=cadenaRetornoExpresion)
+            else:
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion logica", self.line, self.column, datetime.now()))
+                return RetornoTraduccion(valor="Error",
+                                                tipo=TipoDato.ERROR,
+                                                tipoVariable=TipoVariable.NORMAL)
+        elif(self.operador == TipoLogicas.OR):
+            if valorIzq.tipo == TipoDato.BOOLEANO and valorDer.tipo == TipoDato.BOOLEANO:
+                operador = "||"
+                OpLogic = consolaGlobal.genOr(valorIzq.valor, valorDer.valor)
+                
+                cadenaRetornoExpresion += (consolaGlobal.genComment(f"EXPRESIONES LOGICA {operador}")+
+                                        consolaGlobal.genComment(f"EXPRESION IZQUIERDA {valorIzq.valor} [{operador}]")+
+                                        str(valorIzq.codigoTraducido)+
+                                        consolaGlobal.genComment(f"EXPRESION DERECHA {valorDer.valor} [{operador}]")+
+                                        str(valorDer.codigoTraducido)+
+                                        consolaGlobal.genComment(f"LOGICA OR {valorIzq.valor} {valorDer.valor}")+
+                                        OpLogic["codigo"])
+                resOpLogic = OpLogic["temp"]
+                        
+                return RetornoTraduccion(valor=resOpLogic,
+                                            tipo=TipoDato.BOOLEANO,
+                                            tipoVariable=TipoVariable.NORMAL,
+                                            codigoTraducido=cadenaRetornoExpresion)
+            else:
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion logica", self.line, self.column, datetime.now()))
+                return RetornoTraduccion(valor="Error",
+                                                tipo=TipoDato.ERROR,
+                                                tipoVariable=TipoVariable.NORMAL)
+        elif(self.operador == TipoLogicas.NOT):
+            if valorUnico.tipo == TipoDato.BOOLEANO:
+                operador = "!"
+                OpLogic = consolaGlobal.genNot(valorUnico.valor)
+                
+                cadenaRetornoExpresion += (consolaGlobal.genComment(f"EXPRESIONES LOGICA {operador}")+
+                                        consolaGlobal.genComment(f"EXPRESION IZQUIERDA {valorUnico.valor} [{operador}]")+
+                                        str(valorIzq.codigoTraducido)+
+                                        consolaGlobal.genComment(f"LOGICA NOT {valorUnico.valor}")+
+                                        OpLogic["codigo"])
+                resOpLogic = OpLogic["temp"]
+                        
+                return RetornoTraduccion(valor=resOpLogic,
+                                            tipo=TipoDato.BOOLEANO,
+                                            tipoVariable=TipoVariable.NORMAL,
+                                            codigoTraducido=cadenaRetornoExpresion)
+            else:
+                # ERROR
+                consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error de tipos en operacion logica", self.line, self.column, datetime.now()))
+                return RetornoTraduccion(valor="Error",
+                                                tipo=TipoDato.ERROR,
+                                                tipoVariable=TipoVariable.NORMAL)
+
+        # ERROR
+        consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No existe ese tipo de logica", self.line, self.column, datetime.now()))
+        return RetornoTraduccion(valor="Error",
+                                                tipo=TipoDato.ERROR,
+                                                tipoVariable=TipoVariable.NORMAL)
+        
+            
+        

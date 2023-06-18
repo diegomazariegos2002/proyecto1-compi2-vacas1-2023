@@ -170,7 +170,7 @@ class ConsoleLog(Instruccion):
                         elif(retorno.tipo == TipoDato.BOOLEANO):
                             l1 = consola.genNewEtq()
                             l2 = consola.genNewEtq()
-                            cadenaRetornoPrints += consola.genIf(retorno.valor, consola.genGoto2(l1))
+                            cadenaRetornoPrints += consola.genIf(str(retorno.valor)+"==1", consola.genGoto2(l1))
                             cadenaRetornoPrints += consola.genPrintC(102)  # f
                             cadenaRetornoPrints += consola.genPrintC(97)   # a
                             cadenaRetornoPrints += consola.genPrintC(108)  # l
@@ -202,6 +202,6 @@ class ConsoleLog(Instruccion):
                 return Excepcion()
         
         return (consola.genComment("console.log")+
-                consola.genPrintC(10)+
                 cadenaRetornoExpresiones + 
-                cadenaRetornoPrints)
+                cadenaRetornoPrints+
+                consola.genPrintC(10))

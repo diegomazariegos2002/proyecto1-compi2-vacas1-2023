@@ -1,0 +1,45 @@
+// OBTENER BOOLEANO
+if 
+
+
+// AND
+if Izq.valor == 1 goto lAsignar1
+tValorIzq = 0
+lAsignar1:
+tValorIzq = 1
+
+if Der.valor == 1 goto lAsignar2
+tValorDer = 0
+lAsignar2:
+tValorDer = 1
+
+tResultado = 1
+if tValorIzq == 1 && tValorDer == 1 goto true1
+tResultado = 0
+goto fin	
+true1:
+	tResultado = 1
+fin:
+
+// OR
+
+tValorIzq = Izq.valor
+tValorDer = Der.valor
+tResultado = 0
+if tValorIzq == 1 || tValorDer == 1 goto true1
+tResultado = 0
+goto fin
+true1:
+	tResultado = 1
+fin:
+
+// NOT
+tValorIzq = Izq.valor
+tResultado = 1
+if tValorIzq == 1 goto true1
+tResultado = 0
+goto fin
+true1:
+	tResultado = 1
+fin:
+

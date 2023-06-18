@@ -92,8 +92,9 @@ class Primitivos(Expresion):
             
         elif self.tipo == TipoDato.CADENA:
             # guardado direccion de la cadena
+            codigoCadena = consola.genComment("PRIMITIVO -> CADENA")
             nuevoTemporal = consola.genNewTemp()
-            codigoCadena = consola.genAsignacion(nuevoTemporal, "HP")
+            codigoCadena += consola.genAsignacion(nuevoTemporal, "HP")
             # guardado cadena en el heap
             for i in str(self.valor):
                 value = float(ord(i)) # ascii
