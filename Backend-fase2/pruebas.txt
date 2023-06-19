@@ -84,3 +84,22 @@ console.log(((0 === 0) !== ((532 > 532)) === ("Hola" === "Hola")) && (false || (
 console.log(((0 === 0) !== ((1000 > 532)) === ("Hola" === "Hola")) && (false || (!false)));
 
 ==================
+
+
+function ackermann(m: number, n: number) {
+  if (m === 0) {
+    return n + 1;
+  } else if (m > 0 && n === 0) {
+    return ackermann(m - 1, 1);
+  } else {
+    return ackermann(m - 1, ackermann(m, n - 1));
+  };
+};
+
+// Ejemplo de uso
+let result = ackermann(3, 2);
+console.log(result); // Output: 29
+
+
+================
+
