@@ -26,7 +26,7 @@ class Simbolo:
         self.columna = columna
         
 class SimboloTraduccion:
-    def __init__(self, tipoSimbolo:TiposSimbolos, tipo: Tipo, tipoDato: TipoDato, id: str, temporal,tipoVariable: TipoVariable, inHeap, nombreAmbito, linea, columna):
+    def __init__(self, tipoSimbolo:TiposSimbolos, tipo: Tipo, tipoDato: TipoDato, id: str, temporal,tipoVariable: TipoVariable, inHeap, nombreAmbito, direccion, linea, columna):
         self.temporal = temporal
         self.id : str = id
         self.tipo : Tipo = tipo
@@ -35,5 +35,6 @@ class SimboloTraduccion:
         self.tipoVariable: TipoVariable = tipoVariable
         self.nombreAmbito = nombreAmbito
         self.inHeap = inHeap
+        self.direccion = direccion
         self.linea = linea
         self.columna = columna
