@@ -46,6 +46,7 @@ reservadas = {
     'typeof'    : 'typeof',
     'of'    : 'of',
     'interface': 'interface',
+    'length': 'length',
 }
 
 

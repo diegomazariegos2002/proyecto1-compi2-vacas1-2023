@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Union
 from source.abstracto.Expresion import Expresion
+from source.expresiones.Acceso import Acceso
 from source.abstracto.Instruccion import Instruccion
 from source.abstracto.Retorno import Retorno, Tipo, TipoDato, TipoVariable
 from source.consola_singleton.Consola import Consola
@@ -24,6 +25,7 @@ class LlamadaFunction(Expresion):
         self.insEntraParam = insEntraParam
 
     def ejecutar(self, ts: TablaSimbolos):
+        print("LLAMAN")
         consolaGlobal = Consola()
         simboloFuncion : Simbolo = ts.buscar(self.idFuncion)
         # validar que todo este bien antes de llamar a la funcion
@@ -104,6 +106,33 @@ class LlamadaFunction(Expresion):
                         return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
                     
                     return retExpRetonarda
+        """
+                funcionUtil->bloque->run(funcionUtil->entornoFunc);
+                for (std::size_t i = 0; i < this->parametros.size(); i++) {
+                    try {
+                        DeclaracionVec* dec = (DeclaracionVec*)funcionUtil->parametros[i];
+                        Simbolo* variableTmp = funcionUtil->entornoFunc->obtenerVariable(dec->nombre);
+
+                        if(variableTmp->tipo_simbolo == VECTOR){
+                            AccesoVec* access = (AccesoVec*) this->parametros[i];
+                            env->actualizarVariable(access->id, variableTmp->valor);
+                        }
+
+                    }  catch (int x) {
+                        printf("NO ES NORMAL");
+                    }
+                }
+        """
+        # PARAMETRO POR REFERENCIA
+        """if len(funcionLLamada.insParamFunc) > 0:
+            for i in range(len(funcionLLamada.insParamFunc)):
+                parametroFuncion : Declaracion = funcionLLamada.insParamFunc[i]
+                simboloObtenido: Simbolo = funcionLLamada.entornoGlobal.buscar_variable(parametroFuncion.id)
+                
+                if simboloObtenido.tipoVariable == TipoVariable.VECTOR:
+                    if isinstance(self.insEntraParam[i], Acceso):
+                        parametroVector: Acceso = self.insEntraParam[i]
+                        ts.actualizarVariable(parametroVector.id, simboloObtenido.valor)"""
                 
         return Retorno(None, TipoDato.NULL, TipoVariable.NORMAL)
     

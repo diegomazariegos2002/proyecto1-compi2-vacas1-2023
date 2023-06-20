@@ -13,6 +13,7 @@ from source.expresiones.nativas.ToUpperCase import ToUpperCase
 from source.expresiones.nativas.Split import Split
 from source.expresiones.nativas.Concat import Concat
 from source.expresiones.nativas.TypeOf import TypeOf
+from source.expresiones.nativas.Length import Length
 from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
 from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
 from source.instrucciones.funcion.Function import Function
@@ -55,8 +56,8 @@ def calcularColumna(entrada, token):
 precedence = (
     ('left', 'or'),
     ('left', 'and'),
-    ('left', 'suma', 'resta'),
     ('left', 'menor', 'mayor', 'menorigual', 'mayorigual', 'igualacion', 'igualacionNormal', 'diferente', 'diferenteNormal'),
+    ('left', 'suma', 'resta'),
     ('left', 'multiplicacion', 'division', 'modulo'),
     ('left', 'potencia'),
     ('right', 'not'),
@@ -659,6 +660,13 @@ def p_EXPRESION_Acceso(p):
     EXPRESION : id
     """
     p[0] = Acceso(p[1], p.lineno(1),
+                  calcularColumna(input, p.slice[1]))
+
+def p_EXPRESION_Length(p):
+    """
+    EXPRESION : length p_Abre id p_Cierra
+    """
+    p[0] = Length(p[3], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
 
 def p_EXPRESION_Acceso_Vector(p):

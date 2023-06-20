@@ -102,7 +102,7 @@ def analizar():
             consolaGlobal.set_Consola("\nSe encontraron errores léxicos, sintácticos o semánticos...\n")   
             
         for x in listaExcepciones:
-            print(x.descripcion)
+            print(x.descripcion + "/" + str(x.linea))
 
         salidaConsola = consolaGlobal.get_Consola()
         objeto = {
