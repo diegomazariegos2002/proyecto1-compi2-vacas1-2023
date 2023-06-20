@@ -1,4 +1,4 @@
-from source.simbolo.Simbolo import Simbolo
+from source.simbolo.Simbolo import Simbolo, SimboloTraduccion
 from source.consola_singleton.Consola import Consola
 
 
@@ -57,8 +57,12 @@ class TablaSimbolos:
 
         while env != None:
             if(env.tablaActual.get(nombre) != None):
-                variable:Simbolo = env.tablaActual.get(nombre)
-                variable.valor = valor
+                if isinstance(env.tablaActual.get(nombre), Simbolo):
+                    variable:Simbolo = env.tablaActual.get(nombre)
+                    variable.valor = valor
+                elif isinstance(env.tablaActual.get(nombre), SimboloTraduccion):
+                    variable:SimboloTraduccion = env.tablaActual.get(nombre)
+                    variable.temporal = valor
                 return 
             env = env.anterior
 
