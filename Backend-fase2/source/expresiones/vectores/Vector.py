@@ -39,7 +39,7 @@ class Vector(Expresion):
         if(esAnyFijo == False):
             for expre in self.valor:
                 expresionRetorno : Retorno = expre.ejecutar(ts)
-                if(expre.tipo != tipoVector):
+                if(expresionRetorno.tipo != tipoVector):
                     tipoVector = TipoDato.ANY
                     break
         else:

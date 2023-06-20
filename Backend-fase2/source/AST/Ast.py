@@ -1,5 +1,6 @@
 import os
 from source.abstracto.Instruccion import Instruccion
+from source.abstracto.Expresion import Expresion
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.expresiones.nativas.TypeOf import TypeOf
@@ -31,6 +32,8 @@ class Ast:
             if isinstance(instruccion, Instruccion):
                 if not isinstance(instruccion, Function):
                     instruccion.ejecutar(ts)
+            elif isinstance(instruccion, Expresion):
+                instruccion.ejecutar(ts)
                     
     def generarGrafico(self):
         consola = Consola()
