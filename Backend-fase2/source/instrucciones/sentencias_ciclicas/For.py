@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Union
-from source.abstracto.Retorno import Retorno, TipoDato, TipoVariable
+from source.abstracto.Retorno import Retorno, RetornoTraduccion, TipoDato, TipoVariable
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.abstracto.Expresion import Expresion
@@ -117,3 +117,74 @@ class For(Instruccion):
             cont += 1
         
         return nombreNodoPrincipal
+    
+    def traducir(self, ts: TablaSimbolos):
+        consola: Consola = Consola()
+        retornoDeclaracion = ""
+        retornoCondicion:RetornoTraduccion = None
+        retornoAsignacion = ""
+        cadenaRetorno = ""
+        self.etqContinue = consola.genNewEtq()
+        lTrue1 = consola.genNewEtq()
+        etqInicial = consola.genNewEtq()
+        self.etqBreak = consola.genNewEtq()
+        self.etqSalida = self.etqBreak
+        newEnviromentFor = TablaSimbolos(ts, "FOR-")
+        
+        
+        # Validaciones
+        # Validaciones
+        if self.declaracion != None:
+            retornoDeclaracion = self.declaracion.traducir(newEnviromentFor)
+        if isinstance(retornoDeclaracion, Excepcion):
+            return Excepcion()
+        if self.condicion == None:
+            # ERROR
+            consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el for no viene", self.line, self.column, datetime.now()))
+            return Excepcion()
+        retornoCondicion = self.condicion.traducir(newEnviromentFor)
+        if retornoCondicion.tipo != TipoDato.BOOLEANO:
+            # ERROR
+            consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el for no es de tipo boolean", self.line, self.column, datetime.now()))
+            return Excepcion()
+        
+        # VALIDACIONES DEL FOR
+        cadenaRetorno += consola.genComment("INSTRUCCION FOR")
+        cadenaRetorno += consola.genComment("DECLARACION FOR")
+        cadenaRetorno += retornoDeclaracion
+        
+        cadenaRetorno += consola.genComment("CONDICION FOR")
+        cadenaRetorno += "{}:\n".format(etqInicial)
+        cadenaRetorno += retornoCondicion.codigoTraducido
+        cadenaRetorno += consola.genIf(retornoCondicion.valor+"==1", consola.genGoto2(lTrue1))
+        cadenaRetorno += consola.genGoto(self.etqSalida)
+        
+        # CUERPO DEL FOR
+        cadenaRetorno += consola.genComment("CUERPO FOR")
+        cadenaRetorno += "{}:\n".format(lTrue1)
+        newEnviromentForBlk = TablaSimbolos(newEnviromentFor, "FOR-BLOQUE")
+        for ins in self.insEntraFor:
+            ins.etqReturn = self.etqReturn
+            ins.etqContinue = self.etqContinue
+            ins.etqBreak = self.etqBreak
+            resIn = ins.traducir(newEnviromentForBlk)
+            if isinstance(resIn, Excepcion):
+                return Excepcion()
+            cadenaRetorno += resIn
+        cadenaRetorno += consola.genComment("ASIGNACION FOR")
+        cadenaRetorno += consola.genGoto(self.etqContinue) # solo para que no tire error.
+        cadenaRetorno += "{}:\n".format(self.etqContinue)
+        # actualizacion del valor de la variable
+        if self.asignacion != None:
+                retornoAsignacion = self.asignacion.traducir(newEnviromentFor)
+        if isinstance(retornoAsignacion, Excepcion):
+            return Excepcion()
+        cadenaRetorno += retornoAsignacion
+        # Repetir ciclo
+        cadenaRetorno += consola.genGoto(etqInicial)
+
+        # salida for
+        cadenaRetorno += consola.genComment("FIN FOR")
+        cadenaRetorno += "{}:\n".format(self.etqSalida)
+
+        return cadenaRetorno

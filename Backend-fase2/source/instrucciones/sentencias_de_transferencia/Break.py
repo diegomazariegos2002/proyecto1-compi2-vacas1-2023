@@ -27,3 +27,13 @@ class Break(Instruccion):
         nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
         consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nBreak\"];\n")
         return nombreNodo
+    
+    def traducir(self, ts: TablaSimbolos):
+        consola: Consola = Consola()
+        cadenaRetorno = ""
+        if self.etqBreak == None:
+            consola.set_Excepcion(Excepcion("Error Semantico", "Error sentencia break solo se puede utilizar adentro de un ciclo.", self.line, self.column, datetime.now()))
+            return Excepcion()
+        cadenaRetorno += consola.genComment("INSTRUCCION BREAK")
+        cadenaRetorno += consola.genGoto(self.etqBreak)
+        return cadenaRetorno

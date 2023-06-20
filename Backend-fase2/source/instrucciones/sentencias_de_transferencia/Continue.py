@@ -26,3 +26,13 @@ class Continue(Instruccion):
         nombreNodo = f"instruccion_{self.line}_{self.column}_{str(id(self))}_"
         consola.set_AstGrafico(f"{nombreNodo}[label=\"\\<Instruccion\\>\\nContinue\"];\n")
         return nombreNodo
+    
+    def traducir(self, ts: TablaSimbolos):
+        consola: Consola = Consola()
+        cadenaRetorno = ""
+        if self.etqContinue == None:
+            consola.set_Excepcion(Excepcion("Error Semantico", "Error sentencia continue solo se puede utilizar adentro de un ciclo.", self.line, self.column, datetime.now()))
+            return Excepcion()
+        cadenaRetorno += consola.genComment("INSTRUCCION CONTINUE")
+        cadenaRetorno += consola.genGoto(self.etqContinue)
+        return cadenaRetorno
