@@ -115,10 +115,12 @@ class RetornoTraduccion:
     def __init__(self, valor:None = None,
                  tipo:TipoDato = TipoDato.NULL,
                  tipoVariable:TipoVariable = TipoVariable.NORMAL,
-                 codigoTraducido: str = "") -> None:
+                 codigoTraducido: str = "",
+                 contenidoVector = []) -> None:
         self.valor = valor
         self.tipo = tipo
         self.tipoVariable = tipoVariable
         self.codigoTraducido = codigoTraducido
+        self.contenidoVector = contenidoVector
     
 

@@ -195,6 +195,114 @@ class ConsoleLog(Instruccion):
                         else:
                             consola.set_Consola("Error en la ejecucion de la instruccion ConsoleLog, tipo no valido")
                             return Excepcion()
+                    elif retorno.tipoVariable == TipoVariable.VECTOR:
+                        print(retorno.contenidoVector[0])
+                        cadenaRetornoPrints += consola.genPrintC(91)  # [
+                        cadenaRetornoExpresiones += retorno.codigoTraducido
+                        for x in range(0, len(retorno.contenidoVector)):
+                            if x== 0:
+                                if retorno.contenidoVector[x].tipoVariable == TipoVariable.VECTOR:
+                                    vecRetorno = self.agregarVectorConsolaC3D(retorno.contenidoVector[x])
+                                    cadenaRetornoExpresiones += vecRetorno[0]
+                                    cadenaRetornoPrints += vecRetorno[1]
+                                else:
+                                    if(retorno.contenidoVector[x].tipo == TipoDato.CADENA):
+                                        t1 = consola.genNewTemp()
+                                        t2 = consola.genNewTemp()
+
+                                        l1 = consola.genNewEtq()
+                                        l2 = consola.genNewEtq()
+                                        cadenaRetornoPrints += consola.genAsignacion(t1, retorno.contenidoVector[x].valor)
+                                        cadenaRetornoPrints += "{}:\n".format(l1)
+                                        cadenaRetornoPrints += consola.genAsignacion(t2,
+                                                                    "HEAP[int({})]".format(t1))
+                                        cadenaRetornoPrints += consola.genIf("{} == -1".format(t2),
+                                                            consola.genGoto2(l2))
+                                        cadenaRetornoPrints += consola.genPrintC(
+                                            "{}".format(t2))
+                                        cadenaRetornoPrints += consola.genAsignacion(t1, "{} + 1".format(t1))
+                                        cadenaRetornoPrints += consola.genGoto(l1)
+                                        cadenaRetornoPrints += "{}:\n".format(l2)
+                                        continue
+                                    elif(retorno.contenidoVector[x].tipo == TipoDato.NUMERO):
+                                        cadenaRetornoPrints += consola.genPrintF(retorno.contenidoVector[x].valor)
+                                        continue
+                                    elif(retorno.contenidoVector[x].tipo == TipoDato.BOOLEANO):
+                                        l1 = consola.genNewEtq()
+                                        l2 = consola.genNewEtq()
+                                        cadenaRetornoPrints += consola.genIf(str(retorno.contenidoVector[x].valor)+"==1", consola.genGoto2(l1))
+                                        cadenaRetornoPrints += consola.genPrintC(102)  # f
+                                        cadenaRetornoPrints += consola.genPrintC(97)   # a
+                                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                                        cadenaRetornoPrints += consola.genPrintC(115)  # s
+                                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                                        cadenaRetornoPrints += consola.genGoto(l2)
+                                        cadenaRetornoPrints += "{}:\n".format(l1)
+                                        cadenaRetornoPrints += consola.genPrintC(116)  # t
+                                        cadenaRetornoPrints += consola.genPrintC(114)  # r
+                                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                                        cadenaRetornoPrints += "{}:\n".format(l2)
+                                        continue
+                                    elif(retorno.contenidoVector[x].tipo == TipoDato.NULL):
+                                        cadenaRetornoPrints += consola.genPrintC(110)  # n
+                                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                                        continue
+                            else:
+                                cadenaRetornoPrints += consola.genPrintC(44)  # [
+                                if retorno.contenidoVector[x].tipoVariable == TipoVariable.VECTOR:
+                                    vecRetorno = self.agregarVectorConsolaC3D(retorno.contenidoVector[x])
+                                    cadenaRetornoExpresiones += vecRetorno[0]
+                                    cadenaRetornoPrints += vecRetorno[1]
+                                else:
+                                    if(retorno.contenidoVector[x].tipo == TipoDato.CADENA):
+                                        t1 = consola.genNewTemp()
+                                        t2 = consola.genNewTemp()
+
+                                        l1 = consola.genNewEtq()
+                                        l2 = consola.genNewEtq()
+                                        cadenaRetornoPrints += consola.genAsignacion(t1, retorno.contenidoVector[x].valor)
+                                        cadenaRetornoPrints += "{}:\n".format(l1)
+                                        cadenaRetornoPrints += consola.genAsignacion(t2,
+                                                                    "HEAP[int({})]".format(t1))
+                                        cadenaRetornoPrints += consola.genIf("{} == -1".format(t2),
+                                                            consola.genGoto2(l2))
+                                        cadenaRetornoPrints += consola.genPrintC(
+                                            "{}".format(t2))
+                                        cadenaRetornoPrints += consola.genAsignacion(t1, "{} + 1".format(t1))
+                                        cadenaRetornoPrints += consola.genGoto(l1)
+                                        cadenaRetornoPrints += "{}:\n".format(l2)
+                                        continue
+                                    elif(retorno.contenidoVector[x].tipo == TipoDato.NUMERO):
+                                        cadenaRetornoPrints += consola.genPrintF(retorno.contenidoVector[x].valor)
+                                        continue
+                                    elif(retorno.contenidoVector[x].tipo == TipoDato.BOOLEANO):
+                                        l1 = consola.genNewEtq()
+                                        l2 = consola.genNewEtq()
+                                        cadenaRetornoPrints += consola.genIf(str(retorno.contenidoVector[x].valor)+"==1", consola.genGoto2(l1))
+                                        cadenaRetornoPrints += consola.genPrintC(102)  # f
+                                        cadenaRetornoPrints += consola.genPrintC(97)   # a
+                                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                                        cadenaRetornoPrints += consola.genPrintC(115)  # s
+                                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                                        cadenaRetornoPrints += consola.genGoto(l2)
+                                        cadenaRetornoPrints += "{}:\n".format(l1)
+                                        cadenaRetornoPrints += consola.genPrintC(116)  # t
+                                        cadenaRetornoPrints += consola.genPrintC(114)  # r
+                                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                                        cadenaRetornoPrints += "{}:\n".format(l2)
+                                        continue
+                                    elif(retorno.contenidoVector[x].tipo == TipoDato.NULL):
+                                        cadenaRetornoPrints += consola.genPrintC(110)  # n
+                                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                                        continue
+                                
+                        cadenaRetornoPrints += consola.genPrintC(93)  # [
                             
                     cadenaRetornoExpresiones += consola.genPrintC(10)
             else:
@@ -205,3 +313,116 @@ class ConsoleLog(Instruccion):
                 cadenaRetornoExpresiones + 
                 cadenaRetornoPrints+
                 consola.genPrintC(10))
+        
+    def agregarVectorConsolaC3D(self, vectorNuevo: RetornoTraduccion):
+        consola = Consola()
+        cadenaRetornoPrints = ""
+        cadenaRetornoExpresiones = ""
+        cadenaRetornoPrints += consola.genPrintC(91)  # [
+        cadenaRetornoExpresiones += vectorNuevo.codigoTraducido
+        for x in range(0, len(vectorNuevo.contenidoVector)):
+            if x== 0:
+                if vectorNuevo.contenidoVector[x].tipoVariable == TipoVariable.VECTOR:
+                    vecRetorno = self.agregarVectorConsolaC3D(vectorNuevo.contenidoVector[x])
+                    cadenaRetornoExpresiones += vecRetorno[0]
+                    cadenaRetornoPrints += vecRetorno[1]
+                else:
+                    if(vectorNuevo.contenidoVector[x].tipo == TipoDato.CADENA):
+                        t1 = consola.genNewTemp()
+                        t2 = consola.genNewTemp()
+
+                        l1 = consola.genNewEtq()
+                        l2 = consola.genNewEtq()
+                        cadenaRetornoPrints += consola.genAsignacion(t1, vectorNuevo.contenidoVector[x].valor)
+                        cadenaRetornoPrints += "{}:\n".format(l1)
+                        cadenaRetornoPrints += consola.genAsignacion(t2,
+                                                    "HEAP[int({})]".format(t1))
+                        cadenaRetornoPrints += consola.genIf("{} == -1".format(t2),
+                                            consola.genGoto2(l2))
+                        cadenaRetornoPrints += consola.genPrintC(
+                            "{}".format(t2))
+                        cadenaRetornoPrints += consola.genAsignacion(t1, "{} + 1".format(t1))
+                        cadenaRetornoPrints += consola.genGoto(l1)
+                        cadenaRetornoPrints += "{}:\n".format(l2)
+                        continue
+                    elif(vectorNuevo.contenidoVector[x].tipo == TipoDato.NUMERO):
+                        print("VECTOR CONSOLA")
+                        cadenaRetornoPrints += consola.genPrintF(vectorNuevo.contenidoVector[x].valor)
+                        continue
+                    elif(vectorNuevo.contenidoVector[x].tipo == TipoDato.BOOLEANO):
+                        l1 = consola.genNewEtq()
+                        l2 = consola.genNewEtq()
+                        cadenaRetornoPrints += consola.genIf(str(vectorNuevo.contenidoVector[x].valor)+"==1", consola.genGoto2(l1))
+                        cadenaRetornoPrints += consola.genPrintC(102)  # f
+                        cadenaRetornoPrints += consola.genPrintC(97)   # a
+                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                        cadenaRetornoPrints += consola.genPrintC(115)  # s
+                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                        cadenaRetornoPrints += consola.genGoto(l2)
+                        cadenaRetornoPrints += "{}:\n".format(l1)
+                        cadenaRetornoPrints += consola.genPrintC(116)  # t
+                        cadenaRetornoPrints += consola.genPrintC(114)  # r
+                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                        cadenaRetornoPrints += "{}:\n".format(l2)
+                        continue
+                    elif(vectorNuevo.contenidoVector[x].tipo == TipoDato.NULL):
+                        cadenaRetornoPrints += consola.genPrintC(110)  # n
+                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                        continue
+            else:
+                cadenaRetornoPrints += consola.genPrintC(44)  # [
+                if vectorNuevo.contenidoVector[x].tipoVariable == TipoVariable.VECTOR:
+                    vecRetorno = self.agregarVectorConsolaC3D(vectorNuevo.contenidoVector[x])
+                    cadenaRetornoExpresiones += vecRetorno[0]
+                    cadenaRetornoPrints += vecRetorno[1]
+                else:
+                    if(vectorNuevo.contenidoVector[x].tipo == TipoDato.CADENA):
+                        t1 = consola.genNewTemp()
+                        t2 = consola.genNewTemp()
+
+                        l1 = consola.genNewEtq()
+                        l2 = consola.genNewEtq()
+                        cadenaRetornoPrints += consola.genAsignacion(t1, vectorNuevo.contenidoVector[x].valor)
+                        cadenaRetornoPrints += "{}:\n".format(l1)
+                        cadenaRetornoPrints += consola.genAsignacion(t2,
+                                                    "HEAP[int({})]".format(t1))
+                        cadenaRetornoPrints += consola.genIf("{} == -1".format(t2),
+                                            consola.genGoto2(l2))
+                        cadenaRetornoPrints += consola.genPrintC(
+                            "{}".format(t2))
+                        cadenaRetornoPrints += consola.genAsignacion(t1, "{} + 1".format(t1))
+                        cadenaRetornoPrints += consola.genGoto(l1)
+                        cadenaRetornoPrints += "{}:\n".format(l2)
+                        continue
+                    elif(vectorNuevo.contenidoVector[x].tipo == TipoDato.NUMERO):
+                        cadenaRetornoPrints += consola.genPrintF(vectorNuevo.contenidoVector[x].valor)
+                        continue
+                    elif(vectorNuevo.contenidoVector[x].tipo == TipoDato.BOOLEANO):
+                        l1 = consola.genNewEtq()
+                        l2 = consola.genNewEtq()
+                        cadenaRetornoPrints += consola.genIf(str(vectorNuevo.contenidoVector[x].valor)+"==1", consola.genGoto2(l1))
+                        cadenaRetornoPrints += consola.genPrintC(102)  # f
+                        cadenaRetornoPrints += consola.genPrintC(97)   # a
+                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                        cadenaRetornoPrints += consola.genPrintC(115)  # s
+                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                        cadenaRetornoPrints += consola.genGoto(l2)
+                        cadenaRetornoPrints += "{}:\n".format(l1)
+                        cadenaRetornoPrints += consola.genPrintC(116)  # t
+                        cadenaRetornoPrints += consola.genPrintC(114)  # r
+                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                        cadenaRetornoPrints += consola.genPrintC(101)  # e
+                        cadenaRetornoPrints += "{}:\n".format(l2)
+                        continue
+                    elif(vectorNuevo.contenidoVector[x].tipo == TipoDato.NULL):
+                        cadenaRetornoPrints += consola.genPrintC(110)  # n
+                        cadenaRetornoPrints += consola.genPrintC(117)  # u
+                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                        cadenaRetornoPrints += consola.genPrintC(108)  # l
+                        continue
+                
+        cadenaRetornoPrints += consola.genPrintC(93)  # [
+        return ([cadenaRetornoExpresiones, cadenaRetornoPrints])
