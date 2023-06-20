@@ -10,6 +10,12 @@ class Instruccion:
     def __init__(self, line:int, column:int):
         self.line = line
         self.column = column
+        # fase 2
+        # etiquetas para el control de flujo en los entornos
+        self.etqSalida = None
+        self.etqContinue = None
+        self.etqBreak = None
+        self.etqReturn = None
 
     def ejecutar(self, ts: TablaSimbolos):
         """

@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Union
-from source.abstracto.Retorno import Retorno, TipoDato, TipoVariable
+from source.abstracto.Retorno import Retorno, RetornoTraduccion, TipoDato, TipoVariable
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.abstracto.Expresion import Expresion
@@ -79,3 +79,44 @@ class While(Instruccion):
             cont += 1
         
         return nombreNodoInstruccion
+    
+    def traducir(self, ts: TablaSimbolos):
+        consola: Consola = Consola()
+        cadenaRetorno = ""
+        self.etqContinue = consola.genNewEtq()
+        lTrue1 = consola.genNewEtq()
+        self.etqBreak = consola.genNewEtq()
+        self.etqSalida = self.etqBreak
+        
+        retornoCondicion:RetornoTraduccion = self.condicion.traducir(ts)
+        if retornoCondicion.tipo != TipoDato.BOOLEANO:
+            # ERROR
+            consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el while no es de tipo boolean", self.line, self.column, datetime.now()))
+            # nota: no retorna nada entonces cuidado con los ciclos infinitos
+            return Excepcion()
+        
+        cadenaRetorno += consola.genComment("INSTRUCCION WHILE")
+        cadenaRetorno += "{}:\n".format(self.etqContinue)
+        cadenaRetorno += consola.genComment("VALIDANDO CONDICION WHILE")
+        cadenaRetorno += retornoCondicion.codigoTraducido
+        cadenaRetorno += consola.genIf(retornoCondicion.valor+"==1", consola.genGoto2(lTrue1))
+        cadenaRetorno += consola.genGoto(self.etqSalida)
+        cadenaRetorno += consola.genComment("SE CUMPLIO CONDICION WHILE")
+        cadenaRetorno += "{}:\n".format(lTrue1)
+
+        for ins in self.insEntraWhile:
+            newEnviroment = TablaSimbolos(ts, "WHILE-")
+            ins.etqContinue = self.etqContinue
+            ins.etqBreak = self.etqBreak
+            ins.etqReturn = self.etqReturn
+            resInsTraducida:str = ins.traducir(newEnviroment)
+            if isinstance(resInsTraducida, Excepcion):
+                return Excepcion()
+            cadenaRetorno += resInsTraducida
+        cadenaRetorno += consola.genGoto(self.etqContinue)
+        cadenaRetorno += consola.genComment("FIN WHILE")
+        cadenaRetorno += "{}:\n".format(self.etqBreak)
+        return cadenaRetorno
+        
+        
+        

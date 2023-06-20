@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Union
-from source.abstracto.Retorno import Retorno, TipoDato, TipoVariable
+from source.abstracto.Retorno import Retorno, RetornoTraduccion, TipoDato, TipoVariable
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.abstracto.Expresion import Expresion
@@ -161,4 +161,97 @@ class If(Instruccion):
                     
         return nombreNodo
         
+    def traducir(self, ts: TablaSimbolos):
+        consola: Consola = Consola()
+        cadenaRetorno = ""
+        retornoExpresion:RetornoTraduccion = self.condicion.traducir(ts)
+        
+        if retornoExpresion.tipo != TipoDato.BOOLEANO:
+            # ERROR
+            consola.set_Excepcion(Excepcion("Error Semantico", "Error la condicion en el if no es de tipo boolean", self.line, self.column, datetime.now()))
+            # nota: no retorna nada entonces cuidado con los ciclos infinitos
+            return Excepcion()
+        
+        cadenaRetorno += consola.genComment("INSTRUCCION IF")
+        cadenaRetorno += consola.genComment("CONDICION IF")
+        cadenaRetorno += retornoExpresion.codigoTraducido
+        # Se valida si ya se creo la salida de la instrucción if, esto sirve para los else if/else.
+        if self.etqSalida == None:
+            self.etqSalida = consola.genNewEtq()
+        
+        # Si solo viene el if
+        if self.insEntraOpcionales == None:
+            newEnviroment = TablaSimbolos(ts, "IF-")
+            lTrue = consola.genNewEtq()
+            lFalse = consola.genNewEtq()
+
+            cadenaRetorno += consola.genComment("VALIDACION IF")
+            cadenaRetorno += consola.genIf(retornoExpresion.valor+"==1", consola.genGoto2(lTrue))
+            cadenaRetorno += consola.genGoto(lFalse)
+            cadenaRetorno += "{}: \n".format(lTrue)
+            for ins in self.insEntraIf:
+                ins.etqContinue = self.etqContinue
+                ins.etqBreak = self.etqBreak
+                ins.etqReturn = self.etqReturn
+                resIns : Union[Excepcion, str] = ins.traducir(newEnviroment)
+                if isinstance(resIns, Excepcion):
+                    return Excepcion()
+                cadenaRetorno += resIns
+            cadenaRetorno += consola.genGoto(self.etqSalida)
+            cadenaRetorno += "{}: \n".format(lFalse)
+            cadenaRetorno += consola.genGoto(self.etqSalida)
+            cadenaRetorno += "{}: \n".format(self.etqSalida)
+            return cadenaRetorno
+        # si if viene con otra condición (else if, else)
+        else:
+            # Primero validar el if principal y luego lo demás
+            newEnviroment = TablaSimbolos(ts, "IF-")
+            
+            lTrue = consola.genNewEtq()
+            lFalse = consola.genNewEtq()
+
+            cadenaRetorno += consola.genComment("VALIDACION IF")
+            cadenaRetorno += consola.genIf(retornoExpresion.valor+"==1", consola.genGoto2(lTrue))
+            cadenaRetorno += consola.genGoto(lFalse)
+            cadenaRetorno += "{}: \n".format(lTrue)
+            for ins in self.insEntraIf:
+                ins.etqContinue = self.etqContinue
+                ins.etqBreak = self.etqBreak
+                ins.etqReturn = self.etqReturn
+                resIns : Union[Excepcion, str] = ins.traducir(newEnviroment)
+                if isinstance(resIns, Excepcion):
+                    return Excepcion()
+                cadenaRetorno += resIns
+            cadenaRetorno += consola.genGoto(self.etqSalida)
+            cadenaRetorno += "{}: \n".format(lFalse)
+            # ELSE IF
+            if not isinstance(self.insEntraOpcionales, list):
+                if isinstance(self.insEntraOpcionales, If):
+                    cadenaRetorno += consola.genComment("ELSE IF")
+                    self.insEntraOpcionales.etqBreak = self.etqBreak
+                    self.insEntraOpcionales.etqContinue = self.etqContinue
+                    self.insEntraOpcionales.etqSalida = self.etqSalida
+                    self.insEntraOpcionales.etqReturn = self.etqReturn
+                    resinsEntraOpcionales:str = self.insEntraOpcionales.traducir(newEnviroment)
+                    if isinstance(resinsEntraOpcionales, Excepcion):
+                        return Excepcion()
+                    cadenaRetorno += resinsEntraOpcionales
+
+                    return cadenaRetorno
+
+            # ELSE
+            else:
+                newEnviroment2 = TablaSimbolos(ts, "ELSE-")
+                cadenaRetorno += consola.genComment("ELSE")
+                for ins in self.insEntraOpcionales:
+                    ins.etqContinue = self.etqContinue
+                    ins.etqBreak = self.etqBreak
+                    ins.etqReturn = self.etqReturn
+                    resElse = ins.traducir(newEnviroment2)
+                    if isinstance(resElse, Excepcion):
+                        return Excepcion()
+                    cadenaRetorno += resElse
+                cadenaRetorno += consola.genGoto(self.etqSalida)
+                cadenaRetorno += "{}: \n".format(self.etqSalida)
+                return cadenaRetorno
         
