@@ -76,3 +76,34 @@ class Function(Instruccion):
             cont += 1
         
         return nombreNodo
+    
+    def traducir(self, ts: TablaSimbolos):
+        consola: Consola = Consola()
+        cadenaRetorno = ""
+        newEnviromentFunction = TablaSimbolos(ts, "FUNCION_"+self.id+"-")
+        self.etqSalida = consola.genNewEtq()
+        self.etqReturn = self.etqSalida
+        cadenaRetorno += "func {}(){{\n".format(self.id)
+        for ins in self.insEntraFunc:
+            ins.etqReturn = self.etqReturn
+            resIn = ins.traducir(newEnviromentFunction)
+
+            if isinstance(resIn, Excepcion):
+                return Excepcion()
+
+            cadenaRetorno += resIn
+        cadenaRetorno += consola.genGoto(self.etqSalida)    
+        cadenaRetorno += "{}:\n".format(self.etqSalida)
+        cadenaRetorno += "return;\n"
+        cadenaRetorno += "}\n\n"
+        # Si todo esta bien, se agrega la funcion a la tabla de simbolos GLOBAL
+        simboloFunc = Simbolo(TiposSimbolos.FUNCTION, Tipo.ANY, TipoDato.ANY, self.id, self, TipoVariable.FUNCTION, ts.nombreAmbito, self.line, self.column)
+        existeVariable = ts.insertar(self.id, simboloFunc)
+        if existeVariable == False:
+            consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe, imposible declarar funcion asi.", self.line, self.column, datetime.now()))
+            return Excepcion()
+        self.entornoGlobal = ts
+        return cadenaRetorno
+        
+        
+        

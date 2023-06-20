@@ -132,3 +132,9 @@ class LlamadaFunction(Expresion):
                 print("soy un error en llamada funcion -> parametros de funcion ast: " + error)
             cont += 1        
         return nombreNodo
+    
+    def traducir(self, ts: TablaSimbolos):
+        consola: Consola = Consola()
+        cadenaRetorno = ""
+        simboloFuncion : Simbolo = ts.buscar(self.idFuncion)
+        
