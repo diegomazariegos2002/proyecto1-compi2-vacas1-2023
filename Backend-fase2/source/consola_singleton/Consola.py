@@ -391,7 +391,7 @@ class Consola(metaclass=SingletonMeta):
         
         return {'temp': trespuesta, 'codigo': traduRet}
         
-        
+    
         
         
         

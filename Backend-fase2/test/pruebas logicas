@@ -1,0 +1,25 @@
+// IF - ELSE IF - ELSE
+if (condición1) goto L1
+else goto L2
+L1: // código para condición1 verdadera
+    goto L3
+L2: if (condición2) goto L4
+    else goto L5
+L4: // código para condición2 verdadera
+    goto L3
+L5: // código para ninguna condición verdadera
+L3:
+
+// WHILE
+L1: if not condición goto L2
+    // código para la condición verdadera
+    goto L1
+L2:
+
+//FOR
+i = inicio
+L1: if i >= fin goto L2
+    // código para el bucle
+    i = i + incremento
+    goto L1
+L2:

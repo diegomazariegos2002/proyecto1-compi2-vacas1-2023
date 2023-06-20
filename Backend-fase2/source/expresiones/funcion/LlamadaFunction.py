@@ -71,10 +71,15 @@ class LlamadaFunction(Expresion):
         #          FIN ASIGNACION DE PARAMETROS
         
         #           EJECTUAR INSTRUCCIONES DE LA FUNCION
+        # ESTAS INSTRUCCIONES ESTAN EN EL ENTORNO GLOBAL -> ENTORNO DE LA FUNCION (para agarrar sus parametros)
+        # Para esto se crea un entorno auxiliar con el entorno global como padre y el entorno de los parametro como anterior
+        newEnviromentFunctionAux = newEnviromentFunction
+        newEnviromentFunctionAux.anterior = funcionLLamada.entornoGlobal
+        
         if len(funcionLLamada.insEntraFunc) > 0:
             for i in range(len(funcionLLamada.insEntraFunc)):
                 instruccionFuncion : Instruccion = funcionLLamada.insEntraFunc[i]
-                retornoInstruccion : Union[Excepcion, Return, None] = instruccionFuncion.ejecutar(funcionLLamada.entornoGlobal)
+                retornoInstruccion : Union[Excepcion, Return, None] = instruccionFuncion.ejecutar(newEnviromentFunctionAux)
                 
                 if isinstance(retornoInstruccion, Excepcion):
                     # ERROR
