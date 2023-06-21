@@ -47,6 +47,7 @@ reservadas = {
     'of'    : 'of',
     'interface': 'interface',
     'length': 'length',
+    'push': 'push',
 }
 
 

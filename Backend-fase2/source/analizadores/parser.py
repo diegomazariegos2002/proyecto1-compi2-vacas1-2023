@@ -14,6 +14,7 @@ from source.expresiones.nativas.Split import Split
 from source.expresiones.nativas.Concat import Concat
 from source.expresiones.nativas.TypeOf import TypeOf
 from source.expresiones.nativas.Length import Length
+from source.expresiones.nativas.Push import Push
 from source.instrucciones.aritmeticas.Decremento_Ins import Decremento_Ins
 from source.instrucciones.aritmeticas.Incremento_Ins import Incremento_Ins
 from source.instrucciones.funcion.Function import Function
@@ -103,6 +104,8 @@ def p_ENTRADA(p):
             |   STRUCT puntoYcoma
             |   LLAMADA_FUNCION puntoYcoma
             |   RETURN
+            |   FUNCION_PUSH puntoYcoma
+            |   FUNCION_POP puntoYcoma
     """
     p[0] = p[1]
 
@@ -566,6 +569,8 @@ def p_EXPRESION_funcionesnativas(p):
             | FUNCION_SPLIT
             | FUNCION_CONCAT
             | FUNCION_TYPEOF
+            | FUNCION_PUSH
+            | FUNCION_POP
     """
     p[0] = p[1]
 
@@ -575,6 +580,13 @@ def p_FUNCION_TOFIXED(p):
     """
     # semantico
     p[0] = ToFixed(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
+
+def p_FUNCION_PUSH(p):
+    """
+    FUNCION_PUSH : id punto push p_Abre EXPRESION p_Cierra
+    """
+    # semantico
+    p[0] = Push(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
 
 def p_FUNCION_TOEXPONENTIAL(p):
     """
@@ -664,7 +676,7 @@ def p_EXPRESION_Acceso(p):
 
 def p_EXPRESION_Length(p):
     """
-    EXPRESION : length p_Abre id p_Cierra
+    EXPRESION : length p_Abre EXPRESION p_Cierra
     """
     p[0] = Length(p[3], p.lineno(1),
                   calcularColumna(input, p.slice[1]))
