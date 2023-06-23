@@ -14,10 +14,12 @@ var (
 	t10, t11, t12, t13, t14, t15, t16, t17, t18, t19,
 	t20, t21, t22, t23, t24, t25, t26, t27, t28, t29,
 	t30, t31, t32, t33, t34, t35, t36, t37, t38, t39,
-	t40, t41, t42, t43, t44, t45, t46, t47, t48 float64
+	t40, t41, t42, t43, t44, t45, t46, t47, t48, t49,
+	t50, t51, t52, t53, t54, t55, t56, t57, t58, t59,
+	t60, t61 float64
 )
 
-func ackermann() {
+func hanoi() {
 
 	/*INSTRUCCION IF*/
 
@@ -27,128 +29,105 @@ func ackermann() {
 
 	/*EXPRESION IZQUIERDA t0 [ == ]*/
 
-	/*Acceso Variable m*/
-	t2 = SP + 1
-	t0 = STACK[int(t2)]
+	/*Acceso Variable discos*/
+	t4 = SP + 1
+	t0 = STACK[int(t4)]
 
-	/*EXPRESION DERECHA 0.0 [ == ]*/
-	if t0 == 0.0 {
+	/*EXPRESION DERECHA 1.0 [ == ]*/
+	if t0 == 1.0 {
 		goto L1
 	}
-	t3 = 0
+	t5 = 0
 	goto L2
 L1:
-	t3 = 1
+	t5 = 1
 L2:
 
 	/*VALIDACION IF*/
-	if t3 == 1 {
+	if t5 == 1 {
 		goto L4
 	}
 	goto L5
 L4:
 
-	/*INSTRUCCION RETURN*/
+	/*console.log*/
 
-	/*EXPRESION RETURN*/
+	/*PRIMITIVO -> CADENA*/
+	t6 = HP
+	HEAP[int(HP)] = 77.0
+	HP = HP + 1
+	HEAP[int(HP)] = 111.0
+	HP = HP + 1
+	HEAP[int(HP)] = 118.0
+	HP = HP + 1
+	HEAP[int(HP)] = 101.0
+	HP = HP + 1
+	HEAP[int(HP)] = 114.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = 100.0
+	HP = HP + 1
+	HEAP[int(HP)] = 101.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
 
-	/*EXPRESIONES SUMA*/
-
-	/*Acceso Variable n*/
-	t4 = SP + 2
-	t1 = STACK[int(t4)]
-
-	/*OPERACION SUMA*/
-	t5 = t1 + 1.0
-	t6 = SP + 0
-	STACK[int(t6)] = t5
-	goto L3
-L5:
-
-	/*ELSE IF*/
-
-	/*INSTRUCCION IF*/
-
-	/*CONDICION IF*/
-
-	/*EXPRESIONES LOGICA &&*/
-
-	/*EXPRESION IZQUIERDA t8 [&&]*/
-
-	/*EXPRESIONES RELACION  > */
-
-	/*EXPRESION IZQUIERDA t0 [ > ]*/
-
-	/*Acceso Variable m*/
-	t7 = SP + 1
-	t0 = STACK[int(t7)]
-
-	/*EXPRESION DERECHA 0.0 [ > ]*/
-	if t0 > 0.0 {
-		goto L6
-	}
-	t8 = 0
-	goto L7
-L6:
-	t8 = 1
-L7:
-
-	/*EXPRESION DERECHA t10 [&&]*/
-
-	/*EXPRESIONES RELACION  == */
-
-	/*EXPRESION IZQUIERDA t1 [ == ]*/
-
-	/*Acceso Variable n*/
+	/*Acceso Variable origen*/
 	t9 = SP + 2
 	t1 = STACK[int(t9)]
 
-	/*EXPRESION DERECHA 0.0 [ == ]*/
-	if t1 == 0.0 {
-		goto L8
+	/*PRIMITIVO -> CADENA*/
+	t10 = HP
+	HEAP[int(HP)] = 97.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+
+	/*Acceso Variable destino*/
+	t13 = SP + 4
+	t3 = STACK[int(t13)]
+	t7 = t6
+L6:
+	t8 = HEAP[int(t7)]
+	if t8 == -1 {
+		goto L7
 	}
-	t10 = 0
-	goto L9
+	fmt.Printf("%c", int(t8))
+	t7 = t7 + 1
+	goto L6
+L7:
+	fmt.Printf("%f", t1)
+	t11 = t10
 L8:
-	t10 = 1
+	t12 = HEAP[int(t11)]
+	if t12 == -1 {
+		goto L9
+	}
+	fmt.Printf("%c", int(t12))
+	t11 = t11 + 1
+	goto L8
 L9:
+	fmt.Printf("%f", t3)
+	fmt.Printf("%c", int(10))
+	goto L3
+L5:
 
-	/*LOGICA AND t8 t10*/
-	t11 = t8
-	t12 = t10
-	if t11 == 1 && t12 == 1 {
-		goto L11
-	}
-	t13 = 0
-	goto L10
-L11:
-	t13 = 1
-L10:
+	/*ELSE*/
 
-	/*VALIDACION IF*/
-	if t13 == 1 {
-		goto L12
-	}
-	goto L13
-L12:
+	/*INSTRUCCION DE LLAMADA DE FUNCION hanoi*/
 
-	/*INSTRUCCION RETURN*/
+	/*DECLARACION Y ASIGNACION DE PARAMETROS hanoi*/
 
-	/*EXPRESION RETURN*/
-
-	/*INSTRUCCION DE LLAMADA DE FUNCION ackermann*/
-
-	/*DECLARACION Y ASIGNACION DE PARAMETROS ackermann*/
-
-	/*Declaracion Variable m*/
-	t14 = SP + 4
+	/*Declaracion Variable discos*/
+	t14 = SP + 6
 	STACK[int(t14)] = 0
 
-	/*Asignacion Variable m*/
+	/*Asignacion Variable discos*/
 
 	/*EXPRESIONES RESTA*/
 
-	/*Acceso Variable m*/
+	/*Acceso Variable discos*/
 	t15 = SP + 1
 	t0 = STACK[int(t15)]
 
@@ -156,133 +135,200 @@ L12:
 	t16 = t0 - 1.0
 	STACK[int(t14)] = t16
 
-	/*Declaracion Variable n*/
-	t17 = SP + 5
+	/*Declaracion Variable origen*/
+	t17 = SP + 7
 	STACK[int(t17)] = 0
 
-	/*Asignacion Variable n*/
-	STACK[int(t17)] = 1.0
+	/*Asignacion Variable origen*/
 
-	/*moviendo puntero al ambito del stack de ackermann*/
-	SP = SP + 3
-	ackermann()
+	/*Acceso Variable origen*/
+	t18 = SP + 2
+	t1 = STACK[int(t18)]
+	STACK[int(t17)] = t1
 
-	/*obteniendo return funcion ackermann*/
-	t18 = SP + 0
-	t19 = STACK[int(t18)]
+	/*Declaracion Variable auxiliar*/
+	t19 = SP + 8
+	STACK[int(t19)] = 0
 
-	/*restableciendo puntero al ambito anterior de ackermann*/
-	SP = SP - 3
+	/*Asignacion Variable auxiliar*/
 
-	/*reiniciando temporales funcion ackermann*/
-	t20 = SP + 1
-	t0 = STACK[int(t20)]
-	t21 = SP + 2
-	t1 = STACK[int(t21)]
-	t22 = SP + 0
-	STACK[int(t22)] = t19
-	goto L3
-L13:
+	/*Acceso Variable destino*/
+	t20 = SP + 4
+	t3 = STACK[int(t20)]
+	STACK[int(t19)] = t3
 
-	/*ELSE*/
+	/*Declaracion Variable destino*/
+	t21 = SP + 9
+	STACK[int(t21)] = 0
 
-	/*INSTRUCCION RETURN*/
+	/*Asignacion Variable destino*/
 
-	/*EXPRESION RETURN*/
+	/*Acceso Variable auxiliar*/
+	t22 = SP + 3
+	t2 = STACK[int(t22)]
+	STACK[int(t21)] = t2
 
-	/*INSTRUCCION DE LLAMADA DE FUNCION ackermann*/
-
-	/*DECLARACION Y ASIGNACION DE PARAMETROS ackermann*/
-
-	/*Declaracion Variable m*/
-	t23 = SP + 4
-	STACK[int(t23)] = 0
-
-	/*Asignacion Variable m*/
-
-	/*EXPRESIONES RESTA*/
-
-	/*Acceso Variable m*/
-	t24 = SP + 1
-	t0 = STACK[int(t24)]
-
-	/*OPERACION RESTA*/
-	t25 = t0 - 1.0
-	STACK[int(t23)] = t25
-
-	/*Declaracion Variable n*/
-	t26 = SP + 5
-	STACK[int(t26)] = 0
-
-	/*Asignacion Variable n*/
-
-	/*INSTRUCCION DE LLAMADA DE FUNCION ackermann*/
-
-	/*DECLARACION Y ASIGNACION DE PARAMETROS ackermann*/
-
-	/*Declaracion Variable m*/
-	t27 = SP + 6
-	STACK[int(t27)] = 0
-
-	/*Asignacion Variable m*/
-
-	/*Acceso Variable m*/
-	t28 = SP + 1
-	t0 = STACK[int(t28)]
-	STACK[int(t27)] = t0
-
-	/*Declaracion Variable n*/
-	t29 = SP + 7
-	STACK[int(t29)] = 0
-
-	/*Asignacion Variable n*/
-
-	/*EXPRESIONES RESTA*/
-
-	/*Acceso Variable n*/
-	t30 = SP + 2
-	t1 = STACK[int(t30)]
-
-	/*OPERACION RESTA*/
-	t31 = t1 - 1.0
-	STACK[int(t29)] = t31
-
-	/*moviendo puntero al ambito del stack de ackermann*/
+	/*moviendo puntero al ambito del stack de hanoi*/
 	SP = SP + 5
-	ackermann()
+	hanoi()
 
-	/*obteniendo return funcion ackermann*/
-	t32 = SP + 0
-	t33 = STACK[int(t32)]
+	/*obteniendo return funcion hanoi*/
+	t23 = SP + 0
+	t24 = STACK[int(t23)]
 
-	/*restableciendo puntero al ambito anterior de ackermann*/
+	/*restableciendo puntero al ambito anterior de hanoi*/
 	SP = SP - 5
 
-	/*reiniciando temporales funcion ackermann*/
-	t34 = SP + 1
-	t0 = STACK[int(t34)]
-	t35 = SP + 2
-	t1 = STACK[int(t35)]
-	STACK[int(t26)] = t33
+	/*reiniciando temporales funcion hanoi*/
+	t25 = SP + 1
+	t0 = STACK[int(t25)]
+	t26 = SP + 2
+	t1 = STACK[int(t26)]
+	t27 = SP + 3
+	t2 = STACK[int(t27)]
+	t28 = SP + 4
+	t3 = STACK[int(t28)]
 
-	/*moviendo puntero al ambito del stack de ackermann*/
-	SP = SP + 3
-	ackermann()
+	/*console.log*/
 
-	/*obteniendo return funcion ackermann*/
-	t36 = SP + 0
-	t37 = STACK[int(t36)]
+	/*PRIMITIVO -> CADENA*/
+	t29 = HP
+	HEAP[int(HP)] = 77.0
+	HP = HP + 1
+	HEAP[int(HP)] = 111.0
+	HP = HP + 1
+	HEAP[int(HP)] = 118.0
+	HP = HP + 1
+	HEAP[int(HP)] = 101.0
+	HP = HP + 1
+	HEAP[int(HP)] = 114.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = 100.0
+	HP = HP + 1
+	HEAP[int(HP)] = 101.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
 
-	/*restableciendo puntero al ambito anterior de ackermann*/
-	SP = SP - 3
+	/*Acceso Variable origen*/
+	t32 = SP + 2
+	t1 = STACK[int(t32)]
 
-	/*reiniciando temporales funcion ackermann*/
+	/*PRIMITIVO -> CADENA*/
+	t33 = HP
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = 97.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+
+	/*Acceso Variable destino*/
+	t36 = SP + 4
+	t3 = STACK[int(t36)]
+	t30 = t29
+L10:
+	t31 = HEAP[int(t30)]
+	if t31 == -1 {
+		goto L11
+	}
+	fmt.Printf("%c", int(t31))
+	t30 = t30 + 1
+	goto L10
+L11:
+	fmt.Printf("%f", t1)
+	t34 = t33
+L12:
+	t35 = HEAP[int(t34)]
+	if t35 == -1 {
+		goto L13
+	}
+	fmt.Printf("%c", int(t35))
+	t34 = t34 + 1
+	goto L12
+L13:
+	fmt.Printf("%f", t3)
+	fmt.Printf("%c", int(10))
+
+	/*INSTRUCCION DE LLAMADA DE FUNCION hanoi*/
+
+	/*DECLARACION Y ASIGNACION DE PARAMETROS hanoi*/
+
+	/*Declaracion Variable discos*/
+	t37 = SP + 6
+	STACK[int(t37)] = 0
+
+	/*Asignacion Variable discos*/
+
+	/*EXPRESIONES RESTA*/
+
+	/*Acceso Variable discos*/
 	t38 = SP + 1
 	t0 = STACK[int(t38)]
-	t39 = SP + 2
-	t1 = STACK[int(t39)]
-	t40 = SP + 0
-	STACK[int(t40)] = t37
+
+	/*OPERACION RESTA*/
+	t39 = t0 - 1.0
+	STACK[int(t37)] = t39
+
+	/*Declaracion Variable origen*/
+	t40 = SP + 7
+	STACK[int(t40)] = 0
+
+	/*Asignacion Variable origen*/
+
+	/*Acceso Variable auxiliar*/
+	t41 = SP + 3
+	t2 = STACK[int(t41)]
+	STACK[int(t40)] = t2
+
+	/*Declaracion Variable auxiliar*/
+	t42 = SP + 8
+	STACK[int(t42)] = 0
+
+	/*Asignacion Variable auxiliar*/
+
+	/*Acceso Variable origen*/
+	t43 = SP + 2
+	t1 = STACK[int(t43)]
+	STACK[int(t42)] = t1
+
+	/*Declaracion Variable destino*/
+	t44 = SP + 9
+	STACK[int(t44)] = 0
+
+	/*Asignacion Variable destino*/
+
+	/*Acceso Variable destino*/
+	t45 = SP + 4
+	t3 = STACK[int(t45)]
+	STACK[int(t44)] = t3
+
+	/*moviendo puntero al ambito del stack de hanoi*/
+	SP = SP + 5
+	hanoi()
+
+	/*obteniendo return funcion hanoi*/
+	t46 = SP + 0
+	t47 = STACK[int(t46)]
+
+	/*restableciendo puntero al ambito anterior de hanoi*/
+	SP = SP - 5
+
+	/*reiniciando temporales funcion hanoi*/
+	t48 = SP + 1
+	t0 = STACK[int(t48)]
+	t49 = SP + 2
+	t1 = STACK[int(t49)]
+	t50 = SP + 3
+	t2 = STACK[int(t50)]
+	t51 = SP + 4
+	t3 = STACK[int(t51)]
 	goto L3
 L3:
 	goto L0
@@ -294,51 +340,57 @@ func main() {
 	HP = 0
 	SP = 0
 
-	/*Declaracion Variable result*/
+	/*INSTRUCCION DE LLAMADA DE FUNCION hanoi*/
 
-	/*INSTRUCCION DE LLAMADA DE FUNCION ackermann*/
+	/*DECLARACION Y ASIGNACION DE PARAMETROS hanoi*/
 
-	/*DECLARACION Y ASIGNACION DE PARAMETROS ackermann*/
+	/*Declaracion Variable discos*/
+	t52 = SP + 2
+	STACK[int(t52)] = 0
 
-	/*Declaracion Variable m*/
-	t41 = SP + 2
-	STACK[int(t41)] = 0
+	/*Asignacion Variable discos*/
+	STACK[int(t52)] = 3.0
 
-	/*Asignacion Variable m*/
-	STACK[int(t41)] = 3.0
+	/*Declaracion Variable origen*/
+	t53 = SP + 3
+	STACK[int(t53)] = 0
 
-	/*Declaracion Variable n*/
-	t42 = SP + 3
-	STACK[int(t42)] = 0
+	/*Asignacion Variable origen*/
+	STACK[int(t53)] = 1.0
 
-	/*Asignacion Variable n*/
-	STACK[int(t42)] = 2.0
+	/*Declaracion Variable auxiliar*/
+	t54 = SP + 4
+	STACK[int(t54)] = 0
 
-	/*moviendo puntero al ambito del stack de ackermann*/
+	/*Asignacion Variable auxiliar*/
+	STACK[int(t54)] = 2.0
+
+	/*Declaracion Variable destino*/
+	t55 = SP + 5
+	STACK[int(t55)] = 0
+
+	/*Asignacion Variable destino*/
+	STACK[int(t55)] = 3.0
+
+	/*moviendo puntero al ambito del stack de hanoi*/
 	SP = SP + 1
-	ackermann()
+	hanoi()
 
-	/*obteniendo return funcion ackermann*/
-	t43 = SP + 0
-	t44 = STACK[int(t43)]
+	/*obteniendo return funcion hanoi*/
+	t56 = SP + 0
+	t57 = STACK[int(t56)]
 
-	/*restableciendo puntero al ambito anterior de ackermann*/
+	/*restableciendo puntero al ambito anterior de hanoi*/
 	SP = SP - 1
 
-	/*reiniciando temporales funcion ackermann*/
-	t45 = SP + 1
-	t0 = STACK[int(t45)]
-	t46 = SP + 2
-	t1 = STACK[int(t46)]
-	t47 = SP + 1
-	STACK[int(t47)] = t44
-
-	/*console.log*/
-
-	/*Acceso Variable result*/
-	t48 = SP + 1
-	t47 = STACK[int(t48)]
-	fmt.Printf("%f", t47)
-	fmt.Printf("%c", int(10))
+	/*reiniciando temporales funcion hanoi*/
+	t58 = SP + 1
+	t0 = STACK[int(t58)]
+	t59 = SP + 2
+	t1 = STACK[int(t59)]
+	t60 = SP + 3
+	t2 = STACK[int(t60)]
+	t61 = SP + 4
+	t3 = STACK[int(t61)]
 
 }

@@ -105,7 +105,6 @@ def p_ENTRADA(p):
             |   LLAMADA_FUNCION puntoYcoma
             |   RETURN
             |   FUNCION_PUSH puntoYcoma
-            |   FUNCION_POP puntoYcoma
     """
     p[0] = p[1]
 
@@ -570,7 +569,6 @@ def p_EXPRESION_funcionesnativas(p):
             | FUNCION_CONCAT
             | FUNCION_TYPEOF
             | FUNCION_PUSH
-            | FUNCION_POP
     """
     p[0] = p[1]
 
