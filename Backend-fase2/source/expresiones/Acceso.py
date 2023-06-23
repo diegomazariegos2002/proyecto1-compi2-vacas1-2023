@@ -39,11 +39,10 @@ class Acceso(Expresion):
                                  tipoVariable=TipoVariable.NORMAL,
                                  codigoTraducido=consolaGlobal.genComment("La variable con el nombre '"+ self.id +"' no existe."))
         t0 = consolaGlobal.genNewTemp()
-        t1 = consolaGlobal.genNewTemp()
         cad = consolaGlobal.genAsignacion(t0, "SP + {}".format(variable.direccion))
-        cad += consolaGlobal.genAsignacion(t1, "STACK[int({})]".format(t0))
+        cad += consolaGlobal.genAsignacion(variable.temporal, "STACK[int({})]".format(t0))
         
-        return RetornoTraduccion(valor=t1,
+        return RetornoTraduccion(valor=variable.temporal,
                                 tipo=variable.tipoDato,
                                 tipoVariable=variable.tipoVariable,
                                 codigoTraducido= consolaGlobal.genComment("Acceso Variable {}".format(self.id))+cad)

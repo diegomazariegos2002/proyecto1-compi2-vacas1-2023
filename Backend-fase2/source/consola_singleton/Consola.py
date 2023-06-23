@@ -38,6 +38,7 @@ class Consola(metaclass=SingletonMeta):
     temporales = 0
     labels = 0
     imports = ['fmt', 'math', 'strconv']
+    codigo3dFunciones = ""
     
 
     def clean_Consola(self):
@@ -50,6 +51,7 @@ class Consola(metaclass=SingletonMeta):
         self.simbolos = ""
         self.temporales = 0
         self.labels = 0
+        codigo3dFunciones = ""
 
     def set_Consola (self, consola):
         self.consola += consola
@@ -391,7 +393,21 @@ class Consola(metaclass=SingletonMeta):
         
         return {'temp': trespuesta, 'codigo': traduRet}
         
-    
-        
+    ################################################
+    #              METODOS DE FUNCIONES            #
+    ################################################
+    def getTipoDato(self, s:Tipo) -> TipoDato:
+        if s == Tipo.NULL:
+            return TipoDato.NULL
+        if s == Tipo.NUMBER:
+            return TipoDato.NUMERO
+        if s == Tipo.BOOLEAN:
+            return TipoDato.BOOLEANO
+        if s == Tipo.STRING:
+            return TipoDato.CADENA
+        if s == Tipo.ANY:
+            return TipoDato.ANY
+        return TipoDato.ERROR
+      
         
         

@@ -4,8 +4,9 @@ from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.abstracto.Expresion import Expresion
 from source.abstracto.Instruccion import Instruccion
+from source.instrucciones.Declaracion import Declaracion
 from source.simbolo.TablaSimbolos import TablaSimbolos
-from source.simbolo.Simbolo import Simbolo, TiposSimbolos
+from source.simbolo.Simbolo import Simbolo, SimboloTraduccion, TiposSimbolos
 
 
 class Function(Instruccion):
@@ -16,6 +17,13 @@ class Function(Instruccion):
         self.insParamFunc = insParamFunc
         self.insEntraFunc = insEntraFunc
         self.entornoGlobal = None
+        # Fase 2
+        self.entornoFuncion = None
+        self.retornoLLamada = None
+        self.tipoFuncion: TipoDato = TipoDato.NUMERO # VALOR QUEMADO, SE DEBE CAMBIAR
+        self.tipoVariableFuncion: TipoVariable = TipoVariable.NORMAL
+        self.funcionTraducida = False # Para saber si ya se tradujo la funcion o no en la primera llamada.
+        
         
     def ejecutar(self, ts: TablaSimbolos):
         consola = Consola()
@@ -80,24 +88,52 @@ class Function(Instruccion):
     def traducir(self, ts: TablaSimbolos):
         consola: Consola = Consola()
         cadenaRetorno = ""
-        newEnviromentFunction = TablaSimbolos(ts, "FUNCION_"+self.id+"-")
-        self.etqSalida = consola.genNewEtq()
-        self.etqReturn = self.etqSalida
-        cadenaRetorno += "func {}(){{\n".format(self.id)
-        for ins in self.insEntraFunc:
-            ins.etqReturn = self.etqReturn
-            resIn = ins.traducir(newEnviromentFunction)
+        self.entornoFuncion = TablaSimbolos(ts, "FUNCION_"+self.id+"-")
+        self.entornoFuncion.size = 0
+        self.entornoFuncion.size += 1 # se reserva el espacio para el return (0)
+        
+        
+        # # DECLARACION DE PARAMETROS
+        # # declaración de parametros necesaria para escribir la función.
+        # # Pero esta declaracion no se añade al código de traducción devuelto
+        # if len(self.insParamFunc) > 0:
+        #     for i in range(len(self.insParamFunc)):
+        #         parametroFuncion : Declaracion = self.insParamFunc[i]
+        #         # Declarando el parametro en la tabla de simbolos de la funcion
+        #         retornoParametroFuncion:str = parametroFuncion.traducir(self.entornoFuncion)
+                
+        #         if isinstance(retornoParametroFuncion, Excepcion):
+        #             # ERROR
+        #             consola.set_Excepcion(Excepcion("Error Semantico", "Error en la llamada de funcion, un parametro no se puede asignar", self.line, self.column, datetime.now()))
+        #             return Excepcion()
+        
+        # for simbolo in self.entornoFuncion.tablaActual:
+        #     valor:SimboloTraduccion = self.entornoFuncion.tablaActual[simbolo]
+        #     if valor.tipoDato == TipoDato.NULL:
+        #         aux : Tipo = valor.tipo
+        #         valor.tipoDato = consola.getTipoDato(aux)
+        #     print(str(valor))
+        
+        # # GENERACIÓN DE CÓDIGO DE INSTRUCCIONES DE LA FUNCIÓN
+        # self.etqSalida = consola.genNewEtq()
+        # self.etqReturn = self.etqSalida
+        # cadenaRetorno += "func {}(){{\n".format(self.id)
+        # for ins in self.insEntraFunc:
+        #     ins.etqReturn = self.etqReturn
+        #     resIn = ins.traducir(self.entornoFuncion)
 
-            if isinstance(resIn, Excepcion):
-                return Excepcion()
+        #     if isinstance(resIn, Excepcion):
+        #         return Excepcion()
 
-            cadenaRetorno += resIn
-        cadenaRetorno += consola.genGoto(self.etqSalida)    
-        cadenaRetorno += "{}:\n".format(self.etqSalida)
-        cadenaRetorno += "return;\n"
-        cadenaRetorno += "}\n\n"
+        #     cadenaRetorno += resIn
+        # cadenaRetorno += consola.genGoto(self.etqSalida)    
+        # cadenaRetorno += "{}:\n".format(self.etqSalida)
+        # cadenaRetorno += "return;\n"
+        # cadenaRetorno += "}\n\n"
+        
+        
         # Si todo esta bien, se agrega la funcion a la tabla de simbolos GLOBAL
-        simboloFunc = Simbolo(TiposSimbolos.FUNCTION, Tipo.ANY, TipoDato.ANY, self.id, self, TipoVariable.FUNCTION, ts.nombreAmbito, self.line, self.column)
+        simboloFunc = SimboloTraduccion(TiposSimbolos.FUNCTION, Tipo.ANY, TipoDato.ANY, self.id, self, TipoVariable.FUNCTION, False, ts.nombreAmbito, ts.size, self.line, self.column)
         existeVariable = ts.insertar(self.id, simboloFunc)
         if existeVariable == False:
             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe, imposible declarar funcion asi.", self.line, self.column, datetime.now()))

@@ -156,7 +156,7 @@ class Declaracion(Instruccion):
         if self.expresion == None:
             if self.tipo == None:
                 t1 = consola.genNewTemp()
-                cadena = consola.genComment("Declaracion Variable")
+                cadena = consola.genComment("Declaracion Variable {}".format(self.id))
                 cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                 cadena += consola.genAsignacion(
                 "STACK[int ({})]".format(t1), "0")
@@ -169,7 +169,7 @@ class Declaracion(Instruccion):
                     
             else:
                 t1 = consola.genNewTemp()
-                cadena = consola.genComment("Declaracion Variable")
+                cadena = consola.genComment("Declaracion Variable {}".format(self.id))
                 cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                 cadena += consola.genAsignacion(
                 "STACK[int ({})]".format(t1), "0")
@@ -189,7 +189,7 @@ class Declaracion(Instruccion):
                         if consola.relacionarTipos(expreValor.tipo) == self.tipo:
                             if self.tipoVariable == expreValor.tipoVariable:
                                 t1 = consola.genNewTemp()
-                                cadena = consola.genComment("Declaracion Variable")
+                                cadena = consola.genComment("Declaracion Variable {}".format(self.id))
                                 cadena += expreValor.codigoTraducido
                                 cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                                 cadena += consola.genAsignacion(
@@ -207,7 +207,7 @@ class Declaracion(Instruccion):
                                 return Excepcion()
                         elif expreValor.tipo == TipoDato.NULL:
                             t1 = consola.genNewTemp()
-                            cadena = consola.genComment("Declaracion Variable")
+                            cadena = consola.genComment("Declaracion Variable {}".format(self.id))
                             cadena += expreValor.codigoTraducido
                             cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                             cadena += consola.genAsignacion(
@@ -222,7 +222,7 @@ class Declaracion(Instruccion):
                         elif consola.relacionarTipos(expreValor.tipo) != Tipo.ERROR and self.tipo == Tipo.ANY:
                             if self.tipoVariable == expreValor.tipoVariable:
                                 t1 = consola.genNewTemp()
-                                cadena = consola.genComment("Declaracion Variable")
+                                cadena = consola.genComment("Declaracion Variable {}".format(self.id))
                                 cadena += expreValor.codigoTraducido
                                 cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                                 cadena += consola.genAsignacion(
@@ -272,7 +272,7 @@ class Declaracion(Instruccion):
                         if self.tipoVariable == expreValor.tipoVariable:
                             if consola.relacionarTipos(expreValor.tipo) == Tipo.NULL:
                                 t1 = consola.genNewTemp()
-                                cadena = consola.genComment("Declaracion Variable")
+                                cadena = consola.genComment("Declaracion Variable {}".format(self.id))
                                 cadena += expreValor.codigoTraducido
                                 cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                                 cadena += consola.genAsignacion(
@@ -286,7 +286,7 @@ class Declaracion(Instruccion):
                                 return cadena
                             else:
                                 t1 = consola.genNewTemp()
-                                cadena = consola.genComment("Declaracion Variable")
+                                cadena = consola.genComment("Declaracion Variable {}".format(self.id))
                                 cadena += expreValor.codigoTraducido
                                 cadena += consola.genAsignacion(t1, "SP + {}".format(ts.size))
                                 cadena += consola.genAsignacion(

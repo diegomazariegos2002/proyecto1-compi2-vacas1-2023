@@ -9,8 +9,10 @@ class TablaSimbolos:
         self.anterior = anterior    # tabla anterior de simbolos
         self.tablaActual = {}       # diccionario de simbolos
         self.size = 0
+        self.inicioStack = 1
         if anterior != None:
             self.size = self.anterior.size
+            self.inicioStack = self.anterior.size
 
     def insertar(self, id: str, simbolo):
         consolaGlobal = Consola()

@@ -19,6 +19,8 @@ class If(Instruccion):
         self.condicion : Expresion = condicion
         self.insEntraIf : list[Instruccion] = insEntraIf
         self.insEntraOpcionales : list[Instruccion] = insEntraOpcionales
+        # Fase 2
+        self.retornoLlamada : RetornoTraduccion = None
 
 
     def ejecutar(self, ts: TablaSimbolos):
@@ -196,6 +198,11 @@ class If(Instruccion):
                 resIns : Union[Excepcion, str] = ins.traducir(newEnviroment)
                 if isinstance(resIns, Excepcion):
                     return Excepcion()
+                
+                if isinstance(resIns, RetornoTraduccion):
+                    cadenaRetorno += resIns.codigoTraducido
+                    continue
+                
                 cadenaRetorno += resIns
             cadenaRetorno += consola.genGoto(self.etqSalida)
             cadenaRetorno += "{}: \n".format(lFalse)
@@ -218,9 +225,12 @@ class If(Instruccion):
                 ins.etqContinue = self.etqContinue
                 ins.etqBreak = self.etqBreak
                 ins.etqReturn = self.etqReturn
-                resIns : Union[Excepcion, str] = ins.traducir(newEnviroment)
+                resIns : Union[Excepcion, str, RetornoTraduccion] = ins.traducir(newEnviroment)
                 if isinstance(resIns, Excepcion):
                     return Excepcion()
+                if isinstance(resIns, RetornoTraduccion):
+                    cadenaRetorno += resIns.codigoTraducido
+                    continue
                 cadenaRetorno += resIns
             cadenaRetorno += consola.genGoto(self.etqSalida)
             cadenaRetorno += "{}: \n".format(lFalse)
@@ -247,9 +257,12 @@ class If(Instruccion):
                     ins.etqContinue = self.etqContinue
                     ins.etqBreak = self.etqBreak
                     ins.etqReturn = self.etqReturn
-                    resElse = ins.traducir(newEnviroment2)
+                    resElse : Union[str, Excepcion, RetornoTraduccion] = ins.traducir(newEnviroment2)
                     if isinstance(resElse, Excepcion):
                         return Excepcion()
+                    if isinstance(resElse, RetornoTraduccion):
+                        cadenaRetorno += resElse.codigoTraducido
+                        continue
                     cadenaRetorno += resElse
                 cadenaRetorno += consola.genGoto(self.etqSalida)
                 cadenaRetorno += "{}: \n".format(self.etqSalida)

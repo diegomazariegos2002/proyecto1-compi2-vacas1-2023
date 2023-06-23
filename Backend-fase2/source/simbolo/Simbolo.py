@@ -38,3 +38,6 @@ class SimboloTraduccion:
         self.direccion = direccion
         self.linea = linea
         self.columna = columna
+        
+    def __str__(self) -> str:
+        return f"SimboloTraduccion: {self.id} / {self.tipo} / {self.tipoDato} / {self.tipoSimbolo} / {self.tipoVariable} / {self.nombreAmbito} / {self.linea} / {self.columna}"

@@ -1,9 +1,12 @@
 import os
 from source.abstracto.Instruccion import Instruccion
 from source.abstracto.Expresion import Expresion
+from source.abstracto.Retorno import RetornoTraduccion, TipoDato
 from source.consola_singleton.Consola import Consola
 from source.errores.Excepcion import Excepcion
 from source.expresiones.nativas.TypeOf import TypeOf
+from source.instrucciones.Asignacion import Asignacion
+from source.instrucciones.Declaracion import Declaracion
 from source.instrucciones.funcion.Function import Function
 
 
@@ -76,28 +79,44 @@ class Ast:
     def traducirAst(self, ts):
         # Añadiendo el encabezado a la traducción
         consola:Consola = Consola()
-        codigo3dFunciones = ""
+        consola.codigo3dFunciones = ""
+        # se añade todo lo que va en la main
+        codigo3dMain = "func main() {\n HP = 0\n SP = 0\n"
+        
         # Primera pasada (Funciones)
         for instruccion in self.instrucciones:
             if isinstance(instruccion, Instruccion):
                 if isinstance(instruccion, Function):
                     res = instruccion.traducir(ts)
                     if not isinstance(res, Excepcion):
-                        codigo3dFunciones += res
+                        consola.codigo3dFunciones += res
         
-        # Segunda pasada
-        # se añade todo lo que va en la main
-        
-        codigo3dMain = "func main() {\n HP = 0\n SP = 0\n"
+        # Segunda pasada (Declaraciones)
         for instruccion in self.instrucciones:
             if isinstance(instruccion, Instruccion):
-                if not isinstance(instruccion, Function):
+                if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion):
                     res = instruccion.traducir(ts)
                     if not isinstance(res, Excepcion):
                         codigo3dMain += res
+                        
+        
+        # Tercera pasada (Resto de instrucciones)
+        for instruccion in self.instrucciones:
+            if isinstance(instruccion, Instruccion):
+                if (not isinstance(instruccion, Function) 
+                    and not isinstance(instruccion, Declaracion)
+                    and not isinstance(instruccion, Asignacion)):
+                    res = instruccion.traducir(ts)
+                    if not isinstance(res, Excepcion):
+                        codigo3dMain += res
+            elif isinstance(instruccion, Expresion):
+                res:RetornoTraduccion = instruccion.traducir(ts)
+                if res.tipo != TipoDato.ERROR:
+                    codigo3dMain += res.codigoTraducido
+                    
         codigo3dMain += "\n}"
         
-        codigoUnido:str = consola.get_Encabezado()+codigo3dFunciones+codigo3dMain
+        codigoUnido:str = consola.get_Encabezado()+consola.codigo3dFunciones+codigo3dMain
         self.generar_Archivo("test", codigoUnido, "go", "\\test\\")
         return codigoUnido
         
