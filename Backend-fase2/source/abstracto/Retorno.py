@@ -116,11 +116,13 @@ class RetornoTraduccion:
                  tipo:TipoDato = TipoDato.NULL,
                  tipoVariable:TipoVariable = TipoVariable.NORMAL,
                  codigoTraducido: str = "",
-                 contenidoVector = []) -> None:
+                 contenidoVector = [], 
+                 dimensiones = 0) -> None:
         self.valor = valor
         self.tipo = tipo
         self.tipoVariable = tipoVariable
         self.codigoTraducido = codigoTraducido
         self.contenidoVector = contenidoVector
+        self.dimensiones = dimensiones
     
 
