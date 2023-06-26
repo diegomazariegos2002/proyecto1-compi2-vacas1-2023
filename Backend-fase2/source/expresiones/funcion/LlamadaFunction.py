@@ -321,7 +321,7 @@ class LlamadaFunction(Expresion):
         
         # Se retorna el valor de llamada de la funcion.
         return RetornoTraduccion(valor=temporal2,
-                                         tipo=funcionLLamada.tipoFuncion,
+                                         tipo=funcionLLamada.tipoDatoFuncion,
                                          tipoVariable=funcionLLamada.tipoVariableFuncion,
                                          codigoTraducido=cadenaRetorno)
         

@@ -408,6 +408,20 @@ class Consola(metaclass=SingletonMeta):
         if s == Tipo.ANY:
             return TipoDato.ANY
         return TipoDato.ERROR
-      
+    
+    def getTipo(self, s:TipoDato) -> Tipo:
+        if s == TipoDato.NULL:
+            return Tipo.NULL
+        if s == TipoDato.NUMERO:
+            return Tipo.NUMBER
+        if s == TipoDato.BOOLEANO:
+            return Tipo.BOOLEAN
+        if s == TipoDato.CADENA:
+            return Tipo.STRING
+        if s == TipoDato.ANY:
+            return Tipo.ANY
+        if s == TipoDato.ERROR:
+            return Tipo.ERROR
+        
         
         

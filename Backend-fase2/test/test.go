@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 var HP, SP float64
@@ -16,381 +17,605 @@ var (
 	t30, t31, t32, t33, t34, t35, t36, t37, t38, t39,
 	t40, t41, t42, t43, t44, t45, t46, t47, t48, t49,
 	t50, t51, t52, t53, t54, t55, t56, t57, t58, t59,
-	t60, t61 float64
+	t60, t61, t62, t63, t64, t65, t66, t67, t68, t69,
+	t70, t71, t72 float64
 )
-
-func hanoi() {
-
-	/*INSTRUCCION IF*/
-
-	/*CONDICION IF*/
-
-	/*EXPRESIONES RELACION  == */
-
-	/*EXPRESION IZQUIERDA t0 [ == ]*/
-
-	/*Acceso Variable discos*/
-	t4 = SP + 1
-	t0 = STACK[int(t4)]
-
-	/*EXPRESION DERECHA 1.0 [ == ]*/
-	if t0 == 1.0 {
-		goto L1
-	}
-	t5 = 0
-	goto L2
-L1:
-	t5 = 1
-L2:
-
-	/*VALIDACION IF*/
-	if t5 == 1 {
-		goto L4
-	}
-	goto L5
-L4:
-
-	/*console.log*/
-
-	/*PRIMITIVO -> CADENA*/
-	t6 = HP
-	HEAP[int(HP)] = 77.0
-	HP = HP + 1
-	HEAP[int(HP)] = 111.0
-	HP = HP + 1
-	HEAP[int(HP)] = 118.0
-	HP = HP + 1
-	HEAP[int(HP)] = 101.0
-	HP = HP + 1
-	HEAP[int(HP)] = 114.0
-	HP = HP + 1
-	HEAP[int(HP)] = 32.0
-	HP = HP + 1
-	HEAP[int(HP)] = 100.0
-	HP = HP + 1
-	HEAP[int(HP)] = 101.0
-	HP = HP + 1
-	HEAP[int(HP)] = -1
-	HP = HP + 1
-
-	/*Acceso Variable origen*/
-	t9 = SP + 2
-	t1 = STACK[int(t9)]
-
-	/*PRIMITIVO -> CADENA*/
-	t10 = HP
-	HEAP[int(HP)] = 97.0
-	HP = HP + 1
-	HEAP[int(HP)] = -1
-	HP = HP + 1
-
-	/*Acceso Variable destino*/
-	t13 = SP + 4
-	t3 = STACK[int(t13)]
-	t7 = t6
-L6:
-	t8 = HEAP[int(t7)]
-	if t8 == -1 {
-		goto L7
-	}
-	fmt.Printf("%c", int(t8))
-	t7 = t7 + 1
-	goto L6
-L7:
-	fmt.Printf("%f", t1)
-	t11 = t10
-L8:
-	t12 = HEAP[int(t11)]
-	if t12 == -1 {
-		goto L9
-	}
-	fmt.Printf("%c", int(t12))
-	t11 = t11 + 1
-	goto L8
-L9:
-	fmt.Printf("%f", t3)
-	fmt.Printf("%c", int(10))
-	goto L3
-L5:
-
-	/*ELSE*/
-
-	/*INSTRUCCION DE LLAMADA DE FUNCION hanoi*/
-
-	/*DECLARACION Y ASIGNACION DE PARAMETROS hanoi*/
-
-	/*Declaracion Variable discos*/
-	t14 = SP + 6
-	STACK[int(t14)] = 0
-
-	/*Asignacion Variable discos*/
-
-	/*EXPRESIONES RESTA*/
-
-	/*Acceso Variable discos*/
-	t15 = SP + 1
-	t0 = STACK[int(t15)]
-
-	/*OPERACION RESTA*/
-	t16 = t0 - 1.0
-	STACK[int(t14)] = t16
-
-	/*Declaracion Variable origen*/
-	t17 = SP + 7
-	STACK[int(t17)] = 0
-
-	/*Asignacion Variable origen*/
-
-	/*Acceso Variable origen*/
-	t18 = SP + 2
-	t1 = STACK[int(t18)]
-	STACK[int(t17)] = t1
-
-	/*Declaracion Variable auxiliar*/
-	t19 = SP + 8
-	STACK[int(t19)] = 0
-
-	/*Asignacion Variable auxiliar*/
-
-	/*Acceso Variable destino*/
-	t20 = SP + 4
-	t3 = STACK[int(t20)]
-	STACK[int(t19)] = t3
-
-	/*Declaracion Variable destino*/
-	t21 = SP + 9
-	STACK[int(t21)] = 0
-
-	/*Asignacion Variable destino*/
-
-	/*Acceso Variable auxiliar*/
-	t22 = SP + 3
-	t2 = STACK[int(t22)]
-	STACK[int(t21)] = t2
-
-	/*moviendo puntero al ambito del stack de hanoi*/
-	SP = SP + 5
-	hanoi()
-
-	/*obteniendo return funcion hanoi*/
-	t23 = SP + 0
-	t24 = STACK[int(t23)]
-
-	/*restableciendo puntero al ambito anterior de hanoi*/
-	SP = SP - 5
-
-	/*reiniciando temporales funcion hanoi*/
-	t25 = SP + 1
-	t0 = STACK[int(t25)]
-	t26 = SP + 2
-	t1 = STACK[int(t26)]
-	t27 = SP + 3
-	t2 = STACK[int(t27)]
-	t28 = SP + 4
-	t3 = STACK[int(t28)]
-
-	/*console.log*/
-
-	/*PRIMITIVO -> CADENA*/
-	t29 = HP
-	HEAP[int(HP)] = 77.0
-	HP = HP + 1
-	HEAP[int(HP)] = 111.0
-	HP = HP + 1
-	HEAP[int(HP)] = 118.0
-	HP = HP + 1
-	HEAP[int(HP)] = 101.0
-	HP = HP + 1
-	HEAP[int(HP)] = 114.0
-	HP = HP + 1
-	HEAP[int(HP)] = 32.0
-	HP = HP + 1
-	HEAP[int(HP)] = 100.0
-	HP = HP + 1
-	HEAP[int(HP)] = 101.0
-	HP = HP + 1
-	HEAP[int(HP)] = 32.0
-	HP = HP + 1
-	HEAP[int(HP)] = -1
-	HP = HP + 1
-
-	/*Acceso Variable origen*/
-	t32 = SP + 2
-	t1 = STACK[int(t32)]
-
-	/*PRIMITIVO -> CADENA*/
-	t33 = HP
-	HEAP[int(HP)] = 32.0
-	HP = HP + 1
-	HEAP[int(HP)] = 97.0
-	HP = HP + 1
-	HEAP[int(HP)] = 32.0
-	HP = HP + 1
-	HEAP[int(HP)] = -1
-	HP = HP + 1
-
-	/*Acceso Variable destino*/
-	t36 = SP + 4
-	t3 = STACK[int(t36)]
-	t30 = t29
-L10:
-	t31 = HEAP[int(t30)]
-	if t31 == -1 {
-		goto L11
-	}
-	fmt.Printf("%c", int(t31))
-	t30 = t30 + 1
-	goto L10
-L11:
-	fmt.Printf("%f", t1)
-	t34 = t33
-L12:
-	t35 = HEAP[int(t34)]
-	if t35 == -1 {
-		goto L13
-	}
-	fmt.Printf("%c", int(t35))
-	t34 = t34 + 1
-	goto L12
-L13:
-	fmt.Printf("%f", t3)
-	fmt.Printf("%c", int(10))
-
-	/*INSTRUCCION DE LLAMADA DE FUNCION hanoi*/
-
-	/*DECLARACION Y ASIGNACION DE PARAMETROS hanoi*/
-
-	/*Declaracion Variable discos*/
-	t37 = SP + 6
-	STACK[int(t37)] = 0
-
-	/*Asignacion Variable discos*/
-
-	/*EXPRESIONES RESTA*/
-
-	/*Acceso Variable discos*/
-	t38 = SP + 1
-	t0 = STACK[int(t38)]
-
-	/*OPERACION RESTA*/
-	t39 = t0 - 1.0
-	STACK[int(t37)] = t39
-
-	/*Declaracion Variable origen*/
-	t40 = SP + 7
-	STACK[int(t40)] = 0
-
-	/*Asignacion Variable origen*/
-
-	/*Acceso Variable auxiliar*/
-	t41 = SP + 3
-	t2 = STACK[int(t41)]
-	STACK[int(t40)] = t2
-
-	/*Declaracion Variable auxiliar*/
-	t42 = SP + 8
-	STACK[int(t42)] = 0
-
-	/*Asignacion Variable auxiliar*/
-
-	/*Acceso Variable origen*/
-	t43 = SP + 2
-	t1 = STACK[int(t43)]
-	STACK[int(t42)] = t1
-
-	/*Declaracion Variable destino*/
-	t44 = SP + 9
-	STACK[int(t44)] = 0
-
-	/*Asignacion Variable destino*/
-
-	/*Acceso Variable destino*/
-	t45 = SP + 4
-	t3 = STACK[int(t45)]
-	STACK[int(t44)] = t3
-
-	/*moviendo puntero al ambito del stack de hanoi*/
-	SP = SP + 5
-	hanoi()
-
-	/*obteniendo return funcion hanoi*/
-	t46 = SP + 0
-	t47 = STACK[int(t46)]
-
-	/*restableciendo puntero al ambito anterior de hanoi*/
-	SP = SP - 5
-
-	/*reiniciando temporales funcion hanoi*/
-	t48 = SP + 1
-	t0 = STACK[int(t48)]
-	t49 = SP + 2
-	t1 = STACK[int(t49)]
-	t50 = SP + 3
-	t2 = STACK[int(t50)]
-	t51 = SP + 4
-	t3 = STACK[int(t51)]
-	goto L3
-L3:
-	goto L0
-L0:
-	return
-}
 
 func main() {
 	HP = 0
 	SP = 0
 
-	/*INSTRUCCION DE LLAMADA DE FUNCION hanoi*/
+	/*Declaracion Variable val1*/
+	t0 = SP + 0
+	STACK[int(t0)] = 1.0
 
-	/*DECLARACION Y ASIGNACION DE PARAMETROS hanoi*/
+	/*Declaracion Variable val2*/
+	t1 = SP + 1
+	STACK[int(t1)] = 10.0
 
-	/*Declaracion Variable discos*/
-	t52 = SP + 2
-	STACK[int(t52)] = 0
+	/*Declaracion Variable val3*/
+	t2 = SP + 2
+	STACK[int(t2)] = 2021.202
 
-	/*Asignacion Variable discos*/
-	STACK[int(t52)] = 3.0
+	/*Asignacion Variable val1*/
 
-	/*Declaracion Variable origen*/
-	t53 = SP + 3
-	STACK[int(t53)] = 0
+	/*EXPRESIONES RESTA*/
 
-	/*Asignacion Variable origen*/
-	STACK[int(t53)] = 1.0
+	/*EXPRESIONES RESTA*/
 
-	/*Declaracion Variable auxiliar*/
-	t54 = SP + 4
-	STACK[int(t54)] = 0
+	/*EXPRESIONES SUMA*/
 
-	/*Asignacion Variable auxiliar*/
-	STACK[int(t54)] = 2.0
+	/*Acceso Variable val1*/
+	t3 = SP + 0
+	t0 = STACK[int(t3)]
 
-	/*Declaracion Variable destino*/
-	t55 = SP + 5
-	STACK[int(t55)] = 0
+	/*OPERACION SUMA*/
+	t4 = t0 + 41.0
 
-	/*Asignacion Variable destino*/
-	STACK[int(t55)] = 3.0
+	/*EXPRESIONES DIVISION*/
 
-	/*moviendo puntero al ambito del stack de hanoi*/
-	SP = SP + 1
-	hanoi()
+	/*EXPRESIONES MULTIPLICACION*/
 
-	/*obteniendo return funcion hanoi*/
-	t56 = SP + 0
-	t57 = STACK[int(t56)]
+	/*OPERACION MULTIPLICACION*/
+	t5 = 123.0 * 4.0
 
-	/*restableciendo puntero al ambito anterior de hanoi*/
-	SP = SP - 1
+	/*EXPRESIONES SUMA*/
 
-	/*reiniciando temporales funcion hanoi*/
-	t58 = SP + 1
-	t0 = STACK[int(t58)]
-	t59 = SP + 2
-	t1 = STACK[int(t59)]
-	t60 = SP + 3
-	t2 = STACK[int(t60)]
-	t61 = SP + 4
-	t3 = STACK[int(t61)]
+	/*EXPRESIONES MULTIPLICACION*/
+
+	/*OPERACION MULTIPLICACION*/
+	t6 = 2.0 * 2.0
+
+	/*OPERACION SUMA*/
+	t7 = 2.0 + t6
+
+	/*OPERACION DIVISION*/
+	t8 = t5 / t7
+
+	/*OPERACION RESTA*/
+	t9 = t4 - t8
+
+	/*EXPRESIONES MULTIPLICACION*/
+
+	/*EXPRESIONES SUMA*/
+
+	/*EXPRESIONES MODULO*/
+
+	/*OPERACION MODULO*/
+	t10 = math.Mod(125.0, 5.0)
+
+	/*OPERACION SUMA*/
+	t11 = 10.0 + t10
+
+	/*EXPRESIONES POTENCIA*/
+
+	/*OPERACION POTENCIA*/
+	t12 = math.Pow(2.0, 2.0)
+
+	/*OPERACION MULTIPLICACION*/
+	t13 = t11 * t12
+
+	/*OPERACION RESTA*/
+	t14 = t9 - t13
+	STACK[int(t0)] = t14
+
+	/*Asignacion Variable val2*/
+
+	/*EXPRESIONES SUMA*/
+
+	/*EXPRESIONES MULTIPLICACION*/
+
+	/*EXPRESIONES MODULO*/
+
+	/*EXPRESIONES SUMA*/
+
+	/*EXPRESION NEGATIVO*/
+
+	/*OPERACION NEGATIVO*/
+	t15 = 10.0 * (-1)
+
+	/*OPERACION SUMA*/
+	t16 = 12.0 + t15
+
+	/*OPERACION MODULO*/
+	t17 = math.Mod(11.0, t16)
+
+	/*OPERACION MULTIPLICACION*/
+	t18 = 11.0 * t17
+
+	/*EXPRESIONES DIVISION*/
+
+	/*OPERACION DIVISION*/
+	t19 = 22.0 / 2.0
+
+	/*OPERACION SUMA*/
+	t20 = t18 + t19
+	STACK[int(t1)] = t20
+
+	/*Declaracion Variable rel1*/
+
+	/*EXPRESIONES LOGICA ||*/
+
+	/*EXPRESION IZQUIERDA t34 [||]*/
+
+	/*EXPRESIONES LOGICA &&*/
+
+	/*EXPRESION IZQUIERDA t24 [&&]*/
+
+	/*EXPRESIONES RELACION  == */
+
+	/*EXPRESION IZQUIERDA t23 [ == ]*/
+
+	/*EXPRESIONES RESTA*/
+
+	/*Acceso Variable val1*/
+	t21 = SP + 0
+	t14 = STACK[int(t21)]
+
+	/*Acceso Variable val2*/
+	t22 = SP + 1
+	t20 = STACK[int(t22)]
+
+	/*OPERACION RESTA*/
+	t23 = t14 - t20
+
+	/*EXPRESION DERECHA 24.0 [ == ]*/
+	if t23 == 24.0 {
+		goto L0
+	}
+	t24 = 0
+	goto L1
+L0:
+	t24 = 1
+L1:
+
+	/*EXPRESION DERECHA t31 [&&]*/
+
+	/*EXPRESIONES LOGICA &&*/
+
+	/*EXPRESION IZQUIERDA 1 [&&]*/
+
+	/*EXPRESION DERECHA t28 [&&]*/
+
+	/*EXPRESIONES LOGICA ||*/
+
+	/*EXPRESION IZQUIERDA 0 [||]*/
+
+	/*EXPRESION DERECHA t25 [||]*/
+
+	/*EXPRESIONES RELACION  >= */
+
+	/*EXPRESION IZQUIERDA 5.0 [ >= ]*/
+
+	/*EXPRESION DERECHA 5.0 [ >= ]*/
+	if 5.0 >= 5.0 {
+		goto L2
+	}
+	t25 = 0
+	goto L3
+L2:
+	t25 = 1
+L3:
+
+	/*LOGICA OR 0 t25*/
+	t26 = 0
+	t27 = t25
+	if t26 == 1 || t27 == 1 {
+		goto L5
+	}
+	t28 = 0
+	goto L4
+L5:
+	t28 = 1
+L4:
+
+	/*LOGICA AND 1 t28*/
+	t29 = 1
+	t30 = t28
+	if t29 == 1 && t30 == 1 {
+		goto L7
+	}
+	t31 = 0
+	goto L6
+L7:
+	t31 = 1
+L6:
+
+	/*LOGICA AND t24 t31*/
+	t32 = t24
+	t33 = t31
+	if t32 == 1 && t33 == 1 {
+		goto L9
+	}
+	t34 = 0
+	goto L8
+L9:
+	t34 = 1
+L8:
+
+	/*EXPRESION DERECHA t42 [||]*/
+
+	/*EXPRESIONES LOGICA ||*/
+
+	/*EXPRESION IZQUIERDA t37 [||]*/
+
+	/*EXPRESIONES RELACION  != */
+
+	/*EXPRESION IZQUIERDA t35 [ != ]*/
+
+	/*EXPRESIONES MULTIPLICACION*/
+
+	/*OPERACION MULTIPLICACION*/
+	t35 = 7.0 * 7.0
+
+	/*EXPRESION DERECHA t36 [ != ]*/
+
+	/*EXPRESIONES SUMA*/
+
+	/*OPERACION SUMA*/
+	t36 = 15.0 + 555.0
+	if t35 != t36 {
+		goto L10
+	}
+	t37 = 0
+	goto L11
+L10:
+	t37 = 1
+L11:
+
+	/*EXPRESION DERECHA t39 [||]*/
+
+	/*EXPRESIONES RELACION  > */
+
+	/*EXPRESION IZQUIERDA t38 [ > ]*/
+
+	/*EXPRESION NEGATIVO*/
+
+	/*OPERACION NEGATIVO*/
+	t38 = 61.0 * (-1)
+
+	/*EXPRESION DERECHA 51.0 [ > ]*/
+	if t38 > 51.0 {
+		goto L12
+	}
+	t39 = 0
+	goto L13
+L12:
+	t39 = 1
+L13:
+
+	/*LOGICA OR t37 t39*/
+	t40 = t37
+	t41 = t39
+	if t40 == 1 || t41 == 1 {
+		goto L15
+	}
+	t42 = 0
+	goto L14
+L15:
+	t42 = 1
+L14:
+
+	/*LOGICA OR t34 t42*/
+	t43 = t34
+	t44 = t42
+	if t43 == 1 || t44 == 1 {
+		goto L17
+	}
+	t45 = 0
+	goto L16
+L17:
+	t45 = 1
+L16:
+	t46 = SP + 3
+	STACK[int(t46)] = t45
+
+	/*console.log*/
+
+	/*PRIMITIVO -> CADENA*/
+	t47 = HP
+	HEAP[int(HP)] = 80.0
+	HP = HP + 1
+	HEAP[int(HP)] = 114.0
+	HP = HP + 1
+	HEAP[int(HP)] = 111.0
+	HP = HP + 1
+	HEAP[int(HP)] = 98.0
+	HP = HP + 1
+	HEAP[int(HP)] = 97.0
+	HP = HP + 1
+	HEAP[int(HP)] = 110.0
+	HP = HP + 1
+	HEAP[int(HP)] = 100.0
+	HP = HP + 1
+	HEAP[int(HP)] = 111.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = 100.0
+	HP = HP + 1
+	HEAP[int(HP)] = 101.0
+	HP = HP + 1
+	HEAP[int(HP)] = 99.0
+	HP = HP + 1
+	HEAP[int(HP)] = 108.0
+	HP = HP + 1
+	HEAP[int(HP)] = 97.0
+	HP = HP + 1
+	HEAP[int(HP)] = 114.0
+	HP = HP + 1
+	HEAP[int(HP)] = 97.0
+	HP = HP + 1
+	HEAP[int(HP)] = 99.0
+	HP = HP + 1
+	HEAP[int(HP)] = 105.0
+	HP = HP + 1
+	HEAP[int(HP)] = 111.0
+	HP = HP + 1
+	HEAP[int(HP)] = 110.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = 100.0
+	HP = HP + 1
+	HEAP[int(HP)] = 101.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = 118.0
+	HP = HP + 1
+	HEAP[int(HP)] = 97.0
+	HP = HP + 1
+	HEAP[int(HP)] = 114.0
+	HP = HP + 1
+	HEAP[int(HP)] = 105.0
+	HP = HP + 1
+	HEAP[int(HP)] = 97.0
+	HP = HP + 1
+	HEAP[int(HP)] = 98.0
+	HP = HP + 1
+	HEAP[int(HP)] = 108.0
+	HP = HP + 1
+	HEAP[int(HP)] = 101.0
+	HP = HP + 1
+	HEAP[int(HP)] = 115.0
+	HP = HP + 1
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = 10.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+	t48 = t47
+L18:
+	t49 = HEAP[int(t48)]
+	if t49 == -1 {
+		goto L19
+	}
+	fmt.Printf("%c", int(t49))
+	t48 = t48 + 1
+	goto L18
+L19:
+	fmt.Printf("%c", int(10))
+
+	/*console.log*/
+
+	/*Acceso Variable val1*/
+	t50 = SP + 0
+	t14 = STACK[int(t50)]
+
+	/*PRIMITIVO -> CADENA*/
+	t51 = HP
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+
+	/*Acceso Variable val2*/
+	t54 = SP + 1
+	t20 = STACK[int(t54)]
+
+	/*PRIMITIVO -> CADENA*/
+	t55 = HP
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+
+	/*Acceso Variable val3*/
+	t58 = SP + 2
+	t2 = STACK[int(t58)]
+	fmt.Printf("%f", t14)
+	t52 = t51
+L20:
+	t53 = HEAP[int(t52)]
+	if t53 == -1 {
+		goto L21
+	}
+	fmt.Printf("%c", int(t53))
+	t52 = t52 + 1
+	goto L20
+L21:
+	fmt.Printf("%f", t20)
+	t56 = t55
+L22:
+	t57 = HEAP[int(t56)]
+	if t57 == -1 {
+		goto L23
+	}
+	fmt.Printf("%c", int(t57))
+	t56 = t56 + 1
+	goto L22
+L23:
+	fmt.Printf("%f", t2)
+	fmt.Printf("%c", int(10))
+
+	/*console.log*/
+
+	/*PRIMITIVO -> CADENA*/
+	t59 = HP
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = 45.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+	t60 = t59
+L24:
+	t61 = HEAP[int(t60)]
+	if t61 == -1 {
+		goto L25
+	}
+	fmt.Printf("%c", int(t61))
+	t60 = t60 + 1
+	goto L24
+L25:
+	fmt.Printf("%c", int(10))
+
+	/*console.log*/
+
+	/*Acceso Variable val1*/
+	t62 = SP + 0
+	t14 = STACK[int(t62)]
+
+	/*Guardando en el Heap TYPEOF*/
+	t63 = HP
+	HEAP[int(HP)] = 78
+	HP = HP + 1
+	HEAP[int(HP)] = 85
+	HP = HP + 1
+	HEAP[int(HP)] = 77
+	HP = HP + 1
+	HEAP[int(HP)] = 66
+	HP = HP + 1
+	HEAP[int(HP)] = 69
+	HP = HP + 1
+	HEAP[int(HP)] = 82
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+
+	/*PRIMITIVO -> CADENA*/
+	t66 = HP
+	HEAP[int(HP)] = 32.0
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+
+	/*Acceso Variable rel1*/
+	t69 = SP + 3
+	t46 = STACK[int(t69)]
+
+	/*Guardando en el Heap TYPEOF*/
+	t70 = HP
+	HEAP[int(HP)] = 66
+	HP = HP + 1
+	HEAP[int(HP)] = 79
+	HP = HP + 1
+	HEAP[int(HP)] = 79
+	HP = HP + 1
+	HEAP[int(HP)] = 76
+	HP = HP + 1
+	HEAP[int(HP)] = 69
+	HP = HP + 1
+	HEAP[int(HP)] = 65
+	HP = HP + 1
+	HEAP[int(HP)] = 78
+	HP = HP + 1
+	HEAP[int(HP)] = -1
+	HP = HP + 1
+	t64 = t63
+L26:
+	t65 = HEAP[int(t64)]
+	if t65 == -1 {
+		goto L27
+	}
+	fmt.Printf("%c", int(t65))
+	t64 = t64 + 1
+	goto L26
+L27:
+	t67 = t66
+L28:
+	t68 = HEAP[int(t67)]
+	if t68 == -1 {
+		goto L29
+	}
+	fmt.Printf("%c", int(t68))
+	t67 = t67 + 1
+	goto L28
+L29:
+	t71 = t70
+L30:
+	t72 = HEAP[int(t71)]
+	if t72 == -1 {
+		goto L31
+	}
+	fmt.Printf("%c", int(t72))
+	t71 = t71 + 1
+	goto L30
+L31:
+	fmt.Printf("%c", int(10))
 
 }

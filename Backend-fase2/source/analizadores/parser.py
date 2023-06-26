@@ -124,14 +124,27 @@ def p_FUNC_1(p):
    """
    FUNC : fn id p_Abre PARAMETROS_DECLA_FUNC p_Cierra llave_Abre ENTRADAS llave_Cierra
    """
-   p[0] = Function(p[2], p[4], p[7], p.lineno(1), calcularColumna(input, p.slice[1]))
+   p[0] = Function(p[2], p[4], Tipo.ANY, p[7], p.lineno(1), calcularColumna(input, p.slice[1]))
     
 
 def p_FUNC_2(p):
     """
     FUNC : fn id p_Abre p_Cierra llave_Abre ENTRADAS llave_Cierra
     """
-    p[0] = Function(p[2], [], p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
+    p[0] = Function(p[2], [], Tipo.ANY, p[6], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+def p_FUNC_3(p):
+   """
+   FUNC : fn id p_Abre PARAMETROS_DECLA_FUNC p_Cierra dosPuntos TIPO llave_Abre ENTRADAS llave_Cierra
+   """
+   p[0] = Function(p[2], p[4], p[7],  p[9], p.lineno(1), calcularColumna(input, p.slice[1]))
+    
+
+def p_FUNC_4(p):
+    """
+    FUNC : fn id p_Abre p_Cierra dosPuntos TIPO llave_Abre ENTRADAS llave_Cierra
+    """
+    p[0] = Function(p[2], [], p[6], p[8], p.lineno(1), calcularColumna(input, p.slice[1]))
     
     
 def p_PARAMETROS_DECLA_FUNC(p):
