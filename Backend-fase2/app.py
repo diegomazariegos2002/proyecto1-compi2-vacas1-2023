@@ -157,7 +157,8 @@ def generarCodigo():
         listaExcepciones = consolaGlobal.obtenerErrores()
         
         if listaExcepciones != []:
-            consolaGlobal.set_Consola("\nSe encontraron errores léxicos, sintácticos o semánticos...\n")   
+            
+            consolaGlobal.set_Consola(consolaGlobal.genComment("Se encontraron errores léxicos, sintácticos o semánticos..."))   
             
         for x in listaExcepciones:
             print(x.descripcion)
