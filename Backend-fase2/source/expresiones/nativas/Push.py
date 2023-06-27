@@ -9,20 +9,20 @@ from source.simbolo.TablaSimbolos import TablaSimbolos
 
 class Push(Expresion):
 
-    def __init__(self, id:str, expresion:Expresion, line: int, column: int):
+    def __init__(self, id:Expresion, expresion:Expresion, line: int, column: int):
         super().__init__(line, column)
         self.id = id
         self.expresion = expresion
 
     def ejecutar(self, ts: TablaSimbolos):
         consolaGlobal = Consola()
-        simboloVec : Simbolo = ts.buscar(self.id)
+        expresionId: Retorno = self.id.ejecutar(ts)
         # validar que todo este bien antes de llamar a la funcion
-        if simboloVec is None:
+        if expresionId is None:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error en la llamada de funcion, funcion sin declarar", self.line, self.column, datetime.now()))
             return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
                 
-        if simboloVec.tipoVariable != TipoVariable.VECTOR:
+        if expresionId.tipoVariable != TipoVariable.VECTOR:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "La variable para usar la función Push() debe ser un vector.", self.line, self.column, datetime.now()))
             return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         
@@ -31,17 +31,17 @@ class Push(Expresion):
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "Error al ejecutar la expresión.", self.line, self.column, datetime.now()))
             return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         
-        if simboloVec.tipo == Tipo.ANY:
-            simboloVec.valor.append(expresionEjecutada)
-            ts.actualizarVariable(self.id, simboloVec.valor)
-            return Retorno(len(simboloVec.valor), TipoDato.NUMERO, TipoVariable.NORMAL)
-        elif consolaGlobal.relacionarTipos(expresionEjecutada.tipo) != simboloVec.tipo:
+        if expresionId.tipo == Tipo.ANY:
+            expresionId.valor.append(expresionEjecutada)
+            ts.actualizarVariable(self.id, expresionId.valor)
+            return Retorno(len(expresionId.valor), TipoDato.NUMERO, TipoVariable.NORMAL)
+        elif expresionEjecutada.tipo != expresionId.tipo:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "El tipo de la expresion no coincide con el tipo de dato del Vector.", self.line, self.column, datetime.now()))
             return Retorno("Error", TipoDato.ERROR, TipoVariable.NORMAL)
         
-        simboloVec.valor.append(expresionEjecutada)
-        ts.actualizarVariable(self.id, simboloVec.valor)
-        return Retorno(len(simboloVec.valor), TipoDato.NUMERO, TipoVariable.NORMAL)
+        expresionId.valor.append(expresionEjecutada)
+        ts.actualizarVariable(self.id, expresionId.valor)
+        return Retorno(len(expresionId.valor), TipoDato.NUMERO, TipoVariable.NORMAL)
     
     def graficarAst(self):
         consola = Consola()
