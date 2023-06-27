@@ -103,6 +103,7 @@ class AsignacionVec(Instruccion):
             return Excepcion()
         
         if len(indices) > variable.dimensiones:
+            print("ASIGNACION VECTOR")
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se puede accesar a los indices del vector.", self.line, self.column, datetime.now()))
             cadena = consolaGlobal.genPrintC(66)
             cadena += consolaGlobal.genPrintC(111)

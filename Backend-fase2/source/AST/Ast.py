@@ -127,6 +127,10 @@ class Ast:
                     
         codigo3dMain += "\n}"
         
+        for funcion in consola.codigo3dFunciones2:
+            cadenaFuncion : str = consola.codigo3dFunciones2[funcion]
+            consola.codigo3dFunciones += cadenaFuncion
+        
         codigoUnido:str = consola.get_Encabezado()+consola.codigo3dFunciones+codigo3dMain
         self.generar_Archivo("test", codigoUnido, "go", "\\test\\")
         return codigoUnido

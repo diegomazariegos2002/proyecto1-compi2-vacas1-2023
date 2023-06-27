@@ -93,6 +93,7 @@ class AccesoVector(Expresion):
                                 codigoTraducido="")
         
         if len(indices) > variable.dimensiones:
+            print("ACCESO VECTOR")
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "No se puede accesar a los indices del vector.", self.line, self.column, datetime.now()))
             cadena = consolaGlobal.genPrintC(66)
             cadena += consolaGlobal.genPrintC(111)
