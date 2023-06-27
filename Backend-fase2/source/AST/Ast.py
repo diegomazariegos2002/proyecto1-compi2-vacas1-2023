@@ -57,7 +57,7 @@ class Ast:
                     nombreNodoAnterior = nombreNodoNuevo
                     
             except Exception as error:
-                print("soy un error" + error)
+                print("soy un error")
             cont += 1
         consola.set_AstGrafico("\n}"); #para cerrar el dot porque es más práctico hacerlo aquí que en la gramática
         self.generar_Archivo("ast", consola.get_AstGrafico(), "dot", "")
