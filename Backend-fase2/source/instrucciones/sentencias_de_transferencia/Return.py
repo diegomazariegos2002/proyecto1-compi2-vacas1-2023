@@ -62,4 +62,5 @@ class Return(Instruccion):
             cadenaRetorno += consola.genAsignacion(t1, f"SP + 0") # tecnicamente ahí esta el return
             cadenaRetorno += consola.genAsignacion("STACK[int({})]".format(t1),
                                        retornoExpresion.valor)
+            cadenaRetorno += consola.genGoto(self.etqReturn)
             return cadenaRetorno
