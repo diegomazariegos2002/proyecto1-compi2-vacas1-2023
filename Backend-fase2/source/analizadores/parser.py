@@ -594,26 +594,10 @@ def p_FUNCION_TOFIXED(p):
 
 def p_FUNCION_PUSH(p):
     """
-    FUNCION_PUSH : EXP_PUSH punto push p_Abre EXPRESION p_Cierra
+    FUNCION_PUSH : EXPRESION punto push p_Abre EXPRESION p_Cierra
     """
     # semantico
     p[0] = Push(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
-    
-def p_Expresion_pushh(p):
-    """
-    EXP_PUSH : id
-    """
-    # semantico
-    p[0] = Acceso(p[1], p.lineno(1),
-                  calcularColumna(input, p.slice[1]))
-
-def p_Expresion_pushh2(p):
-    """
-    EXP_PUSH : id LISTAINDICES
-    """
-    # semantico
-    p[0] = AccesoVector(p[1], p[2], p.lineno(1),
-                  calcularColumna(input, p.slice[1]))
 
 def p_FUNCION_TOEXPONENTIAL(p):
     """
