@@ -344,4 +344,7 @@ class Declaracion(Instruccion):
                             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                             return Excepcion()
                         return cadena
+                    
+        consola.set_Excepcion(Excepcion("Error Semantico", "La expresion es de tipo error.", self.line, self.column, datetime.now()))
+        return expreValor.codigoTraducido
         
