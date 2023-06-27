@@ -39,6 +39,7 @@ class Consola(metaclass=SingletonMeta):
     labels = 0
     imports = ['fmt', 'math', 'strconv']
     codigo3dFunciones = ""
+    codigo3dFunciones2 = {}
     
 
     def clean_Consola(self):

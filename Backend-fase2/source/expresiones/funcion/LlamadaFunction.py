@@ -185,7 +185,7 @@ class LlamadaFunction(Expresion):
             # GENERACIÓN DE CÓDIGO DE INSTRUCCIONES DE LA FUNCIÓN
             funcionLLamada.etqSalida = consolaGlobal.genNewEtq()
             funcionLLamada.etqReturn = funcionLLamada.etqSalida
-            consolaGlobal.codigo3dFunciones += "func {}(){{\n".format(funcionLLamada.id)
+            consolaGlobal.codigo3dFunciones2[funcionLLamada.id] = "func {}(){{\n".format(funcionLLamada.id)
             for ins in funcionLLamada.insEntraFunc:
                 ins.etqReturn = funcionLLamada.etqReturn
                 resIn = ins.traducir(funcionLLamada.entornoFuncion)
@@ -194,12 +194,16 @@ class LlamadaFunction(Expresion):
                     return RetornoTraduccion(valor="Error",
                                          tipo=TipoDato.ERROR,
                                          tipoVariable=TipoVariable.NORMAL)
+                
+                if isinstance(resIn, RetornoTraduccion):
+                    consolaGlobal.codigo3dFunciones2[funcionLLamada.id] += resIn.codigoTraducido
+                else:
+                    consolaGlobal.codigo3dFunciones2[funcionLLamada.id] += resIn    
 
-                consolaGlobal.codigo3dFunciones += resIn
-            consolaGlobal.codigo3dFunciones += consolaGlobal.genGoto(funcionLLamada.etqSalida)    
-            consolaGlobal.codigo3dFunciones += "{}:\n".format(funcionLLamada.etqSalida)
-            consolaGlobal.codigo3dFunciones += "return;\n"
-            consolaGlobal.codigo3dFunciones += "}\n\n"
+            consolaGlobal.codigo3dFunciones2[funcionLLamada.id] += consolaGlobal.genGoto(funcionLLamada.etqSalida)    
+            consolaGlobal.codigo3dFunciones2[funcionLLamada.id] += "{}:\n".format(funcionLLamada.etqSalida)
+            consolaGlobal.codigo3dFunciones2[funcionLLamada.id] += "return;\n"
+            consolaGlobal.codigo3dFunciones2[funcionLLamada.id] += "}\n\n"
             # actualizando los cambios de la tabla de simbolos de la funcion.
             funcionLLamada.funcionTraducida = True
             funcionLLamada.entornoGlobal.actualizarVariable(funcionLLamada.id, funcionLLamada)
