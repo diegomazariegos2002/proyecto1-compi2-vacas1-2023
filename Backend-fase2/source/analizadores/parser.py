@@ -594,7 +594,7 @@ def p_FUNCION_TOFIXED(p):
 
 def p_FUNCION_PUSH(p):
     """
-    FUNCION_PUSH : EXPRESION punto push p_Abre EXPRESION p_Cierra
+    FUNCION_PUSH : id punto push p_Abre EXPRESION p_Cierra
     """
     # semantico
     p[0] = Push(p[1], p[5], p.lineno(1), calcularColumna(input, p.slice[1]))
