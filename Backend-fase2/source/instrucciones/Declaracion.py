@@ -183,7 +183,7 @@ class Declaracion(Instruccion):
                 return cadena
             
         expreValor:RetornoTraduccion = self.expresion.traducir(ts)
-        if(expreValor.tipo != Tipo.ERROR):
+        if(expreValor.tipo != TipoDato.ERROR):
             if(expreValor != None):
                 if self.tipo != None:
                     if expreValor.tipoVariable == TipoVariable.NORMAL:
