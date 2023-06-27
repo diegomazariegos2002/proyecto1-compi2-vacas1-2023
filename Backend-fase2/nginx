@@ -1,0 +1,10 @@
+sudo vim /etc/nginx/sites-enabled/fastapi_nginx
+sudo service nginx restart
+
+server { 
+    listen 80; server_name 3.130.236.194;
+
+    location / {
+        proxy_pass http://localhost:5000/; 
+    } 
+}
