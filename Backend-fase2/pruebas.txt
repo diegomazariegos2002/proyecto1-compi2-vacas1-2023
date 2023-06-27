@@ -180,7 +180,9 @@ function hanoi(discos: number, origen: number, auxiliar: number, destino: number
     };
 };
 
-hanoi(3, 1, 2, 3);
+hanoi(3, 1, 2, 3);  
+
+
 
 ========================
 
@@ -236,3 +238,18 @@ console.log("BubbleSort => ", arreglo);
 
 =============================
 
+function par(num:number):number{
+	if(num === 0){
+    	return true;
+    };
+    return impar(num-1);
+};
+
+function impar(num:number):number{
+	if(num === 0){
+    	return false;
+    };
+    return par(num-1);
+};
+
+console.log(impar(250));

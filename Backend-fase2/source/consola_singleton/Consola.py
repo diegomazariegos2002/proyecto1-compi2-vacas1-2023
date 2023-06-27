@@ -53,6 +53,7 @@ class Consola(metaclass=SingletonMeta):
         self.temporales = 0
         self.labels = 0
         codigo3dFunciones = ""
+        codigo3dFunciones2 = {}
 
     def set_Consola (self, consola):
         self.consola += consola
