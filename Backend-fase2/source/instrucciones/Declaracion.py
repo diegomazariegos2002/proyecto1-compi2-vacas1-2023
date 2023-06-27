@@ -175,6 +175,7 @@ class Declaracion(Instruccion):
                 "STACK[int ({})]".format(t1), "0")
                 inHeap = self.tipo == Tipo.STRING or self.tipoVariable == TipoVariable.VECTOR
                 simbol = SimboloTraduccion(TiposSimbolos.VARIABLE, self.tipo, TipoDato.NULL, self.id, t1, self.tipoVariable, inHeap, ts.nombreAmbito, ts.size, self.line, self.column)
+                simbol.dimensiones = 1
                 existeVariable = ts.insertar(self.id, simbol)
                 if existeVariable == False:
                     consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))

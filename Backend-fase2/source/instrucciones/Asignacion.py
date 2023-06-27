@@ -122,6 +122,7 @@ class Asignacion(Instruccion):
                     # Actualizando el tipoDato de la variable ANY
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                     if expresionRetorno.tipo == TipoDato.CADENA:
                         variable.inHeap = True
                 else:   # si no, se lanza un error
@@ -133,6 +134,7 @@ class Asignacion(Instruccion):
             print("ES UN NULL")
             variable.tipoDato = expresionRetorno.tipo
             variable.tipoVariable = expresionRetorno.tipoVariable
+            variable.dimensiones = expresionRetorno.dimensiones
         # si todo esta bien, se actualiza la variable 
         cad=consolaGlobal.genComment("Asignacion Variable {}".format(self.nombreVar))
         cad+=expresionRetorno.codigoTraducido

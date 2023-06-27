@@ -13,6 +13,8 @@ class AsignacionParametros():
     def __init__(self, nombreVar:str, expresionAsignar:Expresion):
         self.nombreVar = nombreVar
         self.expresionAsignar = expresionAsignar
+        self.line = expresionAsignar.line
+        self.column = expresionAsignar.column
 
     def ejecutar(self, tsFuncion: TablaSimbolos, tsAnterior: TablaSimbolos):
         consolaGlobal = Consola()
