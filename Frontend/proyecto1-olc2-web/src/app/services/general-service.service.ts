@@ -16,7 +16,7 @@ export class GeneralServiceService {
         'Content-type':'application/json'
       })
     }
-    return this.http.post<any>("/proyectoolc2/analizar", codigo, httpOptions).pipe(
+    return this.http.post<any>("http://3.130.236.194/proyectoolc2/analizar", codigo, httpOptions).pipe(
       catchError(e => {console.log(e)
         return ""
       })
@@ -29,7 +29,7 @@ export class GeneralServiceService {
         'Content-type':'application/json'
       })
     }
-    return this.http.post<any>("/proyectoolc2/generarCodigo", codigo, httpOptions).pipe(
+    return this.http.post<any>("http://3.130.236.194/proyectoolc2/generarCodigo", codigo, httpOptions).pipe(
       catchError(e => {console.log(e)
         return ""
       })
@@ -37,19 +37,19 @@ export class GeneralServiceService {
   }
 
   recibirErrores(){
-    return this.http.get('/proyectoolc2/errores').pipe(
+    return this.http.get('http://3.130.236.194/proyectoolc2/errores').pipe(
       catchError(e => e.toString())
     );
   }
 
   recibirSimbolos(){
-    return this.http.get('/proyectoolc2/simbolos').pipe(
+    return this.http.get('http://3.130.236.194/proyectoolc2/simbolos').pipe(
       catchError(e => e.toString())
     );
   }
 
   recibirAst(){
-    return this.http.get('/proyectoolc2/ast').pipe(
+    return this.http.get('http://3.130.236.194/proyectoolc2/ast').pipe(
       catchError(e => e.toString())
     );
   }

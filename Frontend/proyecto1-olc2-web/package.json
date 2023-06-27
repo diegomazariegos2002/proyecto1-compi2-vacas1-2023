@@ -6,7 +6,8 @@
     "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "aws-deploy" : "aws s3 sync dist/proyecto1-olc2-web/ s3://upload31"
   },
   "private": true,
   "dependencies": {
