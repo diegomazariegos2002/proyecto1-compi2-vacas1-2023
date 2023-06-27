@@ -304,9 +304,19 @@ class Arimeticas(Expresion):
             else:
                 # ERROR
                 consolaGlobal.set_Excepcion(Excepcion("Semantico", "division por cero imposible de realizar", self.line, self.column, datetime.now()))
+                cadena = consolaGlobal.genPrintC(77)
+                cadena += consolaGlobal.genPrintC(97)
+                cadena += consolaGlobal.genPrintC(116)
+                cadena += consolaGlobal.genPrintC(104)
+                cadena += consolaGlobal.genPrintC(69)
+                cadena += consolaGlobal.genPrintC(114)
+                cadena += consolaGlobal.genPrintC(114)
+                cadena += consolaGlobal.genPrintC(111)
+                cadena += consolaGlobal.genPrintC(114)
                 return RetornoTraduccion(valor="Error",
                                          tipo=TipoDato.ERROR,
-                                         tipoVariable=TipoVariable.NORMAL)
+                                         tipoVariable=TipoVariable.NORMAL,
+                                         codigoTraducido=cadena)
         elif(self.operador == Tipo_OperadorAritmetico.POTENCIA):
             if valorIzq.tipo == TipoDato.NUMERO and valorDer.tipo == TipoDato.NUMERO:
                 resultadoSuma = consolaGlobal.genNewTemp()

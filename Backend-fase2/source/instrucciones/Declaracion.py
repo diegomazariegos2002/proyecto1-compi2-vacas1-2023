@@ -183,7 +183,7 @@ class Declaracion(Instruccion):
                 return cadena
             
         expreValor:RetornoTraduccion = self.expresion.traducir(ts)
-        if(expreValor.tipo != Tipo.ERROR):
+        if(expreValor.tipo != TipoDato.ERROR):
             if(expreValor != None):
                 if self.tipo != None:
                     if expreValor.tipoVariable == TipoVariable.NORMAL:
@@ -344,4 +344,7 @@ class Declaracion(Instruccion):
                             consola.set_Excepcion(Excepcion("Error Semantico", "La variable con el nombre "+ self.id +" ya existe.", self.line, self.column, datetime.now()))
                             return Excepcion()
                         return cadena
+                    
+        consola.set_Excepcion(Excepcion("Error Semantico", "La expresion es de tipo error.", self.line, self.column, datetime.now()))
+        return expreValor.codigoTraducido
         
