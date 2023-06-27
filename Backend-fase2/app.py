@@ -94,9 +94,9 @@ def analizar():
         listaExcepciones = consolaGlobal.obtenerErrores()
         
         # Generar gráfico AST
-        # if listaExcepciones == []:
-        #    ast.generarGrafico()
-        #    salidaGrafico = consolaGlobal.get_AstGrafico()
+        if listaExcepciones == []:
+           ast.generarGrafico()
+           salidaGrafico = consolaGlobal.get_AstGrafico()
         
         if listaExcepciones != []:
             consolaGlobal.set_Consola("\nSe encontraron errores léxicos, sintácticos o semánticos...\n")   
