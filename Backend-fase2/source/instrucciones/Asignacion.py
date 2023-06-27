@@ -100,9 +100,11 @@ class Asignacion(Instruccion):
                 if variable.tipo == Tipo.ANY:
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                 elif variable.tipo == consolaGlobal.relacionarTipos(expresionRetorno.tipo):
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                 else:   # si no, se lanza un error
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
                     return Excepcion()
@@ -110,6 +112,7 @@ class Asignacion(Instruccion):
                 if variable.tipo == Tipo.ANY:
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                 else:   # si no, se lanza un error
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
                     return Excepcion()
@@ -133,6 +136,7 @@ class Asignacion(Instruccion):
         # si todo esta bien, se actualiza la variable 
         cad=consolaGlobal.genComment("Asignacion Variable {}".format(self.nombreVar))
         cad+=expresionRetorno.codigoTraducido
+        cad += consolaGlobal.genAsignacion(variable.temporal, "SP + {}".format(variable.direccion))
         cad+=consolaGlobal.genAsignacion("STACK[int({})]".format(variable.temporal),expresionRetorno.valor)
-        ts.actualizarVariable(self.nombreVar, expresionRetorno.valor)
+        ts.actualizarVariable(self.nombreVar, variable.temporal)
         return cad

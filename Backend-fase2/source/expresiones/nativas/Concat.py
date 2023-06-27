@@ -37,7 +37,5 @@ class Concat(Expresion):
             vectorRetorno =  vectorRetorno + vecAux.valor
             if (vecAux.tipo != vectorTipoDato):
                 vectorTipoDato = TipoDato.ANY
-                
-        print(vectorRetorno)
         
         return Retorno(vectorRetorno, vectorTipoDato, TipoVariable.VECTOR)

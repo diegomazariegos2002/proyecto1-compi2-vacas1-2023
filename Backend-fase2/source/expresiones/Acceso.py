@@ -30,6 +30,7 @@ class Acceso(Expresion):
     
     def traducir(self, ts):
         consolaGlobal = Consola()
+        cad = ""
         variable:SimboloTraduccion = ts.buscar(self.id)
 
         if(variable == None):
@@ -39,10 +40,11 @@ class Acceso(Expresion):
                                  tipoVariable=TipoVariable.NORMAL,
                                  codigoTraducido=consolaGlobal.genComment("La variable con el nombre '"+ self.id +"' no existe."))
         t0 = consolaGlobal.genNewTemp()
-        cad = consolaGlobal.genAsignacion(t0, "SP + {}".format(variable.direccion))
+        cad += consolaGlobal.genAsignacion(t0, "SP + {}".format(variable.direccion))
         cad += consolaGlobal.genAsignacion(variable.temporal, "STACK[int({})]".format(t0))
         
         return RetornoTraduccion(valor=variable.temporal,
                                 tipo=variable.tipoDato,
                                 tipoVariable=variable.tipoVariable,
-                                codigoTraducido= consolaGlobal.genComment("Acceso Variable {}".format(self.id))+cad)
+                                codigoTraducido= consolaGlobal.genComment("Acceso Variable {}".format(self.id))+cad,
+                                dimensiones=variable.dimensiones)

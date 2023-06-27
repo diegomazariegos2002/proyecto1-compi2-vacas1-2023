@@ -91,7 +91,7 @@ class Ast:
                     if not isinstance(res, Excepcion):
                         consola.codigo3dFunciones += res
         
-        # Segunda pasada (Declaraciones)
+        """# Segunda pasada (Declaraciones)
         for instruccion in self.instrucciones:
             if isinstance(instruccion, Instruccion):
                 if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion):
@@ -106,6 +106,17 @@ class Ast:
                 if (not isinstance(instruccion, Function) 
                     and not isinstance(instruccion, Declaracion)
                     and not isinstance(instruccion, Asignacion)):
+                    res = instruccion.traducir(ts)
+                    if not isinstance(res, Excepcion):
+                        codigo3dMain += res
+            elif isinstance(instruccion, Expresion):
+                res:RetornoTraduccion = instruccion.traducir(ts)
+                if res.tipo != TipoDato.ERROR:
+                    codigo3dMain += res.codigoTraducido"""
+                    
+        for instruccion in self.instrucciones:
+            if isinstance(instruccion, Instruccion):
+                if (not isinstance(instruccion, Function) ):
                     res = instruccion.traducir(ts)
                     if not isinstance(res, Excepcion):
                         codigo3dMain += res
