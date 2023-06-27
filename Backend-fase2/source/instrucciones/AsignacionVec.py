@@ -101,6 +101,8 @@ class AsignacionVec(Instruccion):
         if variable.tipoVariable != TipoVariable.VECTOR:
             consolaGlobal.set_Excepcion(Excepcion("Error Semantico", "La variable a la que se quiere acceder no es un vector.", self.line, self.column, datetime.now()))
             return Excepcion()
+
+        cadena += expresionRetorno.codigoTraducido
         
         if len(indices) > variable.dimensiones:
             print("ASIGNACION VECTOR")
