@@ -76,9 +76,11 @@ class AsignacionParametros():
                 if variable.tipo == Tipo.ANY:
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                 elif variable.tipo == consolaGlobal.relacionarTipos(expresionRetorno.tipo):
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                 else:   # si no, se lanza un error
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
                     return Excepcion()
@@ -86,6 +88,7 @@ class AsignacionParametros():
                 if variable.tipo == Tipo.ANY:
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                 else:   # si no, se lanza un error
                     consolaGlobal.set_Excepcion(Excepcion("Error Semantico", f"Asignacion incorrecta, la variable con nombre '{self.nombreVar}' es de tipo [{variable.tipo}] y se le esta tratando de asignar un tipo [{consolaGlobal.relacionarTipos(expresionRetorno.tipo)}]", self.line, self.column, datetime.now()))                
                     return Excepcion()
@@ -95,6 +98,7 @@ class AsignacionParametros():
                     # Actualizando el tipoDato de la variable ANY
                     variable.tipoDato = expresionRetorno.tipo
                     variable.tipoVariable = expresionRetorno.tipoVariable
+                    variable.dimensiones = expresionRetorno.dimensiones
                     if expresionRetorno.tipo == TipoDato.CADENA:
                         variable.inHeap = True
                 else:   # si no, se lanza un error
@@ -106,6 +110,7 @@ class AsignacionParametros():
             print("ES UN NULL")
             variable.tipoDato = expresionRetorno.tipo
             variable.tipoVariable = expresionRetorno.tipoVariable
+            variable.dimensiones = expresionRetorno.dimensiones
         # si todo esta bien, se actualiza la variable 
         cad=consolaGlobal.genComment("Asignacion Variable {}".format(self.nombreVar))
         cad+=expresionRetorno.codigoTraducido
