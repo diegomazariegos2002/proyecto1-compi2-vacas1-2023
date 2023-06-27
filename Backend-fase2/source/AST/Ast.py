@@ -132,7 +132,7 @@ class Ast:
             consola.codigo3dFunciones += cadenaFuncion
         
         codigoUnido:str = consola.get_Encabezado()+consola.codigo3dFunciones+codigo3dMain
-        self.generar_Archivo("test", codigoUnido, "go", "\\test\\")
+        #self.generar_Archivo("test", codigoUnido, "go", "\\test\\")
         return codigoUnido
         
     
