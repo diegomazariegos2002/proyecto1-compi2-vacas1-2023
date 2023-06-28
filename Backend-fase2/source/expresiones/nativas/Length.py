@@ -31,7 +31,7 @@ class Length(Expresion):
             if expresionEjecutada.tipoVariable == TipoVariable.VECTOR:
                 return Retorno(len(expresionEjecutada.valor), TipoDato.NUMERO, TipoVariable.NORMAL)
             elif expresionEjecutada.tipo == TipoDato.CADENA:
-                return Retorno(len(expresionEjecutada.valor), TipoDato. NUMERO, TipoVariable.NORMAL)
+                return Retorno(len(expresionEjecutada.valor), TipoDato.NUMERO, TipoVariable.NORMAL)
             
         # ERROR
         consolaGlobal.set_Excepcion(Excepcion("Semantico", "Error algo salio mal en la funcion nativa Length(), revisar parametros de la funcion", self.line, self.column, datetime.now()))
